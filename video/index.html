@@ -1,61 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="ne">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="viewport" content="width=1080, height=1920" />
     <script src="vendor/gsap.min.js"></script>
     <style>
-      /* Placeholders: replace all three with the film's own palette and display face. */
-      :root {
-        --ground: #000;
-        --ink: #ffffff;
-        --font-display: sans-serif;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: var(--ground);
-      }
-      #root {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-display);
-      }
-      #title {
-        color: var(--ink);
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #070a1a; font-family: 'Mukta', sans-serif; }
+      #bg { position: absolute; inset: 0; background: radial-gradient(circle at 15% 20%, rgba(124,108,255,.35) 0 6px, transparent 7px), radial-gradient(circle at 85% 30%, rgba(124,108,255,.3) 0 9px, transparent 10px), radial-gradient(circle at 75% 80%, rgba(90,209,255,.25) 0 7px, transparent 8px), radial-gradient(circle at 20% 75%, rgba(90,209,255,.25) 0 10px, transparent 11px), radial-gradient(120% 70% at 50% 35%, #1b2156 0%, #0b0f2a 55%, #050714 100%); }
+      #bg-motes { position: absolute; inset: 0; }
+      .mote { position: absolute; border-radius: 50%; background: #7c6cff; }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1920"
-      data-height="1080"
-    >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="81.6" data-width="1080" data-height="1920" data-fps="30">
+      <div id="bg" class="clip" data-start="0" data-duration="81.6" data-track-index="0" data-layout-ignore></div>
+      <div id="s1" data-composition-id="s1" data-composition-src="compositions/s1.html" data-start="0" data-duration="7" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s2" data-composition-id="s2" data-composition-src="compositions/s2.html" data-start="7" data-duration="8.7" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s3" data-composition-id="s3" data-composition-src="compositions/s3.html" data-start="15.7" data-duration="6.85" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s4" data-composition-id="s4" data-composition-src="compositions/s4.html" data-start="22.55" data-duration="8.45" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s5" data-composition-id="s5" data-composition-src="compositions/s5.html" data-start="31" data-duration="10.9" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s6" data-composition-id="s6" data-composition-src="compositions/s6.html" data-start="41.9" data-duration="6.85" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s7" data-composition-id="s7" data-composition-src="compositions/s7.html" data-start="48.75" data-duration="9.15" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s8" data-composition-id="s8" data-composition-src="compositions/s8.html" data-start="57.9" data-duration="9.25" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s9" data-composition-id="s9" data-composition-src="compositions/s9.html" data-start="67.15" data-duration="5.7" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="s10" data-composition-id="s10" data-composition-src="compositions/s10.html" data-start="72.85" data-duration="8.75" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="81.6" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+      <audio id="voice" class="clip" src="assets/audio/voice-sarita.mp3" data-start="0" data-duration="80.77" data-track-index="3" data-volume="1"></audio>
     </div>
     <script>
+      window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0);
       window.__timelines["main"] = tl;
-      tl.seek(0);
     </script>
   </body>
 </html>

@@ -1,0 +1,49 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#s10-stage{top:360px;height:780px;}
+#s10-title{font-size:104px;top:190px;}
+  </style>
+  <div id="root" data-composition-id="s10" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="s10-wrap" class="wrap">
+      <div id="s10-title" class="title"><b>अचम्म</b> लाग्यो?</div>
+      <svg id="s10-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="s10-m"><g class="body"><circle cx="618.56" cy="302.07" r="36.87" fill="#c8f7df" stroke="#3fcf93" stroke-width="6.3"/><circle cx="416.38" cy="236.17" r="42" fill="#c8f7df" stroke="#3fcf93" stroke-width="6.3"/><circle cx="556.46" cy="72.26" r="38.26" fill="#c8f7df" stroke="#3fcf93" stroke-width="6.3"/><circle cx="504.19" cy="76.28" r="31.92" fill="#c8f7df" stroke="#3fcf93" stroke-width="6.3"/><circle cx="525.13" cy="72.06" r="37.18" fill="#c8f7df" stroke="#3fcf93" stroke-width="6.3"/><ellipse cx="540" cy="200" rx="140" ry="126" fill="#c8f7df" stroke="#3fcf93" stroke-width="8.4"/><ellipse cx="498" cy="165" rx="44.8" ry="36.4" fill="#2a9d6f" opacity="0.55"/></g><g><circle cx="624.27" cy="233.62" r="19.23" fill="#3a1d9a" stroke="#1d0c55" stroke-width="2"/><circle cx="545.02" cy="240.95" r="17.98" fill="#3a1d9a" stroke="#1d0c55" stroke-width="2"/><circle cx="567.87" cy="236.99" r="13.92" fill="#3a1d9a" stroke="#1d0c55" stroke-width="2"/><circle cx="532.95" cy="254.27" r="19.34" fill="#3a1d9a" stroke="#1d0c55" stroke-width="2"/></g><circle cx="547" cy="179" r="14" fill="#14213d"/><circle cx="596" cy="179" r="14" fill="#14213d"/><path d="M542.8 216.8 Q570.8 244.8 601.6 216.8" stroke="#14213d" stroke-width="8.4" fill="none" stroke-linecap="round"/></g><g id="s10-share" transform="translate(540 440)"><rect x="-330" y="-62" width="660" height="124" rx="62" fill="#ffffff"/><g transform="translate(-250 0)"><circle cx="-18" cy="0" r="14" fill="#14213d"/><circle cx="22" cy="-26" r="14" fill="#14213d"/><circle cx="22" cy="26" r="14" fill="#14213d"/><path d="M-18 0 L22 -26 M-18 0 L22 26" stroke="#14213d" stroke-width="7"/></g><text x="30" y="18" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="52" fill="#14213d">सेयर गर्नुहोस्</text></g><g id="s10-follow" transform="translate(540 600)"><rect x="-330" y="-62" width="660" height="124" rx="62" fill="#ff4d6d"/><path d="M-260 0 h44 M-238 -22 v44" stroke="#fff" stroke-width="12" stroke-linecap="round"/><text x="30" y="18" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="52" fill="#fff">फलो गर्नुहोस्</text></g><g transform="translate(800 640)"><g id="s10-tap"><circle r="34" fill="#ffffff" opacity="0.9"/><circle r="56" fill="none" stroke="#fff" stroke-width="6" opacity="0.6"/></g></g>
+      </svg>
+<div id="s10-tag" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:40px;color:#14213d;background:#ffd23f">ट्याटु भएको साथीलाई ट्याग गर्नुहोस्</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 8.75;
+    tl.fromTo("#s10-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#s10-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#s10-m", {y:0}, {y:-30, duration:0.35, ease:"sine.inOut", yoyo:true, repeat:21}, 0.3);
+    tl.fromTo("#s10-m .body", {scaleX:1, scaleY:1, transformOrigin:"50% 50%"}, {scaleX:1.05, scaleY:0.95, duration:0.25, ease:"sine.inOut", yoyo:true, repeat:32}, 0.2);
+    tl.fromTo("#s10-share", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.3);
+    tl.fromTo("#s10-tag", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2);
+    tl.to("#s10-share", {scale:1.06, duration:0.25, yoyo:true, repeat:5, transformOrigin:"50% 50%"}, 2.6);
+    tl.fromTo("#s10-follow", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.45);
+    tl.fromTo("#s10-tap", {opacity:0, x:120, y:120}, {opacity:1, x:0, y:0, duration:0.5, ease:"power3.out"}, 6.05);
+    tl.to("#s10-follow", {scale:0.92, duration:0.12, yoyo:true, repeat:1, transformOrigin:"50% 50%"}, 6.55);
+    tl.to("#s10-follow", {scale:1.06, duration:0.3, yoyo:true, repeat:3, transformOrigin:"50% 50%"}, 6.95);
+
+    tl.to("#s10-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["s10"] = tl;
+  </script>
+</template>

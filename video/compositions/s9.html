@@ -1,0 +1,132 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#s9-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="s9" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="s9-wrap" class="wrap">
+      <div id="s9-title" class="title"><b>लेजरले</b> कसरी मेटाउँछ?</div>
+      <svg id="s9-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="s9-panel"><rect x="60" y="120" width="960" height="640" rx="48" fill="#e79b8c"/><path d="M80 160 q 120 -8.84 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 230 q 120 -9.72 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 300 q 120 -14.84 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 370 q 120 -9.61 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 440 q 120 -17.49 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 510 q 120 -16.44 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 580 q 120 -15.42 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 650 q 120 -12.65 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M80 720 q 120 -16.27 240 0 t 240 0 t 240 0 t 200 0" stroke="#cf7f72" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round"/><rect x="60" y="120" width="960" height="640" rx="48" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="4"/></g><path id="s9-lymph" d="M1000 560 C 880 600, 840 700, 720 740" stroke="#7dd3a8" stroke-width="40" fill="none" stroke-linecap="round" opacity="0.8"/><g id="s9-big"><circle id="s9-b0" cx="470" cy="430" r="36" fill="#3a1d9a" stroke="#1d0c55" stroke-width="3"/><circle id="s9-b1" cx="600" cy="420" r="36" fill="#3a1d9a" stroke="#1d0c55" stroke-width="3"/><circle id="s9-b2" cx="540" cy="510" r="36" fill="#3a1d9a" stroke="#1d0c55" stroke-width="3"/><circle id="s9-b3" cx="430" cy="520" r="36" fill="#3a1d9a" stroke="#1d0c55" stroke-width="3"/><circle id="s9-b4" cx="650" cy="520" r="36" fill="#3a1d9a" stroke="#1d0c55" stroke-width="3"/></g><g id="s9-tiny"><circle id="s9-t0" cx="466.05" cy="433.25" r="6.23" fill="#3a1d9a"/><circle id="s9-t1" cx="604.44" cy="435.04" r="7.87" fill="#3a1d9a"/><circle id="s9-t2" cx="548.63" cy="525.44" r="6.28" fill="#3a1d9a"/><circle id="s9-t3" cx="428.57" cy="536.92" r="7.98" fill="#3a1d9a"/><circle id="s9-t4" cx="653.63" cy="526.55" r="4.25" fill="#3a1d9a"/><circle id="s9-t5" cx="488.1" cy="437.09" r="6.53" fill="#3a1d9a"/><circle id="s9-t6" cx="583.25" cy="424.06" r="6.42" fill="#3a1d9a"/><circle id="s9-t7" cx="522.84" cy="505.58" r="6.97" fill="#3a1d9a"/><circle id="s9-t8" cx="444" cy="530.65" r="6.7" fill="#3a1d9a"/><circle id="s9-t9" cx="672.56" cy="534.55" r="4.27" fill="#3a1d9a"/><circle id="s9-t10" cx="463.12" cy="406.76" r="7.63" fill="#3a1d9a"/><circle id="s9-t11" cx="609.44" cy="405.98" r="4.72" fill="#3a1d9a"/><circle id="s9-t12" cx="526.38" cy="515.41" r="5.92" fill="#3a1d9a"/><circle id="s9-t13" cx="405.34" cy="527.67" r="5.15" fill="#3a1d9a"/><circle id="s9-t14" cx="639.35" cy="544.93" r="7.62" fill="#3a1d9a"/><circle id="s9-t15" cx="488.79" cy="449.44" r="6.28" fill="#3a1d9a"/><circle id="s9-t16" cx="577.79" cy="413.84" r="6.43" fill="#3a1d9a"/><circle id="s9-t17" cx="561.53" cy="501.33" r="4.29" fill="#3a1d9a"/><circle id="s9-t18" cx="452.73" cy="530.83" r="7.36" fill="#3a1d9a"/><circle id="s9-t19" cx="649.48" cy="509.84" r="5.28" fill="#3a1d9a"/><circle id="s9-t20" cx="451.96" cy="423.35" r="6.25" fill="#3a1d9a"/><circle id="s9-t21" cx="623.17" cy="443.14" r="5.94" fill="#3a1d9a"/><circle id="s9-t22" cx="525.73" cy="533.13" r="4.03" fill="#3a1d9a"/><circle id="s9-t23" cx="408.67" cy="528.84" r="6.4" fill="#3a1d9a"/><circle id="s9-t24" cx="674.13" cy="529.12" r="7.25" fill="#3a1d9a"/><circle id="s9-t25" cx="489.09" cy="452.64" r="7.54" fill="#3a1d9a"/><circle id="s9-t26" cx="600.38" cy="427.01" r="7.08" fill="#3a1d9a"/><circle id="s9-t27" cx="516.23" cy="511.24" r="5.64" fill="#3a1d9a"/><circle id="s9-t28" cx="444.4" cy="504.71" r="7.35" fill="#3a1d9a"/><circle id="s9-t29" cx="636.12" cy="518.07" r="6.2" fill="#3a1d9a"/><circle id="s9-t30" cx="460.62" cy="441.06" r="7.21" fill="#3a1d9a"/><circle id="s9-t31" cx="624.59" cy="415.44" r="7.69" fill="#3a1d9a"/><circle id="s9-t32" cx="544.87" cy="524.96" r="4.72" fill="#3a1d9a"/><circle id="s9-t33" cx="427.62" cy="533.12" r="6.55" fill="#3a1d9a"/><circle id="s9-t34" cx="634.26" cy="524.47" r="7.07" fill="#3a1d9a"/><circle id="s9-t35" cx="487.44" cy="406.9" r="4.37" fill="#3a1d9a"/><circle id="s9-t36" cx="590.32" cy="395.18" r="7.48" fill="#3a1d9a"/><circle id="s9-t37" cx="555.54" cy="524.27" r="6.25" fill="#3a1d9a"/><circle id="s9-t38" cx="420.87" cy="518.09" r="4.28" fill="#3a1d9a"/><circle id="s9-t39" cx="665.99" cy="505.21" r="7" fill="#3a1d9a"/></g><rect id="s9-beam" x="522" y="110" width="36" height="330" fill="#ff4d6d" opacity="0.85"/><rect id="s9-core" x="533" y="110" width="14" height="330" fill="#fff"/><circle id="s9-flash" cx="540" cy="450" r="140" fill="#fff"/><g id="s9-dev"><rect x="430" y="-40" width="220" height="110" rx="24" fill="#2b3245"/><rect x="505" y="70" width="70" height="40" rx="8" fill="#5c677a"/><circle cx="470" cy="15" r="12" fill="#ff4d6d"/></g>
+      </svg>
+<div id="s9-l1" class="chipbox" style="left:0;right:0;top:1070px;text-align:center"><span class="chip" style="font-size:50px;color:#fff;background:#ff4d6d">टुक्रा-टुक्रा!</span></div><div id="s9-l2" class="chipbox" style="left:0;right:0;top:1070px;text-align:center"><span class="chip" style="font-size:46px;color:#14213d;background:#c8f7df">शरीरले बिस्तारै सफा गर्छ</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 5.7;
+    tl.fromTo("#s9-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#s9-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.set("#s9-tiny circle", {opacity:0}, 0);
+    tl.set("#s9-flash", {opacity:0}, 0);
+    tl.fromTo("#s9-beam, #s9-core", {scaleY:0, transformOrigin:"50% 0%"}, {scaleY:1, duration:0.2, ease:"power4.in"}, 0.6);
+    tl.fromTo("#s9-beam", {opacity:0.85}, {opacity:0.4, duration:0.07, yoyo:true, repeat:15}, 0.8);
+    tl.fromTo("#s9-flash", {opacity:0, scale:0.3, transformOrigin:"50% 50%"}, {opacity:0.9, scale:1.4, duration:0.15, ease:"power2.out"}, 1.6);
+    tl.to("#s9-flash", {opacity:0, duration:0.4}, 1.75);
+    tl.to("#s9-big circle", {opacity:0, scale:0.5, transformOrigin:"50% 50%", duration:0.15}, 1.65);
+    tl.set("#s9-tiny circle", {opacity:1}, 1.65);
+    tl.fromTo("#s9-t0", {x:0, y:0}, {x:-37.5, y:77.61, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t0", {x:373.7, y:322.31, opacity:0, duration:2.0, ease:"power1.in"}, 2.8);
+    tl.fromTo("#s9-t1", {x:0, y:0}, {x:85.78, y:22.01, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t1", {x:401.38, y:201.27, opacity:0, duration:2.0, ease:"power1.in"}, 2.88);
+    tl.fromTo("#s9-t2", {x:0, y:0}, {x:27.7, y:-105.67, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t2", {x:363.15, y:233.66, opacity:0, duration:2.0, ease:"power1.in"}, 2.96);
+    tl.fromTo("#s9-t3", {x:0, y:0}, {x:-19.18, y:127.27, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t3", {x:356.72, y:200.94, opacity:0, duration:2.0, ease:"power1.in"}, 3.04);
+    tl.fromTo("#s9-t4", {x:0, y:0}, {x:74.41, y:-33.1, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t4", {x:424.63, y:313.67, opacity:0, duration:2.0, ease:"power1.in"}, 3.12);
+    tl.fromTo("#s9-t5", {x:0, y:0}, {x:-89.62, y:47.75, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t5", {x:391.53, y:259.72, opacity:0, duration:2.0, ease:"power1.in"}, 3.2);
+    tl.fromTo("#s9-t6", {x:0, y:0}, {x:90.3, y:47.22, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t6", {x:452.21, y:230.92, opacity:0, duration:2.0, ease:"power1.in"}, 3.28);
+    tl.fromTo("#s9-t7", {x:0, y:0}, {x:68.08, y:-94.99, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t7", {x:453.89, y:306.07, opacity:0, duration:2.0, ease:"power1.in"}, 3.36);
+    tl.fromTo("#s9-t8", {x:0, y:0}, {x:23.91, y:123.4, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t8", {x:389.16, y:214.19, opacity:0, duration:2.0, ease:"power1.in"}, 3.44);
+    tl.fromTo("#s9-t9", {x:0, y:0}, {x:-38.71, y:59.61, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t9", {x:462.87, y:204.27, opacity:0, duration:2.0, ease:"power1.in"}, 3.52);
+    tl.fromTo("#s9-t10", {x:0, y:0}, {x:-63.22, y:-38.6, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t10", {x:443.37, y:309.29, opacity:0, duration:2.0, ease:"power1.in"}, 2.8);
+    tl.fromTo("#s9-t11", {x:0, y:0}, {x:45.08, y:65.34, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t11", {x:432.76, y:318.31, opacity:0, duration:2.0, ease:"power1.in"}, 2.88);
+    tl.fromTo("#s9-t12", {x:0, y:0}, {x:48.75, y:-62.23, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t12", {x:412.55, y:322.69, opacity:0, duration:2.0, ease:"power1.in"}, 2.96);
+    tl.fromTo("#s9-t13", {x:0, y:0}, {x:1.19, y:84.33, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t13", {x:371.66, y:274.31, opacity:0, duration:2.0, ease:"power1.in"}, 3.04);
+    tl.fromTo("#s9-t14", {x:0, y:0}, {x:83.23, y:36.03, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t14", {x:353.37, y:226.76, opacity:0, duration:2.0, ease:"power1.in"}, 3.12);
+    tl.fromTo("#s9-t15", {x:0, y:0}, {x:-4.78, y:-130.05, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t15", {x:406.14, y:309.65, opacity:0, duration:2.0, ease:"power1.in"}, 3.2);
+    tl.fromTo("#s9-t16", {x:0, y:0}, {x:-63.58, y:95.73, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t16", {x:433.49, y:261.75, opacity:0, duration:2.0, ease:"power1.in"}, 3.28);
+    tl.fromTo("#s9-t17", {x:0, y:0}, {x:-87.07, y:-61.31, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t17", {x:411.91, y:268.48, opacity:0, duration:2.0, ease:"power1.in"}, 3.36);
+    tl.fromTo("#s9-t18", {x:0, y:0}, {x:100.75, y:-57.91, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t18", {x:422.97, y:306.9, opacity:0, duration:2.0, ease:"power1.in"}, 3.44);
+    tl.fromTo("#s9-t19", {x:0, y:0}, {x:29.88, y:-98.05, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t19", {x:365.97, y:220.62, opacity:0, duration:2.0, ease:"power1.in"}, 3.52);
+    tl.fromTo("#s9-t20", {x:0, y:0}, {x:-31.44, y:-108.85, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t20", {x:417.66, y:327.85, opacity:0, duration:2.0, ease:"power1.in"}, 2.8);
+    tl.fromTo("#s9-t21", {x:0, y:0}, {x:74.9, y:-31.5, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t21", {x:386.48, y:239.16, opacity:0, duration:2.0, ease:"power1.in"}, 2.88);
+    tl.fromTo("#s9-t22", {x:0, y:0}, {x:47.62, y:-71.13, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t22", {x:450.86, y:251.08, opacity:0, duration:2.0, ease:"power1.in"}, 2.96);
+    tl.fromTo("#s9-t23", {x:0, y:0}, {x:34.14, y:76.1, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t23", {x:405.08, y:326.29, opacity:0, duration:2.0, ease:"power1.in"}, 3.04);
+    tl.fromTo("#s9-t24", {x:0, y:0}, {x:93.21, y:-65.9, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t24", {x:404.97, y:317.06, opacity:0, duration:2.0, ease:"power1.in"}, 3.12);
+    tl.fromTo("#s9-t25", {x:0, y:0}, {x:60.23, y:100.45, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t25", {x:414.75, y:329.25, opacity:0, duration:2.0, ease:"power1.in"}, 3.2);
+    tl.fromTo("#s9-t26", {x:0, y:0}, {x:50.82, y:79.4, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t26", {x:455.75, y:318.05, opacity:0, duration:2.0, ease:"power1.in"}, 3.28);
+    tl.fromTo("#s9-t27", {x:0, y:0}, {x:-91.09, y:-48.74, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t27", {x:455.41, y:244.2, opacity:0, duration:2.0, ease:"power1.in"}, 3.36);
+    tl.fromTo("#s9-t28", {x:0, y:0}, {x:-45, y:76.73, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t28", {x:401.34, y:321.1, opacity:0, duration:2.0, ease:"power1.in"}, 3.44);
+    tl.fromTo("#s9-t29", {x:0, y:0}, {x:-119.97, y:20.14, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t29", {x:367.13, y:309.63, opacity:0, duration:2.0, ease:"power1.in"}, 3.52);
+    tl.fromTo("#s9-t30", {x:0, y:0}, {x:44.98, y:-77.93, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t30", {x:409.32, y:290.46, opacity:0, duration:2.0, ease:"power1.in"}, 2.8);
+    tl.fromTo("#s9-t31", {x:0, y:0}, {x:-62.09, y:35.93, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t31", {x:386.86, y:285.45, opacity:0, duration:2.0, ease:"power1.in"}, 2.88);
+    tl.fromTo("#s9-t32", {x:0, y:0}, {x:0.34, y:120.3, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t32", {x:353.98, y:237.59, opacity:0, duration:2.0, ease:"power1.in"}, 2.96);
+    tl.fromTo("#s9-t33", {x:0, y:0}, {x:-51.79, y:-70.55, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t33", {x:447.77, y:237.51, opacity:0, duration:2.0, ease:"power1.in"}, 3.04);
+    tl.fromTo("#s9-t34", {x:0, y:0}, {x:-96.72, y:24.15, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t34", {x:455.64, y:297.08, opacity:0, duration:2.0, ease:"power1.in"}, 3.12);
+    tl.fromTo("#s9-t35", {x:0, y:0}, {x:-40.11, y:130.1, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t35", {x:423.31, y:300.42, opacity:0, duration:2.0, ease:"power1.in"}, 3.2);
+    tl.fromTo("#s9-t36", {x:0, y:0}, {x:87.84, y:16.42, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t36", {x:411.11, y:261.69, opacity:0, duration:2.0, ease:"power1.in"}, 3.28);
+    tl.fromTo("#s9-t37", {x:0, y:0}, {x:-16.63, y:90.54, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t37", {x:406.42, y:313.08, opacity:0, duration:2.0, ease:"power1.in"}, 3.36);
+    tl.fromTo("#s9-t38", {x:0, y:0}, {x:-41.38, y:63.92, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t38", {x:383.05, y:216.86, opacity:0, duration:2.0, ease:"power1.in"}, 3.44);
+    tl.fromTo("#s9-t39", {x:0, y:0}, {x:12.74, y:78.95, duration:0.6, ease:"power3.out"}, 1.65);
+    tl.to("#s9-t39", {x:360.26, y:259.39, opacity:0, duration:2.0, ease:"power1.in"}, 3.52);
+    tl.to("#s9-beam, #s9-core", {opacity:0, duration:0.2}, 2.1);
+    tl.fromTo("#s9-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.7);
+    tl.to("#s9-l1", {opacity:0, duration:0.15}, 3.25);
+    tl.fromTo("#s9-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.35);
+
+    tl.to("#s9-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["s9"] = tl;
+  </script>
+</template>
