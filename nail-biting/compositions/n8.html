@@ -30,15 +30,15 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 6.37;
+    const D = 7.16;
     tl.fromTo("#n8-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#n8-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
-    tl.fromTo("#n8-g", {x:0, rotation:0, svgOrigin:"540 190"}, {x:30, rotation:8, duration:0.15, yoyo:true, repeat:36}, 0.3);
-    tl.fromTo("#n8-sw", {y:0, opacity:1}, {y:60, opacity:0, duration:0.7, repeat:6}, 0.4);
+    tl.fromTo("#n8-g", {x:0, rotation:0, svgOrigin:"540 190"}, {x:30, rotation:8, duration:0.15, yoyo:true, repeat:41}, 0.3);
+    tl.fromTo("#n8-sw", {y:0, opacity:1}, {y:60, opacity:0, duration:0.7, repeat:7}, 0.4);
     tl.fromTo("#n8-tag", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.42);
     tl.to("#n8-tag", {scale:1.06, duration:0.25, yoyo:true, repeat:5, transformOrigin:"50% 50%"}, 0.92);
-    tl.fromTo("#n8-follow", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.82);
-    tl.to("#n8-follow", {scale:1.06, duration:0.3, yoyo:true, repeat:8, transformOrigin:"50% 50%"}, 3.32);
+    tl.fromTo("#n8-follow", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.05);
+    tl.to("#n8-follow", {scale:1.06, duration:0.3, yoyo:true, repeat:10, transformOrigin:"50% 50%"}, 3.55);
     tl.fromTo("#n8-bye", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.9);
 
     tl.to("#n8-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);

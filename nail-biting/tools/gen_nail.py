@@ -314,10 +314,10 @@ def n6(d, c):
     for i in range(4):
         px = 240 + i * 200
         col = C["yellow"] if i == 2 else "#55607a"
-        people += f'<g id="n6-p{i}"><circle cx="{px}" cy="660" r="34" fill="{col}"/><rect x="{px - 46}" y="700" width="92" height="80" rx="40" fill="{col}"/></g>'
+        people += f'<g id="n6-p{i}"><circle cx="{px}" cy="600" r="34" fill="{col}"/><rect x="{px - 46}" y="640" width="92" height="80" rx="40" fill="{col}"/></g>'
     svg = brain + gauge + loop + people
     title = "हामी किन <b>टोक्छौं?</b>"
-    extra = label("n6-l", 540, 1155 - 95, "चार जनामा एक जना", color="#14213d", bg=C["yellow"], size=46, anchor="center")
+    extra = label("n6-l", 540, 1090, "चार जनामा एक जना", color="#14213d", bg=C["yellow"], size=46, anchor="center")
     js = intro_js(sid)
     js += wobble("#n6-brain", 0.3, d - 0.3, 0.03, 0.8)
     t_st = c[1][0]

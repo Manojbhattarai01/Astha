@@ -30,18 +30,18 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 5.55;
+    const D = 6.47;
     tl.fromTo("#n5-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#n5-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
-    tl.fromTo("#n5-upper", {y:0}, {y:40, duration:0.2, yoyo:true, repeat:22, ease:"power2.in"}, 0.4);
-    tl.fromTo("#n5-lower", {y:0}, {y:-30, duration:0.2, yoyo:true, repeat:22, ease:"power2.in"}, 0.4);
-    tl.to("#n5-crack", {attr:{"stroke-dashoffset":0}, duration:0.5, ease:"power2.out"}, 2.02);
-    tl.fromTo("#n5-chip", {opacity:1, y:0, rotation:0, transformOrigin:"50% 50%"}, {y:360, rotation:160, opacity:0, duration:1.2, ease:"power2.in"}, 2.62);
-    tl.fromTo("#n5-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.72);
-    tl.to("#n5-l1", {opacity:0, duration:0.15}, 3.17);
-    tl.fromTo("#n5-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.42);
-    tl.fromTo("#n5-b0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1.15, duration:0.2, yoyo:true, repeat:7}, 3.32);
-    tl.fromTo("#n5-b1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1.15, duration:0.2, yoyo:true, repeat:7}, 3.42);
+    tl.fromTo("#n5-upper", {y:0}, {y:40, duration:0.2, yoyo:true, repeat:27, ease:"power2.in"}, 0.4);
+    tl.fromTo("#n5-lower", {y:0}, {y:-30, duration:0.2, yoyo:true, repeat:27, ease:"power2.in"}, 0.4);
+    tl.to("#n5-crack", {attr:{"stroke-dashoffset":0}, duration:0.5, ease:"power2.out"}, 2.13);
+    tl.fromTo("#n5-chip", {opacity:1, y:0, rotation:0, transformOrigin:"50% 50%"}, {y:360, rotation:160, opacity:0, duration:1.2, ease:"power2.in"}, 2.73);
+    tl.fromTo("#n5-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.83);
+    tl.to("#n5-l1", {opacity:0, duration:0.15}, 3.68);
+    tl.fromTo("#n5-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.93);
+    tl.fromTo("#n5-b0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1.15, duration:0.2, yoyo:true, repeat:9}, 3.83);
+    tl.fromTo("#n5-b1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1.15, duration:0.2, yoyo:true, repeat:9}, 3.93);
 
     tl.to("#n5-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["n5"] = tl;
