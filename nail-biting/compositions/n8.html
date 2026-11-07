@@ -1,0 +1,47 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#n8-stage{top:360px;height:780px;}
+#n8-title{font-size:96px;}
+  </style>
+  <div id="root" data-composition-id="n8" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="n8-wrap" class="wrap">
+      <div id="n8-title" class="title">नङ टोक्ने <b>साथी</b> छ?</div>
+      <svg id="n8-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="n8-g"><circle cx="662.31" cy="185.3" r="28.8" fill="#7ee081"/><circle cx="636.29" cy="265.57" r="28.8" fill="#7ee081"/><circle cx="555.69" cy="311.39" r="28.8" fill="#7ee081"/><circle cx="462.59" cy="284.81" r="28.8" fill="#7ee081"/><circle cx="418.26" cy="177.31" r="28.8" fill="#7ee081"/><circle cx="445.27" cy="112.49" r="28.8" fill="#7ee081"/><circle cx="534.26" cy="67.73" r="28.8" fill="#7ee081"/><circle cx="632.68" cy="110.05" r="28.8" fill="#7ee081"/><circle cx="540" cy="190" r="120" fill="#7ee081" stroke="rgba(0,0,0,.25)" stroke-width="9.6"/><circle cx="501.6" cy="175.6" r="28.8" fill="#fff"/><circle cx="578.4" cy="175.6" r="28.8" fill="#fff"/><circle cx="506.4" cy="180.4" r="13.2" fill="#14213d"/><circle cx="583.2" cy="180.4" r="13.2" fill="#14213d"/><path d="M504 232 Q540 262 576 232" stroke="#14213d" stroke-width="12" fill="none" stroke-linecap="round"/></g><path id="n8-sw" d="M700 120 q 16 30 0 44 q -16 -14 0 -44 Z" fill="#5ad1ff"/><g id="n8-tag" transform="translate(540 440)"><rect x="-330" y="-62" width="660" height="124" rx="62" fill="#ffffff"/><text x="-250" y="20" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="70" fill="#14213d">@</text><text x="30" y="18" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="52" fill="#14213d">ट्याग गर्नुहोस्</text></g><g id="n8-follow" transform="translate(540 600)"><rect x="-330" y="-62" width="660" height="124" rx="62" fill="#ff4d6d"/><path d="M-260 0 h44 M-238 -22 v44" stroke="#fff" stroke-width="12" stroke-linecap="round"/><text x="30" y="18" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="52" fill="#fff">फलो गर्नुहोस्</text></g>
+      </svg>
+<div id="n8-bye" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:46px;color:#14213d;background:#7ee081">बाइ बाइ कीटाणु!</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 6.37;
+    tl.fromTo("#n8-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#n8-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#n8-g", {x:0, rotation:0, svgOrigin:"540 190"}, {x:30, rotation:8, duration:0.15, yoyo:true, repeat:36}, 0.3);
+    tl.fromTo("#n8-sw", {y:0, opacity:1}, {y:60, opacity:0, duration:0.7, repeat:6}, 0.4);
+    tl.fromTo("#n8-tag", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.42);
+    tl.to("#n8-tag", {scale:1.06, duration:0.25, yoyo:true, repeat:5, transformOrigin:"50% 50%"}, 0.92);
+    tl.fromTo("#n8-follow", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.82);
+    tl.to("#n8-follow", {scale:1.06, duration:0.3, yoyo:true, repeat:8, transformOrigin:"50% 50%"}, 3.32);
+    tl.fromTo("#n8-bye", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.9);
+
+    tl.to("#n8-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["n8"] = tl;
+  </script>
+</template>

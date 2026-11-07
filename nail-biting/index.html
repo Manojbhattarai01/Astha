@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ne">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0c0a1f; font-family: 'Mukta', sans-serif; }
+      #bg { position: absolute; inset: 0; background: radial-gradient(circle at 12% 22%, rgba(126,224,129,.28) 0 7px, transparent 8px), radial-gradient(circle at 88% 28%, rgba(176,124,255,.3) 0 9px, transparent 10px), radial-gradient(circle at 78% 82%, rgba(126,224,129,.22) 0 8px, transparent 9px), radial-gradient(circle at 18% 72%, rgba(176,124,255,.25) 0 10px, transparent 11px), radial-gradient(120% 70% at 50% 35%, #2a1d5c 0%, #110d2e 55%, #07051a 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="49.97" data-width="1080" data-height="1920" data-fps="30">
+      <div id="bg" class="clip" data-start="0" data-duration="49.97" data-track-index="0" data-layout-ignore></div>
+      <div id="n1" data-composition-id="n1" data-composition-src="compositions/n1.html" data-start="0" data-duration="5.66" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n2" data-composition-id="n2" data-composition-src="compositions/n2.html" data-start="5.66" data-duration="4.7" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n3" data-composition-id="n3" data-composition-src="compositions/n3.html" data-start="10.36" data-duration="5.52" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n4" data-composition-id="n4" data-composition-src="compositions/n4.html" data-start="15.88" data-duration="6.15" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n5" data-composition-id="n5" data-composition-src="compositions/n5.html" data-start="22.03" data-duration="5.55" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n6" data-composition-id="n6" data-composition-src="compositions/n6.html" data-start="27.58" data-duration="8.5" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n7" data-composition-id="n7" data-composition-src="compositions/n7.html" data-start="36.08" data-duration="7.52" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="n8" data-composition-id="n8" data-composition-src="compositions/n8.html" data-start="43.6" data-duration="6.37" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="49.97" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

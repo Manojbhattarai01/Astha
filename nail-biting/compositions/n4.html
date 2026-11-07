@@ -1,0 +1,61 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#n4-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="n4" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="n4-wrap" class="wrap">
+      <div id="n4-title" class="title">छाला चिरियो… <b>संक्रमण!</b></div>
+      <svg id="n4-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<rect x="330" y="60" width="420" height="760" rx="210" fill="#f1b48c"/><ellipse id="n4-swell" cx="540" cy="300" rx="235" ry="250" fill="#ff4d6d" opacity="0"/><path d="M420 180 Q420 110 540 110 Q660 110 660 180 L660 420 Q540 450 420 420 Z" fill="#ffd3dc" stroke="#e7a3b2" stroke-width="6"/><path d="M430 170 Q440 120 540 120 Q640 120 650 170 Q540 150 430 170 Z" fill="#fff4f6"/><path d="M420 420 Q540 450 660 420" stroke="#e39a6f" stroke-width="16" fill="none"/><path id="n4-tear" d="M660 400 L690 380 L672 360 L700 340 L680 318 L706 300" stroke="#b3122e" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle id="n4-pus" opacity="0" cx="690" cy="430" r="30" fill="#ffe27a" stroke="#d9b23a" stroke-width="5"/><g id="n4-r0"><rect x="940" y="192" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(0 960 200)"/></g><g id="n4-r1"><rect x="970" y="247" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(37 990 255)"/></g><g id="n4-r2"><rect x="1000" y="302" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(74 1020 310)"/></g><g id="n4-r3"><rect x="940" y="357" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(111 960 365)"/></g><g id="n4-r4"><rect x="970" y="412" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(148 990 420)"/></g><g id="n4-r5"><rect x="1000" y="467" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(5 1020 475)"/></g><g id="n4-r6"><rect x="940" y="522" width="40" height="16" rx="8" fill="#7ee081" stroke="#2f7a3a" stroke-width="3" transform="rotate(42 960 530)"/></g>
+      </svg>
+<div id="n4-l1" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:46px;color:#14213d;background:#7ee081">ब्याक्टेरिया भित्र पस्छन्</span></div><div id="n4-l2" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:50px;color:#fff;background:#ff4d6d">औंला सुन्निने, पाक्ने</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 6.15;
+    tl.fromTo("#n4-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#n4-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#n4-tear", {opacity:0, scale:0.2, transformOrigin:"0% 100%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.62);
+    tl.fromTo("#n4-r0", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-260, y:150, rotation:180, duration:1.2, ease:"power2.in"}, 1.42);
+    tl.to("#n4-r0", {opacity:0, scale:0.3, duration:0.25}, 2.62);
+    tl.fromTo("#n4-r1", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-290, y:95, rotation:200, duration:1.2, ease:"power2.in"}, 1.54);
+    tl.to("#n4-r1", {opacity:0, scale:0.3, duration:0.25}, 2.74);
+    tl.fromTo("#n4-r2", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-320, y:40, rotation:220, duration:1.2, ease:"power2.in"}, 1.66);
+    tl.to("#n4-r2", {opacity:0, scale:0.3, duration:0.25}, 2.86);
+    tl.fromTo("#n4-r3", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-260, y:-15, rotation:240, duration:1.2, ease:"power2.in"}, 1.78);
+    tl.to("#n4-r3", {opacity:0, scale:0.3, duration:0.25}, 2.98);
+    tl.fromTo("#n4-r4", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-290, y:-70, rotation:260, duration:1.2, ease:"power2.in"}, 1.9);
+    tl.to("#n4-r4", {opacity:0, scale:0.3, duration:0.25}, 3.1);
+    tl.fromTo("#n4-r5", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-320, y:-125, rotation:280, duration:1.2, ease:"power2.in"}, 2.02);
+    tl.to("#n4-r5", {opacity:0, scale:0.3, duration:0.25}, 3.22);
+    tl.fromTo("#n4-r6", {x:0, y:0, rotation:0, transformOrigin:"50% 50%"}, {x:-260, y:-180, rotation:300, duration:1.2, ease:"power2.in"}, 2.14);
+    tl.to("#n4-r6", {opacity:0, scale:0.3, duration:0.25}, 3.34);
+    tl.fromTo("#n4-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.02);
+    tl.to("#n4-l1", {opacity:0, duration:0.15}, 3.92);
+    tl.fromTo("#n4-swell", {opacity:0, scale:0.8, transformOrigin:"50% 50%"}, {opacity:0.45, scale:1.08, duration:0.8, ease:"power2.out"}, 4.07);
+    tl.to("#n4-swell", {opacity:0.3, scale:1.02, duration:0.4, yoyo:true, repeat:1, ease:"sine.inOut"}, 4.87);
+    tl.fromTo("#n4-pus", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.67);
+    tl.fromTo("#n4-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.17);
+
+    tl.to("#n4-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["n4"] = tl;
+  </script>
+</template>

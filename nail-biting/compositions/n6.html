@@ -1,0 +1,54 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#n6-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="n6" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="n6-wrap" class="wrap">
+      <div id="n6-title" class="title">हामी किन <b>टोक्छौं?</b></div>
+      <svg id="n6-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="n6-brain"><path d="M440 60 C 380 60, 350 110, 370 150 C 330 170, 340 240, 400 250 C 420 290, 500 290, 540 260 C 580 290, 660 290, 680 250 C 740 240, 750 170, 710 150 C 730 110, 700 60, 640 60 C 610 30, 560 40, 540 60 C 520 40, 470 30, 440 60 Z" fill="#f7a8c4" stroke="#c75b8a" stroke-width="8"/><path d="M540 60 L540 260 M420 120 Q460 140 440 180 M660 120 Q620 140 640 180 M410 210 Q450 200 470 230 M670 210 Q630 200 610 230" stroke="#c75b8a" stroke-width="7" fill="none" stroke-linecap="round"/></g><g id="n6-gauge"><path d="M140 520 A 160 160 0 0 1 220.0 381.44" stroke="#22c55e" stroke-width="34" fill="none"/><path d="M220.0 381.44 A 160 160 0 0 1 380.0 381.44" stroke="#ffd23f" stroke-width="34" fill="none"/><path d="M380.0 381.44 A 160 160 0 0 1 460 520" stroke="#ff4d6d" stroke-width="34" fill="none"/><g id="n6-needle"><line x1="300" y1="520" x2="300" y2="390" stroke="#fff" stroke-width="12" stroke-linecap="round"/></g><circle cx="300" cy="520" r="20" fill="#fff"/><text x="300" y="590" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="44" fill="#fff">तनाव</text></g><g id="n6-loop"><circle cx="790" cy="430" r="140" fill="none" stroke="#5ad1ff" stroke-width="16" stroke-dasharray="250 40" stroke-linecap="round"/><path transform="rotate(0 790 430)" d="M930 400 l -24 30 l 48 0 Z" fill="#5ad1ff"/><path transform="rotate(120 790 430)" d="M930 400 l -24 30 l 48 0 Z" fill="#5ad1ff"/><path transform="rotate(240 790 430)" d="M930 400 l -24 30 l 48 0 Z" fill="#5ad1ff"/></g><text id="n6-habit" x="790" y="448" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="56" fill="#fff">बानी</text><g id="n6-p0"><circle cx="240" cy="660" r="34" fill="#55607a"/><rect x="194" y="700" width="92" height="80" rx="40" fill="#55607a"/></g><g id="n6-p1"><circle cx="440" cy="660" r="34" fill="#55607a"/><rect x="394" y="700" width="92" height="80" rx="40" fill="#55607a"/></g><g id="n6-p2"><circle cx="640" cy="660" r="34" fill="#ffd23f"/><rect x="594" y="700" width="92" height="80" rx="40" fill="#ffd23f"/></g><g id="n6-p3"><circle cx="840" cy="660" r="34" fill="#55607a"/><rect x="794" y="700" width="92" height="80" rx="40" fill="#55607a"/></g>
+      </svg>
+<div id="n6-l" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:46px;color:#14213d;background:#ffd23f">चार जनामा एक जना</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 8.5;
+    tl.fromTo("#n6-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#n6-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#n6-brain", {scaleX:1, scaleY:1, transformOrigin:"50% 50%"}, {scaleX:1.03, scaleY:0.97, duration:0.4, ease:"sine.inOut", yoyo:true, repeat:18}, 0.3);
+    tl.fromTo("#n6-gauge", {opacity:0, scale:0.6, transformOrigin:"300px 520px"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2)"}, 1.65);
+    tl.fromTo("#n6-needle", {rotation:-80, svgOrigin:"300 520"}, {rotation:70, duration:1.0, ease:"power2.out"}, 1.85);
+    tl.to("#n6-needle", {rotation:62, duration:0.08, yoyo:true, repeat:5}, 2.85);
+    tl.to("#n6-needle", {rotation:-60, duration:0.7, ease:"power2.inOut"}, 4.15);
+    tl.fromTo("#n6-loop", {opacity:0, rotation:-120, svgOrigin:"790 430"}, {opacity:1, rotation:0, duration:0.6, ease:"power3.out"}, 4.35);
+    tl.fromTo("#n6-habit", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.55);
+    tl.to("#n6-loop", {rotation:180, duration:3.15, ease:"none"}, 4.95);
+    tl.fromTo("#n6-p0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.2);
+    tl.fromTo("#n6-p1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.32);
+    tl.fromTo("#n6-p2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.44);
+    tl.fromTo("#n6-p3", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.56);
+    tl.fromTo("#n6-p2", {y:0}, {y:-24, duration:0.25, yoyo:true, repeat:3}, 6.9);
+    tl.fromTo("#n6-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.6);
+
+    tl.to("#n6-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["n6"] = tl;
+  </script>
+</template>

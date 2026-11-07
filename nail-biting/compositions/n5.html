@@ -1,0 +1,49 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#n5-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="n5" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="n5-wrap" class="wrap">
+      <div id="n5-title" class="title"><b>दाँतलाई</b> पनि नोक्सान</div>
+      <svg id="n5-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<rect x="120" y="140" width="840" height="560" rx="260" fill="#5a1f2b"/><ellipse cx="540" cy="620" rx="300" ry="60" fill="#e2566e"/><g id="n5-lower"><rect x="200" y="500" width="105" height="160" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="315" y="500" width="105" height="160" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="430" y="500" width="105" height="160" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="545" y="500" width="105" height="160" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="660" y="500" width="105" height="160" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="775" y="500" width="105" height="160" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/></g><g id="n5-nail"><rect x="560" y="360" width="520" height="130" rx="65" fill="#f1b48c"/><path d="M500 372 L640 372 L640 478 L500 478 Q470 425 500 372 Z" fill="#ffd3dc" stroke="#e7a3b2" stroke-width="4"/></g><g id="n5-upper"><rect x="200" y="160" width="105" height="170" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="315" y="160" width="105" height="170" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="430" y="160" width="105" height="170" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="545" y="160" width="105" height="170" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="660" y="160" width="105" height="170" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><rect x="775" y="160" width="105" height="170" rx="30" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="4"/><path id="n5-crack" d="M440 330 L462 280 L445 250 L470 205" stroke="#5b5b5b" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="160" stroke-dashoffset="160"/></g><path id="n5-chip" d="M455 300 L500 300 L500 330 L470 330 Z" fill="#fbfbf5" stroke="#d8d4c4" stroke-width="3" opacity="0"/><path id="n5-b0" d="M90 380 l -30 50 h 30 l -30 60" stroke="#ffd23f" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0"/><path id="n5-b1" d="M1010 380 l -30 50 h 30 l -30 60" stroke="#ffd23f" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+      </svg>
+<div id="n5-l1" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:48px;color:#14213d;background:#ffd23f">दाँत खिइने, चर्किने</span></div><div id="n5-l2" class="chipbox" style="left:0;right:0;top:1060px;text-align:center"><span class="chip" style="font-size:50px;color:#fff;background:#ff4d6d">बङ्गारा दुख्ने</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 5.55;
+    tl.fromTo("#n5-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#n5-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#n5-upper", {y:0}, {y:40, duration:0.2, yoyo:true, repeat:22, ease:"power2.in"}, 0.4);
+    tl.fromTo("#n5-lower", {y:0}, {y:-30, duration:0.2, yoyo:true, repeat:22, ease:"power2.in"}, 0.4);
+    tl.to("#n5-crack", {attr:{"stroke-dashoffset":0}, duration:0.5, ease:"power2.out"}, 2.02);
+    tl.fromTo("#n5-chip", {opacity:1, y:0, rotation:0, transformOrigin:"50% 50%"}, {y:360, rotation:160, opacity:0, duration:1.2, ease:"power2.in"}, 2.62);
+    tl.fromTo("#n5-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.72);
+    tl.to("#n5-l1", {opacity:0, duration:0.15}, 3.17);
+    tl.fromTo("#n5-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.42);
+    tl.fromTo("#n5-b0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1.15, duration:0.2, yoyo:true, repeat:7}, 3.32);
+    tl.fromTo("#n5-b1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1.15, duration:0.2, yoyo:true, repeat:7}, 3.42);
+
+    tl.to("#n5-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["n5"] = tl;
+  </script>
+</template>
