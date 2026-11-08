@@ -1,0 +1,162 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "gsap_timeline_set_initial_hide",
+        "severity": "warning",
+        "message": "Initial hidden state for \"#f1-b2, #f1-b3\" is set via tl.set(...) at position 0 inside the paused timeline. A zero-duration set at 0 does not render while the playhead sits exactly at 0, so frame 0 shows the un-hidden state.",
+        "selector": "#f1-b2, #f1-b3",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/Astha/firecrackers/compositions/f1.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use gsap.set(...) (immediate, outside the timeline) for initial states, or author the hidden state directly in CSS/attributes."
+      }
+    ],
+    "filesScanned": 11
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 84.86,
+    "samples": [
+      4.714,
+      14.143,
+      23.572,
+      33.001,
+      42.43,
+      51.859,
+      61.288,
+      70.717,
+      80.146
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      4.714,
+      23.572,
+      42.43,
+      61.288,
+      80.146
+    ],
+    "checked": 36,
+    "passed": 36
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"2\" at 18 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "2",
+        "selector": "#f2-cmp > text:nth-of-type(1) > tspan:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/f2.html",
+        "bbox": {
+          "x": 232.5,
+          "y": 956.48,
+          "width": 9.12,
+          "height": 31.1
+        },
+        "time": 14.309,
+        "times": [
+          14.309,
+          14.309,
+          14.309
+        ],
+        "fontPx": 18.49,
+        "floorPx": 28,
+        "seconds": 4.817,
+        "elements": [
+          {
+            "selector": "#f2-cmp > text:nth-of-type(1) > tspan:nth-of-type(1)",
+            "text": "2",
+            "fontPx": 18.49,
+            "time": 14.309,
+            "seconds": 4.817
+          },
+          {
+            "selector": "#f2-cmp > text:nth-of-type(2) > tspan:nth-of-type(1)",
+            "text": "2",
+            "fontPx": 18.49,
+            "time": 14.309,
+            "seconds": 4.817
+          },
+          {
+            "selector": "#f2-cmp > text:nth-of-type(3) > tspan:nth-of-type(1)",
+            "text": "2",
+            "fontPx": 18.49,
+            "time": 14.309,
+            "seconds": 4.817
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.1419999999999959,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

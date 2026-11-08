@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ne">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #08051a; font-family: 'Mukta', sans-serif; }
+      #bg { position: absolute; inset: 0; background: radial-gradient(circle at 12% 18%, #fff 0 2px, transparent 3px), radial-gradient(circle at 30% 8%, #fff 0 2px, transparent 3px), radial-gradient(circle at 72% 14%, #fff 0 2px, transparent 3px), radial-gradient(circle at 90% 26%, #fff 0 2px, transparent 3px), radial-gradient(circle at 55% 30%, rgba(255,255,255,.7) 0 2px, transparent 3px), radial-gradient(circle at 8% 60%, rgba(255,183,3,.25) 0 9px, transparent 10px), radial-gradient(circle at 92% 70%, rgba(255,77,109,.25) 0 10px, transparent 11px), radial-gradient(120% 70% at 50% 30%, #2a1450 0%, #120a2e 55%, #05030f 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="84.86" data-width="1080" data-height="1920" data-fps="30">
+      <div id="bg" class="clip" data-start="0" data-duration="84.86" data-track-index="0" data-layout-ignore></div>
+      <div id="f1" data-composition-id="f1" data-composition-src="compositions/f1.html" data-start="0" data-duration="7.16" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f2" data-composition-id="f2" data-composition-src="compositions/f2.html" data-start="7.16" data-duration="11.95" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f3" data-composition-id="f3" data-composition-src="compositions/f3.html" data-start="19.11" data-duration="7.36" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f4" data-composition-id="f4" data-composition-src="compositions/f4.html" data-start="26.47" data-duration="11.13" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f5" data-composition-id="f5" data-composition-src="compositions/f5.html" data-start="37.6" data-duration="12.13" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f6" data-composition-id="f6" data-composition-src="compositions/f6.html" data-start="49.73" data-duration="6.34" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f7" data-composition-id="f7" data-composition-src="compositions/f7.html" data-start="56.07" data-duration="7.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f8" data-composition-id="f8" data-composition-src="compositions/f8.html" data-start="63.47" data-duration="12.5" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="f9" data-composition-id="f9" data-composition-src="compositions/f9.html" data-start="75.97" data-duration="8.89" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="84.86" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+      <audio id="voice" class="clip" src="assets/audio/voice-yash.mp3" data-start="0" data-duration="83.96" data-track-index="3" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#f4-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="f4" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="f4-wrap" class="wrap">
+      <div id="f4-title" class="title"><b>दबाब</b> बढ्छ… अनि!</div>
+      <svg id="f4-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="f4-cr"><g id="f4-crin"><rect x="430" y="120" width="220" height="420" rx="14" fill="#e63946"/><rect x="430" y="120.0" width="220" height="42" fill="#b5202d"/><rect x="430" y="204.0" width="220" height="42" fill="#b5202d"/><rect x="430" y="288.0" width="220" height="42" fill="#b5202d"/><rect x="430" y="372.0" width="220" height="42" fill="#b5202d"/><rect x="430" y="456.0" width="220" height="42" fill="#b5202d"/><rect x="430" y="120" width="220" height="420" rx="14" fill="none" stroke="#7a1020" stroke-width="5"/></g><rect id="f4-glow" x="450" y="140" width="180" height="380" rx="12" fill="#ffb703" opacity="0"/></g><g id="f4-gauge" transform="translate(860 230)"><circle r="110" fill="#fff"/><circle r="96" fill="#1b2140"/><path d="M-80 30 A 85 85 0 0 1 80 30" stroke="#ff4d6d" stroke-width="14" fill="none"/><g id="f4-needle"><line x1="0" y1="0" x2="0" y2="-80" stroke="#fff" stroke-width="10" stroke-linecap="round"/></g><circle r="12" fill="#fff"/><text id="f4-gt" x="0" y="160" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#fff">दबाब</text></g><circle id="f4-r0" cx="540" cy="330" r="80" fill="none" stroke="#fff" stroke-width="10" opacity="0"/><circle id="f4-r1" cx="540" cy="330" r="80" fill="none" stroke="#fff" stroke-width="10" opacity="0"/><circle id="f4-r2" cx="540" cy="330" r="80" fill="none" stroke="#fff" stroke-width="10" opacity="0"/><rect id="f4-fr0" x="525" y="320" width="35" height="20" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr1" x="525" y="320" width="29" height="32" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr2" x="525" y="320" width="39" height="28" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr3" x="525" y="320" width="39" height="22" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr4" x="525" y="320" width="43" height="26" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr5" x="525" y="320" width="44" height="27" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr6" x="525" y="320" width="46" height="23" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr7" x="525" y="320" width="29" height="18" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr8" x="525" y="320" width="43" height="19" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr9" x="525" y="320" width="41" height="27" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr10" x="525" y="320" width="27" height="30" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr11" x="525" y="320" width="26" height="31" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr12" x="525" y="320" width="46" height="19" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr13" x="525" y="320" width="43" height="29" rx="5" fill="#e63946" opacity="0"/><rect id="f4-fr14" x="525" y="320" width="29" height="28" rx="5" fill="#b5202d" opacity="0"/><rect id="f4-fr15" x="525" y="320" width="28" height="32" rx="5" fill="#e63946" opacity="0"/><text id="f4-boom" x="540" y="380" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="170" fill="#ffd23f">धुम!</text><g id="f4-ear" transform="translate(170 640)"><path d="M-20 -80 C 70 -110, 100 -10, 40 40 C 15 60, 30 100, -10 100" stroke="#f1b48c" stroke-width="26" fill="none" stroke-linecap="round"/><path d="M120 -40 q 30 40 0 80 M150 -70 q 50 70 0 140" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+      </svg>
+<div id="f4-l" class="chipbox" style="left:0;right:0;top:1080px;text-align:center"><span class="chip" style="font-size:48px;color:#14213d;background:#ffd23f">हावाको तरङ्ग = आवाज</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 11.13;
+    tl.fromTo("#f4-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#f4-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.set("#f4-boom, #f4-ear", {opacity:0}, 0);
+    tl.fromTo("#f4-needle", {rotation:-70, svgOrigin:"0 0"}, {rotation:75, duration:4.55, ease:"power2.in"}, 0.3);
+    tl.fromTo("#f4-cr", {scaleX:1, svgOrigin:"540 330"}, {scaleX:1.12, duration:4.55, ease:"power2.in"}, 0.3);
+    tl.to("#f4-glow", {opacity:0.7, duration:4.55}, 0.3);
+    tl.to("#f4-cr", {opacity:0, duration:0.05}, 5.73);
+    tl.fromTo("#f4-fr0", {opacity:1, x:0, y:0, rotation:0}, {x:420, y:0, rotation:113, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr1", {opacity:1, x:0, y:0, rotation:0}, {x:388.03, y:145.42, rotation:288, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr2", {opacity:1, x:0, y:0, rotation:0}, {x:296.99, y:268.69, rotation:-267, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr3", {opacity:1, x:0, y:0, rotation:0}, {x:160.74, y:351.07, rotation:-109, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr4", {opacity:1, x:0, y:0, rotation:0}, {x:0.02, y:380, rotation:71, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr5", {opacity:1, x:0, y:0, rotation:0}, {x:-160.7, y:351.08, rotation:64, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr6", {opacity:1, x:0, y:0, rotation:0}, {x:-296.96, y:268.72, rotation:-190, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr7", {opacity:1, x:0, y:0, rotation:0}, {x:-388.02, y:145.45, rotation:232, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr8", {opacity:1, x:0, y:0, rotation:0}, {x:-420, y:0.04, rotation:207, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr9", {opacity:1, x:0, y:0, rotation:0}, {x:-388.05, y:-145.38, rotation:-119, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr10", {opacity:1, x:0, y:0, rotation:0}, {x:-297.02, y:-268.67, rotation:-212, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr11", {opacity:1, x:0, y:0, rotation:0}, {x:-160.78, y:-351.06, rotation:100, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr12", {opacity:1, x:0, y:0, rotation:0}, {x:-0.06, y:-380, rotation:-55, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr13", {opacity:1, x:0, y:0, rotation:0}, {x:160.67, y:-351.1, rotation:98, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr14", {opacity:1, x:0, y:0, rotation:0}, {x:296.94, y:-268.74, rotation:-4, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-fr15", {opacity:1, x:0, y:0, rotation:0}, {x:388, y:-145.48, rotation:-63, opacity:0, duration:1.1, ease:"power3.out"}, 5.73);
+    tl.fromTo("#f4-r0", {opacity:0.9, scale:0.3, transformOrigin:"50% 50%"}, {opacity:0, scale:5, duration:1.2, ease:"power2.out"}, 5.73);
+    tl.fromTo("#f4-r1", {opacity:0.9, scale:0.3, transformOrigin:"50% 50%"}, {opacity:0, scale:5, duration:1.2, ease:"power2.out"}, 5.98);
+    tl.fromTo("#f4-r2", {opacity:0.9, scale:0.3, transformOrigin:"50% 50%"}, {opacity:0, scale:5, duration:1.2, ease:"power2.out"}, 6.23);
+    tl.fromTo("#f4-boom", {opacity:0, scale:0.3, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.25, ease:"back.out(3)"}, 5.73);
+    tl.to("#f4-boom", {opacity:0, duration:0.3}, 7.03);
+    tl.fromTo("#f4-ear", {opacity:0, x:-60}, {opacity:1, x:0, duration:0.4}, 6.45);
+    tl.fromTo("#f4-r0", {opacity:0.8, scale:0.3}, {opacity:0, scale:4, duration:1.0, ease:"power1.out", immediateRender:false}, 7.03);
+    tl.fromTo("#f4-r1", {opacity:0.8, scale:0.3}, {opacity:0, scale:4, duration:1.0, ease:"power1.out", immediateRender:false}, 7.33);
+    tl.fromTo("#f4-r2", {opacity:0.8, scale:0.3}, {opacity:0, scale:4, duration:1.0, ease:"power1.out", immediateRender:false}, 7.63);
+    tl.fromTo("#f4-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.65);
+
+    tl.to("#f4-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["f4"] = tl;
+  </script>
+</template>
