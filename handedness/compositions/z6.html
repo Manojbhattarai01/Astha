@@ -1,0 +1,47 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#z6-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="z6" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="z6-wrap" class="wrap">
+      <div id="z6-title" class="title">खेलमा <b>देब्रेलाई फाइदा</b></div>
+      <svg id="z6-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="z6-me"><circle cx="300" cy="240" r="70" fill="#f1b48c"/><rect x="230" y="320" width="140" height="220" rx="60" fill="#ff9f43"/><g id="z6-jab"><path d="M330 380 L470 360" stroke="#ff9f43" stroke-width="40" stroke-linecap="round"/><circle cx="490" cy="358" r="42" fill="#ff4d6d"/></g><path d="M270 380 L360 430" stroke="#ff9f43" stroke-width="40" stroke-linecap="round"/><circle cx="375" cy="440" r="38" fill="#ff4d6d"/></g><text id="z6-mt" x="300" y="620" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#ff9f43">देब्रे खेलाडी</text><g id="z6-them"><circle cx="790" cy="240" r="70" fill="#c68642"/><rect x="720" y="320" width="140" height="220" rx="60" fill="#4dabf7"/><path d="M760 380 L680 410" stroke="#4dabf7" stroke-width="40" stroke-linecap="round"/><circle cx="665" cy="415" r="38" fill="#1c7ed6"/><path d="M820 400 L740 450" stroke="#4dabf7" stroke-width="40" stroke-linecap="round"/><circle cx="725" cy="460" r="38" fill="#1c7ed6"/></g><text id="z6-tt" x="790" y="620" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#4dabf7">विपक्षी</text><text id="z6-q0" x="700" y="140" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="90" fill="#ffd23f">?</text><text id="z6-q1" x="880" y="110" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="90" fill="#ffd23f">?</text><text id="z6-q2" x="950" y="210" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="90" fill="#ffd23f">?</text><g id="z6-ic"><circle cx="440" cy="90" r="34" fill="none" stroke="#fff" stroke-width="8"/><path d="M465 115 L500 150" stroke="#fff" stroke-width="10" stroke-linecap="round"/><circle cx="560" cy="100" r="30" fill="#ff4d6d"/><path d="M534 82 Q560 100 586 82 M534 118 Q560 100 586 118" stroke="#fff" stroke-width="4" fill="none"/><rect x="650" y="40" width="22" height="120" rx="9" fill="#e9c46a" transform="rotate(25 661 100)"/></g>
+      </svg>
+<div id="z6-l" class="chipbox" style="left:0;right:0;top:1080px;text-align:center"><span class="chip" style="font-size:46px;color:#14213d;background:#ffd23f">चाल अनुमान गर्न गाह्रो!</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 10.48;
+    tl.fromTo("#z6-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#z6-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#z6-jab", {x:0}, {x:60, duration:0.18, yoyo:true, repeat:51, ease:"power2.out"}, 0.5);
+    tl.fromTo("#z6-them", {rotation:0, svgOrigin:"790 540"}, {rotation:5, duration:0.36, yoyo:true, repeat:25, ease:"sine.inOut"}, 0.5);
+    tl.fromTo("#z6-ic", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.84);
+    tl.fromTo("#z6-q0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.62);
+    tl.fromTo("#z6-q1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.82);
+    tl.fromTo("#z6-q2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.02);
+    tl.fromTo("#z6-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.92);
+
+    tl.to("#z6-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["z6"] = tl;
+  </script>
+</template>

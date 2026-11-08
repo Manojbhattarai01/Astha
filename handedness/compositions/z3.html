@@ -1,0 +1,45 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#z3-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="z3" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="z3-wrap" class="wrap">
+      <div id="z3-title" class="title"><b>गर्भमै</b> सुरु हुन्छ</div>
+      <svg id="z3-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="z3-womb"><circle cx="300" cy="380" r="240" fill="#ffb3c1" opacity="0.45"/><circle cx="300" cy="380" r="240" fill="none" stroke="#ff8fa3" stroke-width="8"/><ellipse cx="320" cy="450" rx="120" ry="90" fill="#f1b48c"/><circle cx="260" cy="320" r="85" fill="#f1b48c"/><path d="M225 310 q 15 10 30 0 M275 310 q 15 10 30 0" stroke="#14213d" stroke-width="6" fill="none" stroke-linecap="round"/><g id="z3-thumb"><rect x="250" y="350" width="70" height="30" rx="15" fill="#e39a6f"/><rect x="230" y="355" width="40" height="22" rx="11" fill="#f7c6a8"/></g><path d="M320 470 Q 330 400 300 370" stroke="#e39a6f" stroke-width="30" fill="none" stroke-linecap="round"/></g><g id="z3-tag"><rect x="120" y="640" width="360" height="70" rx="35" fill="#1864ab"/><text id="z3-tt" x="300" y="690" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#ffffff">दायाँ बुढी औंला</text></g><path id="z3-arrow" d="M560 380 L680 380" stroke="#fff" stroke-width="16" stroke-linecap="round"/><path id="z3-ah" d="M680 350 L730 380 L680 410 Z" fill="#fff"/><g id="z3-kid"><circle cx="880" cy="240" r="80" fill="#f1b48c"/><path d="M800 220 Q 820 140 880 150 Q 950 150 960 220" fill="#2b2233"/><rect x="800" y="320" width="160" height="200" rx="60" fill="#3b4a7a"/><rect x="760" y="560" width="250" height="140" rx="12" fill="#fff"/><path d="M790 600 h150 M790 630 h120 M790 660 h140" stroke="#adb5bd" stroke-width="6"/><g id="z3-kh"><g transform="translate(960 560) scale(0.35 0.35)"><g transform="rotate(30)"><rect x="-10" y="-260" width="20" height="230" rx="8" fill="#ffd23f"/><path d="M-10 -30 L10 -30 L0 0 Z" fill="#14213d"/></g><rect x="-112" y="-80" width="40" height="120" rx="20" fill="#f1b48c" transform="rotate(-28 -92 40)"/><rect x="-62" y="-200" width="34" height="90" rx="17" fill="#f1b48c"/><rect x="-24" y="-225" width="34" height="115" rx="17" fill="#f1b48c"/><rect x="14" y="-218" width="34" height="108" rx="17" fill="#f1b48c"/><rect x="50" y="-190" width="34" height="80" rx="17" fill="#f1b48c"/><rect x="-70" y="-120" width="156" height="170" rx="56" fill="#f1b48c"/><rect x="-40" y="50" width="96" height="70" rx="20" fill="#f1b48c"/><path d="M-40 -40 Q10 -20 60 -50 M-30 0 Q15 15 55 -5" stroke="#e39a6f" stroke-width="6" fill="none" stroke-linecap="round"/></g></g></g>
+      </svg>
+
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 8.17;
+    tl.fromTo("#z3-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#z3-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.fromTo("#z3-tag", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.04);
+    tl.fromTo("#z3-thumb", {x:0}, {x:-8, duration:0.3, yoyo:true, repeat:15}, 3.14);
+    tl.fromTo("#z3-arrow, #z3-ah", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.4}, 6.01);
+    tl.fromTo("#z3-kid", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.31);
+    tl.fromTo("#z3-kh", {x:0, y:0}, {x:-40, y:10, duration:0.35, yoyo:true, repeat:2, ease:"sine.inOut"}, 6.71);
+
+    tl.to("#z3-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["z3"] = tl;
+  </script>
+</template>

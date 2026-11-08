@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ne">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #101327; font-family: 'Mukta', sans-serif; }
+      #bg { position: absolute; inset: 0; background: radial-gradient(circle at 14% 20%, rgba(255,159,67,.3) 0 7px, transparent 8px), radial-gradient(circle at 86% 30%, rgba(77,171,247,.3) 0 9px, transparent 10px), radial-gradient(circle at 76% 82%, rgba(77,171,247,.22) 0 8px, transparent 9px), radial-gradient(circle at 20% 74%, rgba(255,159,67,.22) 0 10px, transparent 11px), linear-gradient(90deg, rgba(255,159,67,.10) 0%, rgba(0,0,0,0) 50%, rgba(77,171,247,.10) 100%), radial-gradient(120% 70% at 50% 35%, #26304f 0%, #141a33 55%, #080b1c 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="78.99" data-width="1080" data-height="1920" data-fps="30">
+      <div id="bg" class="clip" data-start="0" data-duration="78.99" data-track-index="0" data-layout-ignore></div>
+      <div id="z1" data-composition-id="z1" data-composition-src="compositions/z1.html" data-start="0" data-duration="7.57" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z2" data-composition-id="z2" data-composition-src="compositions/z2.html" data-start="7.57" data-duration="11.32" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z3" data-composition-id="z3" data-composition-src="compositions/z3.html" data-start="18.89" data-duration="8.17" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z4" data-composition-id="z4" data-composition-src="compositions/z4.html" data-start="27.06" data-duration="7.86" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z5" data-composition-id="z5" data-composition-src="compositions/z5.html" data-start="34.92" data-duration="8.69" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z6" data-composition-id="z6" data-composition-src="compositions/z6.html" data-start="43.61" data-duration="10.48" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z7" data-composition-id="z7" data-composition-src="compositions/z7.html" data-start="54.09" data-duration="8.1" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z8" data-composition-id="z8" data-composition-src="compositions/z8.html" data-start="62.19" data-duration="9.96" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="z9" data-composition-id="z9" data-composition-src="compositions/z9.html" data-start="72.15" data-duration="6.84" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="78.99" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
