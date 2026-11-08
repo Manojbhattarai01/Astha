@@ -86,7 +86,7 @@ def hand(gid, cx, cy, s=1.0, left=False, color=SKIN, pen=False):
         f'<rect x="{x}" y="{-150 - h}" width="34" height="{h + 40}" rx="17" fill="{color}"/>'
         for x, h in [(-62, 50), (-24, 75), (14, 68), (50, 40)]
     )
-    thumb = f'<rect x="-112" y="-80" width="40" height="120" rx="20" fill="{color}" transform="rotate(-28 -92 40)"/>'
+    thumb = f'<rect x="-104" y="-70" width="48" height="120" rx="24" fill="{color}" transform="rotate(-22 -80 40)"/>'
     palm = f'<rect x="-70" y="-120" width="156" height="170" rx="56" fill="{color}"/><rect x="-40" y="50" width="96" height="70" rx="20" fill="{color}"/>'
     lines = f'<path d="M-40 -40 Q10 -20 60 -50 M-30 0 Q15 15 55 -5" stroke="{SKIN2}" stroke-width="6" fill="none" stroke-linecap="round"/>'
     p = ""
