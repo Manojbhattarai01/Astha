@@ -30,17 +30,17 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 6.34;
+    const D = 6.4;
     tl.fromTo("#f6-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#f6-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
     tl.set("#f6-up, #f6-down", {opacity:0}, 0);
-    tl.fromTo("#f6-fl0", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:70}, 0.2);
-    tl.fromTo("#f6-fl1", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:70}, 0.22);
-    tl.fromTo("#f6-fl2", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:70}, 0.24);
-    tl.fromTo("#f6-fl3", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:70}, 0.26);
-    tl.to("#f6-down", {opacity:1, duration:0.3}, 2.81);
-    tl.to("#f6-up", {opacity:1, duration:0.3}, 3.71);
-    tl.fromTo("#f6-rk", {y:0}, {y:-320, duration:1.93, ease:"power2.in"}, 3.81);
+    tl.fromTo("#f6-fl0", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:71}, 0.2);
+    tl.fromTo("#f6-fl1", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:71}, 0.22);
+    tl.fromTo("#f6-fl2", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:71}, 0.24);
+    tl.fromTo("#f6-fl3", {scaleY:0.6, opacity:0.8, svgOrigin:"540 470"}, {scaleY:1.2, opacity:1, duration:0.08, yoyo:true, repeat:71}, 0.26);
+    tl.to("#f6-down", {opacity:1, duration:0.3}, 2.17);
+    tl.to("#f6-up", {opacity:1, duration:0.3}, 3.07);
+    tl.fromTo("#f6-rk", {y:0}, {y:-320, duration:2.63, ease:"power2.in"}, 3.17);
     tl.fromTo("#f6-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.72);
 
     tl.to("#f6-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);

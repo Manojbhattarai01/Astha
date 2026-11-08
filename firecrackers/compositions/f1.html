@@ -30,17 +30,19 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 7.16;
+    const D = 9.56;
     tl.set("#f1-b1", {scale:0.9, opacity:1, transformOrigin:"50% 50%"}, 0);
     tl.to("#f1-b1", {scale:1.15, opacity:0, duration:0.9, ease:"power2.out"}, 0.5);
-    tl.fromTo("#f1-sp", {scale:0.7, rotation:0, transformOrigin:"50% 50%"}, {scale:1.25, rotation:45, duration:0.12, yoyo:true, repeat:55, ease:"sine.inOut"}, 0);
+    tl.fromTo("#f1-sp", {scale:0.7, rotation:0, transformOrigin:"50% 50%"}, {scale:1.25, rotation:45, duration:0.12, yoyo:true, repeat:75, ease:"sine.inOut"}, 0);
     tl.fromTo("#f1-title", {scale:1}, {scale:1.15, duration:0.15, yoyo:true, repeat:3}, 0.05);
     tl.to("#f1-b2", {keyframes:[{scale:0, opacity:1, duration:0.01}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.15, duration:0.6}]}, 1.6);
     tl.to("#f1-b3", {keyframes:[{scale:0, opacity:1, duration:0.01}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.15, duration:0.6}]}, 2.7);
     tl.to("#f1-b2", {keyframes:[{scale:0, opacity:1, duration:0.01}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.15, duration:0.6}]}, 3.8);
     tl.to("#f1-b3", {keyframes:[{scale:0, opacity:1, duration:0.01}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.15, duration:0.6}]}, 4.9);
-    tl.fromTo("#f1-cr", {x:0}, {x:4, duration:0.05, yoyo:true, repeat:132}, 0.1);
-    tl.fromTo("#f1-chip", {scale:1}, {scale:1.06, duration:0.3, yoyo:true, repeat:19, transformOrigin:"50% 50%"}, 0.5);
+    tl.to("#f1-b2", {keyframes:[{scale:0, opacity:1, duration:0.01}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.15, duration:0.6}]}, 6);
+    tl.to("#f1-b3", {keyframes:[{scale:0, opacity:1, duration:0.01}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.15, duration:0.6}]}, 7.1);
+    tl.fromTo("#f1-cr", {x:0}, {x:4, duration:0.05, yoyo:true, repeat:180}, 0.1);
+    tl.fromTo("#f1-chip", {scale:1}, {scale:1.06, duration:0.3, yoyo:true, repeat:27, transformOrigin:"50% 50%"}, 0.5);
 
     tl.to("#f1-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["f1"] = tl;

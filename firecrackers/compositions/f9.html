@@ -30,10 +30,10 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 8.89;
+    const D = 7.14;
     tl.fromTo("#f9-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#f9-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
-    tl.fromTo("#f9-fl", {scaleY:0.85, svgOrigin:"540 315"}, {scaleY:1.15, duration:0.15, yoyo:true, repeat:54}, 0.2);
+    tl.fromTo("#f9-fl", {scaleY:0.85, svgOrigin:"540 315"}, {scaleY:1.15, duration:0.15, yoyo:true, repeat:42}, 0.2);
     tl.set("#f9-b0, #f9-b1", {opacity:0}, 0);
     tl.to("#f9-b0", {keyframes:[{opacity:1, scale:0, duration:0.01, transformOrigin:"50% 50%"}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.1, duration:0.6}]}, 0.5);
     tl.to("#f9-b1", {keyframes:[{opacity:1, scale:0, duration:0.01, transformOrigin:"50% 50%"}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.1, duration:0.6}]}, 1.5);
@@ -41,10 +41,9 @@
     tl.to("#f9-b1", {keyframes:[{opacity:1, scale:0, duration:0.01, transformOrigin:"50% 50%"}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.1, duration:0.6}]}, 3.5);
     tl.to("#f9-b0", {keyframes:[{opacity:1, scale:0, duration:0.01, transformOrigin:"50% 50%"}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.1, duration:0.6}]}, 4.5);
     tl.to("#f9-b1", {keyframes:[{opacity:1, scale:0, duration:0.01, transformOrigin:"50% 50%"}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.1, duration:0.6}]}, 5.5);
-    tl.to("#f9-b0", {keyframes:[{opacity:1, scale:0, duration:0.01, transformOrigin:"50% 50%"}, {scale:1, duration:0.35, ease:"power3.out"}, {opacity:0, scale:1.1, duration:0.6}]}, 6.5);
     tl.fromTo("#f9-bub", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.32);
-    tl.fromTo("#f9-share", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.1);
-    tl.to("#f9-share", {scale:1.06, duration:0.3, yoyo:true, repeat:15, transformOrigin:"50% 50%"}, 3.6);
+    tl.fromTo("#f9-share", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.65);
+    tl.to("#f9-share", {scale:1.06, duration:0.3, yoyo:true, repeat:11, transformOrigin:"50% 50%"}, 3.15);
 
     tl.to("#f9-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["f9"] = tl;

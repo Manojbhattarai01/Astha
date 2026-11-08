@@ -168,7 +168,7 @@ def f4(d, c):
     js += f'    tl.fromTo("#f4-needle", {{rotation:-70, svgOrigin:"0 0"}}, {{rotation:75, duration:{fmt(max(1, c[1][0] + 0.6))}, ease:"power2.in"}}, 0.3);\n'
     js += f'    tl.fromTo("#f4-cr", {{scaleX:1, svgOrigin:"540 330"}}, {{scaleX:1.12, duration:{fmt(max(1, c[1][0] + 0.6))}, ease:"power2.in"}}, 0.3);\n'
     js += f'    tl.to("#f4-glow", {{opacity:0.7, duration:{fmt(max(1, c[1][0] + 0.6))}}}, 0.3);\n'
-    tb = c[2][1] - 0.45  # lands on "धुम!"
+    tb = c[2][1] - 0.88  # lands on "धुम!" (word starts 0.88 s before the clause ends)
     js += f'    tl.to("#f4-cr", {{opacity:0, duration:0.05}}, {fmt(tb)});\n'
     for i in range(16):
         a = i / 16 * 6.283

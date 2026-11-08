@@ -77,25 +77,29 @@ def local(p):
 
 # ================= captions + index =================
 def caption_groups():
+    """Caption groups (<=4 words, <=22 letters) timed from exact word timestamps when available."""
+    tp = os.path.join(HERE, "timing.json")
+    words = json.load(open(tp)).get("words") if os.path.exists(tp) else None
     groups = []
-    for (_, text), (s, e) in zip(CLAUSES, TIMES):
-        words = text.split()
+    for ci, ((_, text), (s, e)) in enumerate(zip(CLAUSES, TIMES)):
+        if words:
+            ws = words[ci]
+        else:
+            sw = [w for w in text.split() if w not in ("—", "-")]
+            n = len(sw)
+            ws = [[w, s + (e - s) * k / n, s + (e - s) * (k + 1) / n] for k, w in enumerate(sw)]
         chunks, cur = [], []
-        for w_ in words:
-            trial = cur + [w_]
-            if cur and (len(trial) > 4 or len(" ".join(trial)) > 22):
+        for item in ws:
+            trial = cur + [item]
+            if cur and (len(trial) > 4 or len(" ".join(x[0] for x in trial)) > 22):
                 chunks.append(cur)
-                cur = [w_]
+                cur = [item]
             else:
                 cur = trial
         if cur:
             chunks.append(cur)
-        total = sum(len(" ".join(ch)) for ch in chunks)
-        t = s
         for ch in chunks:
-            gd = (e - s) * len(" ".join(ch)) / total
-            groups.append((ch, t, t + gd))
-            t += gd
+            groups.append(([x[0] for x in ch], ch[0][1], ch[-1][2]))
     return groups
 
 
