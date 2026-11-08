@@ -1,0 +1,89 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#y7-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="y7" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="y7-wrap" class="wrap">
+      <div id="y7-title" class="title">बडुल्की <b>सर्छ!</b></div>
+      <svg id="y7-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="y7-eye" transform="translate(260 180)"><path d="M-90 0 Q0 -70 90 0 Q0 70 -90 0 Z" fill="#fff"/><circle r="32" fill="#1c7ed6"/><circle r="14" fill="#14213d"/></g><g id="y7-ear" transform="translate(540 180)"><path d="M-30 -70 C 50 -90, 80 -10, 30 30 C 10 50, 20 80, -10 80" stroke="#fff" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M60 -40 q 30 30 0 60 M85 -60 q 50 50 0 100" stroke="#5ad1ff" stroke-width="8" fill="none" stroke-linecap="round"/></g><g id="y7-book" transform="translate(820 180)"><path d="M0 -50 Q-60 -70 -110 -50 L-110 60 Q-60 40 0 60 Z" fill="#fff"/><path d="M0 -50 Q60 -70 110 -50 L110 60 Q60 40 0 60 Z" fill="#e9ecef"/><path d="M-90 -20 h70 M-90 5 h70 M20 -20 h70 M20 5 h70" stroke="#adb5bd" stroke-width="6"/></g><text id="y7-w0" x="260" y="300" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#fff">देख्दा</text><text id="y7-w1" x="540" y="300" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#fff">सुन्दा</text><text id="y7-w2" x="820" y="300" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#fff">पढ्दा</text><path id="y7-ar0" d="M220 400 q 55 -60 110 0" stroke="#ffd23f" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="8 12"/><path id="y7-ar1" d="M470 400 q 55 -60 110 0" stroke="#ffd23f" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="8 12"/><path id="y7-ar2" d="M720 400 q 55 -60 110 0" stroke="#ffd23f" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="8 12"/><g id="y7-f0"><circle cx="150" cy="520" r="110" fill="#f1b48c"/><path d="M45.5 498 Q62 393.5 150 407.8 Q243.5 399 254.5 498 Q150 443 45.5 498 Z" fill="#2b2233"/><circle cx="81.8" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><circle cx="218.2" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><g id="y7-f0-eyes"><path d="M89.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/><path d="M166.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/></g><g id="y7-f0-mouth"><ellipse cx="150" cy="566.2" rx="33" ry="39.6" fill="#5a1f2b"/><ellipse cx="150" cy="592.6" rx="19.8" ry="9.9" fill="#e2566e"/></g></g><g id="y7-f1"><circle cx="400" cy="520" r="110" fill="#c68642"/><path d="M295.5 498 Q312 393.5 400 407.8 Q493.5 399 504.5 498 Q400 443 295.5 498 Z" fill="#2b2233"/><circle cx="331.8" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><circle cx="468.2" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><g id="y7-f1-eyes"><path d="M339.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/><path d="M416.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/></g><g id="y7-f1-mouth"><ellipse cx="400" cy="566.2" rx="33" ry="39.6" fill="#5a1f2b"/><ellipse cx="400" cy="592.6" rx="19.8" ry="9.9" fill="#e2566e"/></g></g><g id="y7-f2"><circle cx="650" cy="520" r="110" fill="#ffdbac"/><path d="M545.5 498 Q562 393.5 650 407.8 Q743.5 399 754.5 498 Q650 443 545.5 498 Z" fill="#2b2233"/><circle cx="581.8" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><circle cx="718.2" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><g id="y7-f2-eyes"><path d="M589.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/><path d="M666.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/></g><g id="y7-f2-mouth"><ellipse cx="650" cy="566.2" rx="33" ry="39.6" fill="#5a1f2b"/><ellipse cx="650" cy="592.6" rx="19.8" ry="9.9" fill="#e2566e"/></g></g><g id="y7-f3"><circle cx="900" cy="520" r="110" fill="#8d5524"/><path d="M795.5 498 Q812 393.5 900 407.8 Q993.5 399 1004.5 498 Q900 443 795.5 498 Z" fill="#2b2233"/><circle cx="831.8" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><circle cx="968.2" cy="536.5" r="13.2" fill="#ff8fa3" opacity="0.5"/><g id="y7-f3-eyes"><path d="M839.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/><path d="M916.5 503.5 q 22 15.4 44 0" stroke="#14213d" stroke-width="7.7" fill="none" stroke-linecap="round"/></g><g id="y7-f3-mouth"><ellipse cx="900" cy="566.2" rx="33" ry="39.6" fill="#5a1f2b"/><ellipse cx="900" cy="592.6" rx="19.8" ry="9.9" fill="#e2566e"/></g></g>
+      </svg>
+
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 9.91;
+    tl.fromTo("#y7-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#y7-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.set("#y7-ar0, #y7-ar1, #y7-ar2", {opacity:0}, 0);
+    tl.set("#y7-f0-mouth", {scaleY:0.15, svgOrigin:"150 526.6"}, 0);
+    tl.set("#y7-f1-mouth", {scaleY:0.15, svgOrigin:"400 526.6"}, 0);
+    tl.set("#y7-f2-mouth", {scaleY:0.15, svgOrigin:"650 526.6"}, 0);
+    tl.set("#y7-f3-mouth", {scaleY:0.15, svgOrigin:"900 526.6"}, 0);
+    tl.to("#y7-f0-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"150 526.6"}, 0.52);
+    tl.to("#y7-f0-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"150 526.6"}, 1.35);
+    tl.to("#y7-f0", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"150 630"}, 0.52);
+    tl.to("#y7-f0", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"150 630"}, 1.35);
+    tl.to("#y7-ar0", {opacity:1, duration:0.2, yoyo:true, repeat:1}, 1.02);
+    tl.to("#y7-f1-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"400 526.6"}, 1.42);
+    tl.to("#y7-f1-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"400 526.6"}, 2.25);
+    tl.to("#y7-f1", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"400 630"}, 1.42);
+    tl.to("#y7-f1", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"400 630"}, 2.25);
+    tl.to("#y7-ar1", {opacity:1, duration:0.2, yoyo:true, repeat:1}, 1.92);
+    tl.to("#y7-f2-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"650 526.6"}, 2.32);
+    tl.to("#y7-f2-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"650 526.6"}, 3.15);
+    tl.to("#y7-f2", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"650 630"}, 2.32);
+    tl.to("#y7-f2", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"650 630"}, 3.15);
+    tl.to("#y7-ar2", {opacity:1, duration:0.2, yoyo:true, repeat:1}, 2.82);
+    tl.to("#y7-f3-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"900 526.6"}, 3.22);
+    tl.to("#y7-f3-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"900 526.6"}, 4.05);
+    tl.to("#y7-f3", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"900 630"}, 3.22);
+    tl.to("#y7-f3", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"900 630"}, 4.05);
+    tl.to("#y7-f0-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"150 526.6"}, 5.12);
+    tl.to("#y7-f0-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"150 526.6"}, 5.95);
+    tl.to("#y7-f0", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"150 630"}, 5.12);
+    tl.to("#y7-f0", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"150 630"}, 5.95);
+    tl.to("#y7-ar0", {opacity:1, duration:0.2, yoyo:true, repeat:1}, 5.62);
+    tl.to("#y7-f1-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"400 526.6"}, 6.02);
+    tl.to("#y7-f1-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"400 526.6"}, 6.85);
+    tl.to("#y7-f1", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"400 630"}, 6.02);
+    tl.to("#y7-f1", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"400 630"}, 6.85);
+    tl.to("#y7-ar1", {opacity:1, duration:0.2, yoyo:true, repeat:1}, 6.52);
+    tl.to("#y7-f2-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"650 526.6"}, 6.92);
+    tl.to("#y7-f2-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"650 526.6"}, 7.75);
+    tl.to("#y7-f2", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"650 630"}, 6.92);
+    tl.to("#y7-f2", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"650 630"}, 7.75);
+    tl.to("#y7-ar2", {opacity:1, duration:0.2, yoyo:true, repeat:1}, 7.42);
+    tl.to("#y7-f3-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"900 526.6"}, 7.82);
+    tl.to("#y7-f3-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"900 526.6"}, 8.65);
+    tl.to("#y7-f3", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"900 630"}, 7.82);
+    tl.to("#y7-f3", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"900 630"}, 8.65);
+    tl.fromTo("#y7-eye", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.63);
+    tl.fromTo("#y7-w0", {opacity:0}, {opacity:1, duration:0.2}, 3.73);
+    tl.fromTo("#y7-ear", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.43);
+    tl.fromTo("#y7-w1", {opacity:0}, {opacity:1, duration:0.2}, 4.53);
+    tl.fromTo("#y7-book", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.8);
+    tl.fromTo("#y7-w2", {opacity:0}, {opacity:1, duration:0.2}, 6.9);
+
+    tl.to("#y7-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["y7"] = tl;
+  </script>
+</template>

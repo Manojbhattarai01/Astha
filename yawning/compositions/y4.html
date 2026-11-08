@@ -1,0 +1,70 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#y4-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="y4" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="y4-wrap" class="wrap">
+      <div id="y4-title" class="title">कारण: <b>दिमागलाई चिसो</b> पार्नु</div>
+      <svg id="y4-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<path d="M330 700 L330 560 Q230 520 240 420 Q180 400 210 360 L250 330 Q220 120 470 80 Q760 50 820 300 Q860 520 700 620 L700 700 Z" fill="#f1b48c"/><path id="y4-jaw" d="M250 420 Q300 470 400 470" stroke="#e39a6f" stroke-width="14" fill="none" stroke-linecap="round"/><path id="y4-brain" d="M400 150 C 470 100, 640 100, 720 170 C 790 230, 780 340, 700 370 C 640 400, 520 400, 450 370 C 370 340, 340 220, 400 150 Z" fill="#f7a8c4" stroke="#c75b8a" stroke-width="8"/><path id="y4-hot" d="M400 150 C 470 100, 640 100, 720 170 C 790 230, 780 340, 700 370 C 640 400, 520 400, 450 370 C 370 340, 340 220, 400 150 Z" fill="#ff7a45" opacity="0.6"/><path id="y4-cool" d="M400 150 C 470 100, 640 100, 720 170 C 790 230, 780 340, 700 370 C 640 400, 520 400, 450 370 C 370 340, 340 220, 400 150 Z" fill="#5ad1ff" opacity="0"/><path d="M480 180 Q520 220 490 260 M600 170 Q640 210 610 250 M540 300 Q580 330 640 310" stroke="#c75b8a" stroke-width="7" fill="none" stroke-linecap="round"/><g id="y4-mouth"><ellipse cx="225" cy="440" rx="40" ry="55" fill="#5a1f2b"/></g><g id="y4-a0"><path d="M20 400 L150 420" stroke="#5ad1ff" stroke-width="12" stroke-linecap="round"/><path d="M150 420 l -26 -16 l 4 30 Z" fill="#5ad1ff"/></g><g id="y4-a1"><path d="M20 440 L150 435" stroke="#5ad1ff" stroke-width="12" stroke-linecap="round"/><path d="M150 435 l -26 -16 l 4 30 Z" fill="#5ad1ff"/></g><g id="y4-a2"><path d="M20 480 L150 450" stroke="#5ad1ff" stroke-width="12" stroke-linecap="round"/><path d="M150 450 l -26 -16 l 4 30 Z" fill="#5ad1ff"/></g><circle id="y4-r0" cx="330" cy="560" r="12" fill="#e03131"/><circle id="y4-r1" cx="360" cy="560" r="12" fill="#e03131"/><circle id="y4-r2" cx="390" cy="560" r="12" fill="#e03131"/><circle id="y4-r3" cx="330" cy="560" r="12" fill="#e03131"/><circle id="y4-r4" cx="360" cy="560" r="12" fill="#e03131"/><circle id="y4-r5" cx="390" cy="560" r="12" fill="#e03131"/><circle id="y4-r6" cx="330" cy="560" r="12" fill="#e03131"/><circle id="y4-r7" cx="360" cy="560" r="12" fill="#e03131"/><circle id="y4-r8" cx="390" cy="560" r="12" fill="#e03131"/><g id="y4-therm"><rect x="930" y="120" width="60" height="420" rx="30" fill="#fff"/><circle cx="960" cy="560" r="55" fill="#fff"/><rect id="y4-merc" x="944" y="160" width="32" height="390" rx="16" fill="#ff4d6d"/><circle cx="960" cy="560" r="40" fill="#ff4d6d"/></g>
+      </svg>
+<div id="y4-l1" class="chipbox" style="left:0;right:0;top:1090px;text-align:center"><span class="chip" style="font-size:46px;color:#14213d;background:#5ad1ff">चिसो हावा भित्र</span></div><div id="y4-l2" class="chipbox" style="left:0;right:0;top:1090px;text-align:center"><span class="chip" style="font-size:46px;color:#fff;background:#e03131">रगतको बहाव बढ्छ</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 11.6;
+    tl.fromTo("#y4-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#y4-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.set("#y4-mouth", {scaleY:0.2, svgOrigin:"225 410"}, 0);
+    tl.to("#y4-mouth", {scaleY:1, duration:0.8, ease:"sine.out", svgOrigin:"225 410"}, 4.13);
+    tl.fromTo("#y4-a0", {opacity:0, x:-80}, {opacity:1, x:40, duration:0.6, ease:"power1.out", repeat:9}, 4.43);
+    tl.fromTo("#y4-a1", {opacity:0, x:-80}, {opacity:1, x:40, duration:0.6, ease:"power1.out", repeat:9}, 4.58);
+    tl.fromTo("#y4-a2", {opacity:0, x:-80}, {opacity:1, x:40, duration:0.6, ease:"power1.out", repeat:9}, 4.73);
+    tl.fromTo("#y4-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.33);
+    tl.to("#y4-l1", {opacity:0, duration:0.15}, 7.98);
+    tl.fromTo("#y4-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.13);
+    tl.fromTo("#y4-jaw", {opacity:0.4}, {opacity:1, duration:0.3, yoyo:true, repeat:3}, 8.13);
+    tl.set("#y4-r0", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r0", {keyframes:[{opacity:1, duration:0.1}, {x:120, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 8.33);
+    tl.set("#y4-r1", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r1", {keyframes:[{opacity:1, duration:0.1}, {x:160, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 8.45);
+    tl.set("#y4-r2", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r2", {keyframes:[{opacity:1, duration:0.1}, {x:200, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 8.57);
+    tl.set("#y4-r3", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r3", {keyframes:[{opacity:1, duration:0.1}, {x:120, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 8.69);
+    tl.set("#y4-r4", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r4", {keyframes:[{opacity:1, duration:0.1}, {x:160, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 8.81);
+    tl.set("#y4-r5", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r5", {keyframes:[{opacity:1, duration:0.1}, {x:200, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 8.93);
+    tl.set("#y4-r6", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r6", {keyframes:[{opacity:1, duration:0.1}, {x:120, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 9.05);
+    tl.set("#y4-r7", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r7", {keyframes:[{opacity:1, duration:0.1}, {x:160, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 9.17);
+    tl.set("#y4-r8", {x:0, y:0, opacity:0}, 0);
+    tl.to("#y4-r8", {keyframes:[{opacity:1, duration:0.1}, {x:200, y:-330, duration:1.1, ease:"sine.inOut"}, {opacity:0, duration:0.1}], repeat:1}, 9.29);
+    tl.to("#y4-hot", {opacity:0, duration:6.47, ease:"sine.inOut"}, 4.53);
+    tl.to("#y4-cool", {opacity:0.45, duration:6.47, ease:"sine.inOut"}, 4.53);
+    tl.fromTo("#y4-merc", {scaleY:1, svgOrigin:"960 550"}, {scaleY:0.35, duration:6.47, ease:"sine.inOut"}, 4.53);
+
+    tl.to("#y4-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["y4"] = tl;
+  </script>
+</template>

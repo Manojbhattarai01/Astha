@@ -1,0 +1,83 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#y8-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="y8" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="y8-wrap" class="wrap">
+      <div id="y8-title" class="title"><b>समानुभूति</b>सँग जोडिएको</div>
+      <svg id="y8-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<path id="y8-l1" d="M290 200 L430 290" stroke="#ff4d6d" stroke-width="16" stroke-linecap="round"/><path id="y8-l2" d="M790 200 L650 290" stroke="#ff4d6d" stroke-width="16" stroke-linecap="round"/><path id="y8-l3" d="M285 530 L430 400" stroke="#9aa6bb" stroke-width="6" stroke-dasharray="10 14" stroke-linecap="round"/><path id="y8-l4" d="M795 530 L650 400" stroke="#ffd23f" stroke-width="12" stroke-linecap="round"/><path id="y8-h0" transform="translate(360 235) scale(1.4)" d="M0 -6 C 0 -16, -16 -16, -16 -4 C -16 6, -4 12, 0 18 C 4 12, 16 6, 16 -4 C 16 -16, 0 -16, 0 -6 Z" fill="#ff4d6d"/><path id="y8-h1" transform="translate(720 235) scale(1.4)" d="M0 -6 C 0 -16, -16 -16, -16 -4 C -16 6, -4 12, 0 18 C 4 12, 16 6, 16 -4 C 16 -16, 0 -16, 0 -6 Z" fill="#ff4d6d"/><g id="y8-me"><circle cx="540" cy="330" r="120" fill="#f1b48c"/><path d="M426 306 Q444 192 540 207.6 Q642 198 654 306 Q540 246 426 306 Z" fill="#2b2233"/><circle cx="465.6" cy="348" r="14.4" fill="#ff8fa3" opacity="0.5"/><circle cx="614.4" cy="348" r="14.4" fill="#ff8fa3" opacity="0.5"/><g id="y8-me-eyes"><path d="M474 312 q 24 16.8 48 0" stroke="#14213d" stroke-width="8.4" fill="none" stroke-linecap="round"/><path d="M558 312 q 24 16.8 48 0" stroke="#14213d" stroke-width="8.4" fill="none" stroke-linecap="round"/></g><g id="y8-me-mouth"><ellipse cx="540" cy="380.4" rx="36" ry="43.2" fill="#5a1f2b"/><ellipse cx="540" cy="409.2" rx="21.6" ry="10.8" fill="#e2566e"/></g></g><g id="y8-fam"><circle cx="210" cy="170" r="85" fill="#ffdbac"/><path d="M129.25 153 Q142 72.25 210 83.3 Q282.25 76.5 290.75 153 Q210 110.5 129.25 153 Z" fill="#2b2233"/><circle cx="157.3" cy="182.75" r="10.2" fill="#ff8fa3" opacity="0.5"/><circle cx="262.7" cy="182.75" r="10.2" fill="#ff8fa3" opacity="0.5"/><g id="y8-fam-eyes"><path d="M163.25 157.25 q 17 11.9 34 0" stroke="#14213d" stroke-width="5.95" fill="none" stroke-linecap="round"/><path d="M222.75 157.25 q 17 11.9 34 0" stroke="#14213d" stroke-width="5.95" fill="none" stroke-linecap="round"/></g><g id="y8-fam-mouth"><ellipse cx="210" cy="205.7" rx="25.5" ry="30.6" fill="#5a1f2b"/><ellipse cx="210" cy="226.1" rx="15.3" ry="7.65" fill="#e2566e"/></g></g><g id="y8-fr"><circle cx="870" cy="170" r="85" fill="#c68642"/><path d="M789.25 153 Q802 72.25 870 83.3 Q942.25 76.5 950.75 153 Q870 110.5 789.25 153 Z" fill="#2b2233"/><circle cx="817.3" cy="182.75" r="10.2" fill="#ff8fa3" opacity="0.5"/><circle cx="922.7" cy="182.75" r="10.2" fill="#ff8fa3" opacity="0.5"/><g id="y8-fr-eyes"><path d="M823.25 157.25 q 17 11.9 34 0" stroke="#14213d" stroke-width="5.95" fill="none" stroke-linecap="round"/><path d="M882.75 157.25 q 17 11.9 34 0" stroke="#14213d" stroke-width="5.95" fill="none" stroke-linecap="round"/></g><g id="y8-fr-mouth"><ellipse cx="870" cy="205.7" rx="25.5" ry="30.6" fill="#5a1f2b"/><ellipse cx="870" cy="226.1" rx="15.3" ry="7.65" fill="#e2566e"/></g></g><g id="y8-st"><circle cx="210" cy="560" r="80" fill="#9aa6bb"/><circle cx="160.4" cy="572" r="9.6" fill="#ff8fa3" opacity="0.5"/><circle cx="259.6" cy="572" r="9.6" fill="#ff8fa3" opacity="0.5"/><g id="y8-st-eyes"><path d="M166 548 q 16 11.2 32 0" stroke="#14213d" stroke-width="5.6" fill="none" stroke-linecap="round"/><path d="M222 548 q 16 11.2 32 0" stroke="#14213d" stroke-width="5.6" fill="none" stroke-linecap="round"/></g><g id="y8-st-mouth"><ellipse cx="210" cy="593.6" rx="24" ry="28.8" fill="#5a1f2b"/><ellipse cx="210" cy="612.8" rx="14.4" ry="7.2" fill="#e2566e"/></g></g><g id="y8-dog"><ellipse cx="794" cy="564" rx="25.6" ry="49.6" fill="#7a4a2a"/><ellipse cx="946" cy="564" rx="25.6" ry="49.6" fill="#7a4a2a"/><circle cx="870" cy="560" r="80" fill="#c08552"/><circle cx="820.4" cy="572" r="9.6" fill="#ff8fa3" opacity="0.5"/><circle cx="919.6" cy="572" r="9.6" fill="#ff8fa3" opacity="0.5"/><g id="y8-dog-eyes"><path d="M826 548 q 16 11.2 32 0" stroke="#14213d" stroke-width="5.6" fill="none" stroke-linecap="round"/><path d="M882 548 q 16 11.2 32 0" stroke="#14213d" stroke-width="5.6" fill="none" stroke-linecap="round"/></g><g id="y8-dog-mouth"><ellipse cx="870" cy="593.6" rx="24" ry="28.8" fill="#5a1f2b"/><ellipse cx="870" cy="612.8" rx="14.4" ry="7.2" fill="#e2566e"/></g></g><text id="y8-n0" x="210" y="290" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="38" fill="#fff">परिवार</text><text id="y8-n1" x="870" y="290" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="38" fill="#fff">साथी</text><text id="y8-n2" x="210" y="680" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="38" fill="#fff">अपरिचित</text><text id="y8-n3" x="870" y="680" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="38" fill="#fff">कुकुर</text>
+      </svg>
+<div id="y8-c1" class="chipbox" style="left:0;right:0;top:1090px;text-align:center"><span class="chip" style="font-size:44px;color:#fff;background:#ff4d6d">आफ्नाको बडुल्की छिटो सर्छ</span></div><div id="y8-c2" class="chipbox" style="left:0;right:0;top:1090px;text-align:center"><span class="chip" style="font-size:48px;color:#14213d;background:#ffd23f">कुकुरलाई पनि सर्छ!</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 13.43;
+    tl.fromTo("#y8-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#y8-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.set("#y8-me-mouth", {scaleY:0.15, svgOrigin:"540 337.2"}, 0);
+    tl.set("#y8-fam-mouth", {scaleY:0.15, svgOrigin:"210 175.1"}, 0);
+    tl.set("#y8-fr-mouth", {scaleY:0.15, svgOrigin:"870 175.1"}, 0);
+    tl.set("#y8-st-mouth", {scaleY:0.15, svgOrigin:"210 564.8"}, 0);
+    tl.set("#y8-dog-mouth", {scaleY:0.15, svgOrigin:"870 564.8"}, 0);
+    tl.set("#y8-dog, #y8-n3, #y8-l4", {opacity:0}, 0);
+    tl.fromTo("#y8-me", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.3);
+    tl.to("#y8-me", {scale:1.04, transformOrigin:"50% 50%", duration:0.6, yoyo:true, repeat:19}, 0.8);
+    tl.to("#y8-me-mouth", {scaleY:1, scaleX:1.08, duration:0.63, ease:"sine.out", svgOrigin:"540 337.2"}, 5.23);
+    tl.to("#y8-me-mouth", {scaleY:0.15, scaleX:1, duration:0.49, ease:"sine.in", svgOrigin:"540 337.2"}, 6.16);
+    tl.to("#y8-me", {rotation:-6, duration:0.63, ease:"sine.out", svgOrigin:"540 450"}, 5.23);
+    tl.to("#y8-me", {rotation:0, duration:0.49, ease:"sine.in", svgOrigin:"540 450"}, 6.16);
+    tl.fromTo("#y8-l1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.43);
+    tl.fromTo("#y8-l2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.43);
+    tl.fromTo("#y8-h0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.43);
+    tl.fromTo("#y8-h1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.43);
+    tl.fromTo("#y8-n0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.43);
+    tl.fromTo("#y8-n1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.43);
+    tl.to("#y8-fam-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"210 175.1"}, 5.73);
+    tl.to("#y8-fam-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"210 175.1"}, 6.61);
+    tl.to("#y8-fam", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"210 255"}, 5.73);
+    tl.to("#y8-fam", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"210 255"}, 6.61);
+    tl.to("#y8-fr-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"870 175.1"}, 5.83);
+    tl.to("#y8-fr-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"870 175.1"}, 6.71);
+    tl.to("#y8-fr", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"870 255"}, 5.83);
+    tl.to("#y8-fr", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"870 255"}, 6.71);
+    tl.fromTo("#y8-l3, #y8-n2", {opacity:0}, {opacity:1, duration:0.3}, 6.03);
+    tl.to("#y8-st-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"210 564.8"}, 7.73);
+    tl.to("#y8-st-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"210 564.8"}, 8.51);
+    tl.to("#y8-st", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"210 640"}, 7.73);
+    tl.to("#y8-st", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"210 640"}, 8.51);
+    tl.fromTo("#y8-c1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.53);
+    tl.to("#y8-c1", {opacity:0, duration:0.15}, 9.88);
+    tl.to("#y8-dog, #y8-n3, #y8-l4", {opacity:1, duration:0.3}, 10.03);
+    tl.to("#y8-me-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"540 337.2"}, 10.33);
+    tl.to("#y8-me-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"540 337.2"}, 11.12);
+    tl.to("#y8-me", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"540 450"}, 10.33);
+    tl.to("#y8-me", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"540 450"}, 11.12);
+    tl.to("#y8-dog-mouth", {scaleY:1, scaleX:1.08, duration:0.59, ease:"sine.out", svgOrigin:"870 564.8"}, 10.93);
+    tl.to("#y8-dog-mouth", {scaleY:0.15, scaleX:1, duration:0.45, ease:"sine.in", svgOrigin:"870 564.8"}, 11.82);
+    tl.to("#y8-dog", {rotation:-6, duration:0.59, ease:"sine.out", svgOrigin:"870 640"}, 10.93);
+    tl.to("#y8-dog", {rotation:0, duration:0.45, ease:"sine.in", svgOrigin:"870 640"}, 11.82);
+    tl.fromTo("#y8-c2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 10.23);
+
+    tl.to("#y8-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["y8"] = tl;
+  </script>
+</template>

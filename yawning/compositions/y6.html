@@ -1,0 +1,49 @@
+<template>
+  <style>
+
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-devanagari-500-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-devanagari-800-normal.woff2') format('woff2');unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF;}
+@font-face{font-family:'Mukta';font-weight:500;src:url('assets/fonts/mukta-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Mukta';font-weight:800;src:url('assets/fonts/mukta-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+
+
+#root{position:absolute;inset:0;overflow:hidden;font-family:'Mukta',sans-serif;}
+.wrap{position:absolute;inset:0;}
+.title{position:absolute;left:60px;right:60px;top:200px;text-align:center;font-weight:800;font-size:68px;line-height:1.15;color:#fff;}
+.title b{color:#ffd23f;font-weight:800;}
+.title{text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.6);}
+.stage{position:absolute;left:0;top:360px;width:1080px;height:780px;overflow:visible;}
+.chipbox{position:absolute;}
+.chip{display:inline-block;font-weight:800;padding:8px 28px 4px;border-radius:999px;white-space:nowrap;line-height:1.25;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+
+#y6-stage{top:360px;height:780px;}
+
+  </style>
+  <div id="root" data-composition-id="y6" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div id="y6-wrap" class="wrap">
+      <div id="y6-title" class="title"><b>प्रयोग:</b> निधारमा चिसो</div>
+      <svg id="y6-stage" class="stage" viewBox="0 0 1080 780" xmlns="http://www.w3.org/2000/svg" data-layout-allow-overflow>
+<g id="y6-f"><circle cx="300" cy="330" r="190" fill="#f1b48c"/><path d="M119.5 292 Q148 111.5 300 136.2 Q461.5 121 480.5 292 Q300 197 119.5 292 Z" fill="#2b2233"/><circle cx="182.2" cy="358.5" r="22.8" fill="#ff8fa3" opacity="0.5"/><circle cx="417.8" cy="358.5" r="22.8" fill="#ff8fa3" opacity="0.5"/><g id="y6-f-eyes"><path d="M195.5 301.5 q 38 26.6 76 0" stroke="#14213d" stroke-width="13.3" fill="none" stroke-linecap="round"/><path d="M328.5 301.5 q 38 26.6 76 0" stroke="#14213d" stroke-width="13.3" fill="none" stroke-linecap="round"/></g><g id="y6-f-mouth"><ellipse cx="300" cy="409.8" rx="57" ry="68.4" fill="#5a1f2b"/><ellipse cx="300" cy="455.4" rx="34.2" ry="17.1" fill="#e2566e"/></g></g><g id="y6-pack"><rect x="150" y="90" width="300" height="90" rx="40" fill="#5ad1ff"/><path d="M190 115 l 0 40 M170 135 l 40 0" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M250 115 l 0 40 M230 135 l 40 0" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M310 115 l 0 40 M290 135 l 40 0" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M370 115 l 0 40 M350 135 l 40 0" stroke="#fff" stroke-width="6" stroke-linecap="round"/></g><line x1="600" y1="620" x2="1010" y2="620" stroke="#fff" stroke-width="6"/><rect id="y6-bar1" x="630" y="220" width="150" height="400" rx="16" fill="#ff4d6d"/><rect id="y6-bar2" x="830" y="470" width="150" height="150" rx="16" fill="#5ad1ff"/><text x="705" y="680" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="36" fill="#fff">बिना</text><text x="905" y="680" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="36" fill="#fff">चिसो पट्टी</text><text x="800" y="180" text-anchor="middle" font-family="Mukta" font-weight="800" font-size="40" fill="#ffd23f">बडुल्की</text>
+      </svg>
+<div id="y6-l" class="chipbox" style="left:0;right:0;top:1090px;text-align:center"><span class="chip" style="font-size:50px;color:#14213d;background:#ffd23f">बडुल्की कम आयो!</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 5.51;
+    tl.fromTo("#y6-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
+    tl.fromTo("#y6-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
+    tl.set("#y6-f-mouth", {scaleY:0.15, svgOrigin:"300 341.4"}, 0);
+    tl.fromTo("#y6-pack", {y:-300, opacity:0}, {y:0, opacity:1, duration:0.6, ease:"bounce.out"}, 1.12);
+    tl.fromTo("#y6-bar1", {scaleY:0, svgOrigin:"705 620"}, {scaleY:1, duration:0.7, ease:"power2.out"}, 0.52);
+    tl.fromTo("#y6-bar2", {scaleY:0, svgOrigin:"905 620"}, {scaleY:1, duration:0.7, ease:"power2.out"}, 3.34);
+    tl.fromTo("#y6-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.54);
+    tl.to("#y6-f-mouth", {scaleY:1, scaleX:1.08, duration:0.54, ease:"sine.out", svgOrigin:"300 341.4"}, 0.3);
+    tl.to("#y6-f-mouth", {scaleY:0.15, scaleX:1, duration:0.42, ease:"sine.in", svgOrigin:"300 341.4"}, 1.04);
+    tl.to("#y6-f", {rotation:-6, duration:0.54, ease:"sine.out", svgOrigin:"300 520"}, 0.3);
+    tl.to("#y6-f", {rotation:0, duration:0.42, ease:"sine.in", svgOrigin:"300 520"}, 1.04);
+
+    tl.to("#y6-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
+    window.__timelines["y6"] = tl;
+  </script>
+</template>

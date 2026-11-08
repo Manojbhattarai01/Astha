@@ -1,0 +1,220 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#y7-ar0\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#y7-ar0",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/Astha/yawning/compositions/y7.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 1.02s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#y7-ar1\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#y7-ar1",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/Astha/yawning/compositions/y7.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 1.92s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#y7-ar2\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#y7-ar2",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/Astha/yawning/compositions/y7.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 2.82s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#y8-me\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#y8-me",
+        "dataAttributes": {},
+        "sourceFile": "/home/user/Astha/yawning/compositions/y8.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 0.3s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      }
+    ],
+    "filesScanned": 12
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 98.34,
+    "samples": [
+      5.463,
+      16.39,
+      27.317,
+      38.243,
+      49.17,
+      60.097,
+      71.023,
+      81.95,
+      92.877
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.48:1; WCAG AA requires 3:1.",
+        "text": "O2",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(77,171,247)",
+        "ratio": 2.48,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(85,85,85)",
+        "large": true,
+        "selector": "div > div:nth-of-type(4) > div > div > svg > g:nth-of-type(1) > text",
+        "dataAttributes": {},
+        "sourceFile": "compositions/y3.html",
+        "bbox": {
+          "x": 119.734375,
+          "y": 698,
+          "width": 90.53125,
+          "height": 151
+        },
+        "time": 27.317,
+        "times": [
+          27.317
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      5.463,
+      27.317,
+      49.17,
+      71.023,
+      92.877
+    ],
+    "checked": 35,
+    "passed": 34
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"z\" renders at 22 px for 3.12 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "z",
+        "selector": "#y5-zz > tspan:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/y5.html",
+        "bbox": {
+          "x": 619.39,
+          "y": 913.11,
+          "width": 10.08,
+          "height": 40.11
+        },
+        "time": 47.939,
+        "times": [
+          47.939
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 3.119,
+        "elements": [
+          {
+            "selector": "#y5-zz > tspan:nth-of-type(2)",
+            "text": "z",
+            "fontPx": 22,
+            "time": 47.939,
+            "seconds": 3.119
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.16400000000000148,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}
