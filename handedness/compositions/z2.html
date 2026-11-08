@@ -30,19 +30,19 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 11.32;
+    const D = 13.44;
     tl.fromTo("#z2-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#z2-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
-    tl.fromTo("#z2-x1", {opacity:0, attr:{"stroke-dashoffset":200}}, {opacity:1, attr:{"stroke-dashoffset":0}, duration:0.8}, 2.21);
-    tl.to("#z2-x1", {attr:{"stroke-dashoffset":-360}, duration:8.01, ease:"none"}, 3.01);
-    tl.fromTo("#z2-x2", {opacity:0, attr:{"stroke-dashoffset":200}}, {opacity:1, attr:{"stroke-dashoffset":0}, duration:0.8}, 4.51);
-    tl.to("#z2-x2", {attr:{"stroke-dashoffset":-360}, duration:5.81, ease:"none"}, 5.31);
-    tl.fromTo("#z2-L", {opacity:1}, {opacity:0.55, duration:0.3, yoyo:true, repeat:3}, 2.21);
-    tl.fromTo("#z2-R", {opacity:1}, {opacity:0.55, duration:0.3, yoyo:true, repeat:3}, 4.51);
-    tl.to("#z2-glow", {opacity:0.45, duration:0.4}, 7.01);
-    tl.to("#z2-glow", {scale:1.15, transformOrigin:"50% 50%", duration:0.4, yoyo:true, repeat:8}, 7.41);
-    tl.to("#z2-x2", {opacity:0.25, duration:0.3}, 6.91);
-    tl.fromTo("#z2-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.91);
+    tl.fromTo("#z2-x1", {opacity:0, attr:{"stroke-dashoffset":200}}, {opacity:1, attr:{"stroke-dashoffset":0}, duration:0.8}, 2.61);
+    tl.to("#z2-x1", {attr:{"stroke-dashoffset":-360}, duration:9.73, ease:"none"}, 3.41);
+    tl.fromTo("#z2-x2", {opacity:0, attr:{"stroke-dashoffset":200}}, {opacity:1, attr:{"stroke-dashoffset":0}, duration:0.8}, 4.91);
+    tl.to("#z2-x2", {attr:{"stroke-dashoffset":-360}, duration:7.53, ease:"none"}, 5.71);
+    tl.fromTo("#z2-L", {opacity:1}, {opacity:0.55, duration:0.3, yoyo:true, repeat:3}, 2.61);
+    tl.fromTo("#z2-R", {opacity:1}, {opacity:0.55, duration:0.3, yoyo:true, repeat:3}, 4.91);
+    tl.to("#z2-glow", {opacity:0.45, duration:0.4}, 8.31);
+    tl.to("#z2-glow", {scale:1.15, transformOrigin:"50% 50%", duration:0.4, yoyo:true, repeat:10}, 8.71);
+    tl.to("#z2-x2", {opacity:0.25, duration:0.3}, 8.21);
+    tl.fromTo("#z2-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.21);
 
     tl.to("#z2-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["z2"] = tl;

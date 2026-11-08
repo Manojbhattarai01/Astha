@@ -30,21 +30,21 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 7.86;
+    const D = 10.51;
     tl.fromTo("#z4-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#z4-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
     tl.set("#z4-x", {opacity:0}, 0);
-    tl.fromTo("#z4-one", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.12);
-    tl.fromTo("#z4-x", {opacity:0, scale:1.6, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.3, ease:"power4.in"}, 2.22);
-    tl.fromTo("#z4-dna", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.14);
-    tl.fromTo("#z4-dt", {opacity:0}, {opacity:1, duration:0.2}, 3.24);
-    tl.fromTo("#z4-womb", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 4.14);
-    tl.fromTo("#z4-wt", {opacity:0}, {opacity:1, duration:0.2}, 4.24);
-    tl.fromTo("#z4-env", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.15);
-    tl.fromTo("#z4-et", {opacity:0}, {opacity:1, duration:0.2}, 5.25);
-    tl.fromTo("#z4-dna", {y:0}, {y:-12, duration:0.5, yoyo:true, repeat:6}, 3.64);
-    tl.fromTo("#z4-sum", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.8);
-    tl.fromTo("#z4-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.8);
+    tl.fromTo("#z4-one", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.51);
+    tl.fromTo("#z4-x", {opacity:0, scale:1.6, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.3, ease:"power4.in"}, 2.61);
+    tl.fromTo("#z4-dna", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.95);
+    tl.fromTo("#z4-dt", {opacity:0}, {opacity:1, duration:0.2}, 4.05);
+    tl.fromTo("#z4-womb", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 5.29);
+    tl.fromTo("#z4-wt", {opacity:0}, {opacity:1, duration:0.2}, 5.39);
+    tl.fromTo("#z4-env", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 6.64);
+    tl.fromTo("#z4-et", {opacity:0}, {opacity:1, duration:0.2}, 6.74);
+    tl.fromTo("#z4-dna", {y:0}, {y:-12, duration:0.5, yoyo:true, repeat:10}, 4.45);
+    tl.fromTo("#z4-sum", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.69);
+    tl.fromTo("#z4-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.69);
 
     tl.to("#z4-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["z4"] = tl;

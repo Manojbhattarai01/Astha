@@ -30,16 +30,16 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 10.48;
+    const D = 11.69;
     tl.fromTo("#z6-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#z6-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
-    tl.fromTo("#z6-jab", {x:0}, {x:60, duration:0.18, yoyo:true, repeat:51, ease:"power2.out"}, 0.5);
-    tl.fromTo("#z6-them", {rotation:0, svgOrigin:"790 540"}, {rotation:5, duration:0.36, yoyo:true, repeat:25, ease:"sine.inOut"}, 0.5);
-    tl.fromTo("#z6-ic", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.84);
-    tl.fromTo("#z6-q0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.62);
-    tl.fromTo("#z6-q1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.82);
-    tl.fromTo("#z6-q2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.02);
-    tl.fromTo("#z6-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 7.92);
+    tl.fromTo("#z6-jab", {x:0}, {x:60, duration:0.18, yoyo:true, repeat:58, ease:"power2.out"}, 0.5);
+    tl.fromTo("#z6-them", {rotation:0, svgOrigin:"790 540"}, {rotation:5, duration:0.36, yoyo:true, repeat:28, ease:"sine.inOut"}, 0.5);
+    tl.fromTo("#z6-ic", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 2.98);
+    tl.fromTo("#z6-q0", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.4);
+    tl.fromTo("#z6-q1", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.6);
+    tl.fromTo("#z6-q2", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.8);
+    tl.fromTo("#z6-l", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 8.7);
 
     tl.to("#z6-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["z6"] = tl;

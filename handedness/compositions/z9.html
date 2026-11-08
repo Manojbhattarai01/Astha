@@ -30,15 +30,15 @@
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const D = 6.84;
+    const D = 6.55;
     tl.fromTo("#z9-title", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.35, ease:"back.out(2)"}, 0.05);
     tl.fromTo("#z9-stage", {opacity:0, scale:0.92, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.4, ease:"power3.out"}, 0.0);
     tl.fromTo("#z9-lb", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.3);
     tl.fromTo("#z9-rb", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 0.5);
-    tl.to("#z9-lb", {scale:1.07, transformOrigin:"50% 50%", duration:0.3, yoyo:true, repeat:17}, 0.9);
-    tl.to("#z9-rb", {scale:1.07, transformOrigin:"50% 50%", duration:0.3, yoyo:true, repeat:16}, 1.2);
-    tl.fromTo("#z9-bub", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.7);
-    tl.fromTo("#z9-tag", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.5);
+    tl.to("#z9-lb", {scale:1.07, transformOrigin:"50% 50%", duration:0.3, yoyo:true, repeat:16}, 0.9);
+    tl.to("#z9-rb", {scale:1.07, transformOrigin:"50% 50%", duration:0.3, yoyo:true, repeat:15}, 1.2);
+    tl.fromTo("#z9-bub", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 1.8);
+    tl.fromTo("#z9-tag", {opacity:0, scale:0.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.35, ease:"back.out(2.2)"}, 3.41);
 
     tl.to("#z9-wrap", { opacity: 0, duration: 0.22, ease: "power2.in" }, D - 0.26);
     window.__timelines["z9"] = tl;
