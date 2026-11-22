@@ -71,7 +71,7 @@ class ScreenshotTest {
         waitForHuman(vm)
         shoot("04_game_draw")
         vm.tapStock()
-        val hand = vm.humanHand()
+        val hand = vm.humanGroups().flatten()
         vm.tapCard(hand[hand.size / 2])
         shoot("05_game_select")
     }
@@ -82,6 +82,7 @@ class ScreenshotTest {
         compose.setContent { MarriageRoot(vm) }
         vm.startMatch()
         var reached = false
+        var shotSelection = false
         for (attempt in 0 until 400) {
             waitForHuman(vm)
             val g = vm.game!!
@@ -95,10 +96,44 @@ class ScreenshotTest {
                 reached = true
                 break
             }
+            vm.tapStock()
+            val show = g.findShow(GameViewModel.HUMAN)
+            if (show != null) {
+                // Choose the sets by hand, as a player would.
+                val cards = show.flatMap { it.cards }
+                cards.forEach { vm.tapCard(it) }
+                if (!shotSelection) {
+                    shoot("06a_choose_sets")
+                    shotSelection = true
+                }
+                vm.showSets()
+                assertTrue(g.players[GameViewModel.HUMAN].shownMelds.flatMap { it.cards }.toSet() == cards.toSet())
+            }
             vm.autoPlayHumanTurn()
         }
         assertTrue(reached)
         shoot("06_game_seen")
+        vm.cycleSort()
+        shoot("06b_game_seen_by_suit")
+    }
+
+    @Test
+    fun cardInFlight() {
+        val vm = newVm()
+        compose.setContent { MarriageRoot(vm) }
+        vm.startMatch()
+        waitForHuman(vm)
+        compose.waitForIdle()
+        compose.mainClock.autoAdvance = false
+        compose.runOnUiThread { vm.tapStock() }
+        assertTrue("draw happened", vm.game!!.phase == Phase.PLAY)
+        androidx.compose.runtime.snapshots.Snapshot.sendApplyNotifications()
+        repeat(14) {
+            compose.mainClock.advanceTimeByFrame()
+            shadowOf(Looper.getMainLooper()).idle()
+        }
+        compose.onRoot().captureRoboImage("$out/08_card_in_flight.png")
+        compose.mainClock.autoAdvance = true
     }
 
     @Test

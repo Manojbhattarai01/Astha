@@ -95,6 +95,7 @@ fun PlayingCard(
             .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier),
     ) {
         val unit = width.value
+        val tag = maalTag(maal)
         Column(Modifier.padding(start = (unit * 0.08f).dp, top = (unit * 0.04f).dp)) {
             Text(
                 Ranks.label(card.rank),
@@ -104,6 +105,24 @@ fun PlayingCard(
                 lineHeight = (unit * 0.38f).sp,
             )
             Text(card.suit.symbol, color = color, fontSize = (unit * 0.3f).sp, lineHeight = (unit * 0.3f).sp)
+            // The maal tag sits in the left column, which stays visible when cards overlap.
+            if (tag != null) {
+                Box(
+                    Modifier
+                        .padding(top = (unit * 0.04f).dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(TableColors.gold)
+                        .padding(horizontal = (unit * 0.05f).dp),
+                ) {
+                    Text(
+                        tag,
+                        color = Color(0xFF3A2A00),
+                        fontSize = (unit * 0.2f).sp,
+                        lineHeight = (unit * 0.24f).sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+            }
         }
         Text(
             card.suit.symbol,
@@ -111,19 +130,6 @@ fun PlayingCard(
             fontSize = (unit * 0.55f).sp,
             modifier = Modifier.align(Alignment.BottomEnd).padding(end = (unit * 0.08f).dp, bottom = (unit * 0.02f).dp),
         )
-        val tag = maalTag(maal)
-        if (tag != null) {
-            Box(
-                Modifier
-                    .align(Alignment.TopEnd)
-                    .padding((unit * 0.05f).dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(TableColors.gold)
-                    .padding(horizontal = (unit * 0.06f).dp),
-            ) {
-                Text(tag, color = Color(0xFF3A2A00), fontSize = (unit * 0.22f).sp, fontWeight = FontWeight.Bold)
-            }
-        }
     }
 }
 

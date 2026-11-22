@@ -38,6 +38,7 @@ import com.astha.marriage.GameViewModel
 import com.astha.marriage.Language
 import com.astha.marriage.LocalStrings
 import com.astha.marriage.Screen
+import com.astha.marriage.engine.BotLevel
 import com.astha.marriage.engine.Card
 import com.astha.marriage.engine.Suit
 
@@ -57,7 +58,7 @@ fun HomeScreen(vm: GameViewModel) {
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(Modifier.height(32.dp))
+            Spacer(Modifier.height(16.dp))
             // A fan of the three cards of a marriage.
             Box(Modifier.height(130.dp).width(200.dp), contentAlignment = Alignment.Center) {
                 PlayingCard(Card.of(Suit.HEARTS, 10), width = 66.dp, modifier = Modifier.offset(x = (-46).dp, y = 10.dp).rotate(-14f))
@@ -67,7 +68,7 @@ fun HomeScreen(vm: GameViewModel) {
             Spacer(Modifier.height(20.dp))
             Text(s.appTitle, fontSize = 44.sp, fontWeight = FontWeight.Bold, color = TableColors.gold)
             Text(s.subtitle, fontSize = 16.sp, color = Color(0xFFD5E6DB))
-            Spacer(Modifier.height(40.dp))
+            Spacer(Modifier.height(28.dp))
 
             Text(s.players, color = Color.White, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))
@@ -77,6 +78,23 @@ fun HomeScreen(vm: GameViewModel) {
                         selected = vm.playerCount == n,
                         onClick = { vm.updatePlayerCount(n) },
                         label = { Text("$n", fontSize = 18.sp, modifier = Modifier.padding(horizontal = 6.dp)) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = TableColors.gold,
+                            selectedLabelColor = Color(0xFF2A1E00),
+                            labelColor = Color.White,
+                        ),
+                    )
+                }
+            }
+            Spacer(Modifier.height(18.dp))
+            Text(s.difficulty, color = Color.White, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.height(8.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                for ((lvl, label) in listOf(BotLevel.EASY to s.easy, BotLevel.HARD to s.hard)) {
+                    FilterChip(
+                        selected = vm.level == lvl,
+                        onClick = { vm.updateLevel(lvl) },
+                        label = { Text(label, fontSize = 16.sp, modifier = Modifier.padding(horizontal = 6.dp)) },
                         colors = FilterChipDefaults.filterChipColors(
                             selectedContainerColor = TableColors.gold,
                             selectedLabelColor = Color(0xFF2A1E00),

@@ -89,13 +89,13 @@ fun ResultDialog(vm: GameViewModel, game: MarriageGame, s: Strings) {
                         }
                     }
                 }
-                val groups = r.winningMelds.map { it.cards } + r.winningDublees.map { it.cards }
+                val groups = r.winningMelds.map { GameViewModel.displayOrder(it.cards, ctx) } + r.winningDublees.map { it.cards }
                 val w = r.winner
                 if (w != null) {
                     HorizontalDivider()
                     Text(s.winningHand, fontWeight = FontWeight.SemiBold)
                     val p = game.players[w]
-                    val laid = p.startTunnelas.map { it.cards } + p.shownMelds.map { it.cards } + p.shownDublees.map { it.cards }
+                    val laid = laidCards(p)
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         for (g in laid + groups) Row(horizontalArrangement = Arrangement.spacedBy((-10).dp)) {
                             for (c in g) PlayingCard(c, width = 30.dp, maal = ctx.kind(c))

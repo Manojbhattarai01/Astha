@@ -31,6 +31,15 @@ interface Strings {
     val selectToThrow: String
     val sortSuit: String
     val sortRank: String
+    val sortSets: String
+    val difficulty: String
+    val easy: String
+    val hard: String
+    val clear: String
+    val showTip: String
+    val selectionNotPure: String
+    val selectionNotDublees: String
+    val selectOneToThrow: String
     val seen: String
     val notSeen: String
     fun cards(n: Int): String
@@ -95,6 +104,15 @@ object English : Strings {
     override val selectToThrow = "Tap a card to select it"
     override val sortSuit = "By suit"
     override val sortRank = "By rank"
+    override val sortSets = "Sets"
+    override val difficulty = "Computer players"
+    override val easy = "Easy"
+    override val hard = "Hard"
+    override val clear = "Clear"
+    override val showTip = "You can see the joker! Select the cards to lay down, or press the button and the app will choose."
+    override val selectionNotPure = "The selected cards must make 3 pure sequences or tunnelas"
+    override val selectionNotDublees = "Select 14 cards that make 7 dublees"
+    override val selectOneToThrow = "Select exactly one card to throw"
     override val seen = "Seen"
     override val notSeen = "Not seen"
     override fun cards(n: Int) = "$n cards"
@@ -181,6 +199,15 @@ object Nepali : Strings {
     override val selectToThrow = "पत्ता छान्न थिच्नुहोस्"
     override val sortSuit = "रङ अनुसार"
     override val sortRank = "अंक अनुसार"
+    override val sortSets = "सेट"
+    override val difficulty = "कम्प्युटर खेलाडी"
+    override val easy = "सजिलो"
+    override val hard = "कठिन"
+    override val clear = "हटाउनुहोस्"
+    override val showTip = "तपाईं जोकर हेर्न सक्नुहुन्छ! टेबलमा राख्ने पत्ता छान्नुहोस्, वा बटन थिच्नुहोस् र एपले छान्नेछ।"
+    override val selectionNotPure = "छानिएका पत्ताले ३ शुद्ध सिक्वेन्स वा टनेला बनाउनुपर्छ"
+    override val selectionNotDublees = "७ डबली बन्ने १४ पत्ता छान्नुहोस्"
+    override val selectOneToThrow = "फाल्न एउटा मात्र पत्ता छान्नुहोस्"
     override val seen = "देखेको"
     override val notSeen = "नदेखेको"
     override fun cards(n: Int) = "$n पत्ता"

@@ -2,17 +2,49 @@ package com.astha.marriage.engine
 
 import kotlin.random.Random
 
+enum class BotLevel { EASY, HARD }
+
 /**
  * A computer player. It only uses what its seat may know: its own hand, the
  * table, and the tiplu once it has seen it.
+ *
+ * [BotLevel.HARD] also counts which cards are still live (not visible in the
+ * discard pile, on the table or in its own hand), values partial sets by how
+ * many cards could still complete them, and avoids feeding the next player.
  */
-class Bot(private val random: Random = Random.Default) {
+class Bot(private val random: Random = Random.Default, val level: BotLevel = BotLevel.HARD) {
+
+    /** Copies of each face (index suit*13 + rank-1) that might still turn up. Null on EASY. */
+    private var live: IntArray? = null
+
+    private fun faceIndex(f: Face) = f.suit.ordinal * 13 + f.rank - 1
+
+    private fun liveOf(f: Face): Int = live?.get(faceIndex(f)) ?: 3
+
+    private fun computeLive(game: MarriageGame, me: Int): IntArray? {
+        if (level == BotLevel.EASY) return null
+        val counts = IntArray(52) { 3 }
+        fun see(c: Card) {
+            val i = faceIndex(c.face)
+            if (counts[i] > 0) counts[i]--
+        }
+        game.discardPile.forEach(::see)
+        game.players.forEach { p ->
+            p.startTunnelas.forEach { m -> m.cards.forEach(::see) }
+            p.shownMelds.forEach { m -> m.cards.forEach(::see) }
+            p.shownDublees.forEach { d -> d.cards.forEach(::see) }
+        }
+        game.players[me].hand.forEach(::see)
+        if (game.players[me].hasSeen) game.tiplu?.let(::see)
+        return counts
+    }
 
     /** Plays one full turn for the current player of [game]. */
     fun playTurn(game: MarriageGame) {
         val me = game.current
         val p = game.players[me]
         if (!p.hasPlayed) game.exposeTunnelas(me)
+        live = computeLive(game, me)
 
         // 1. Draw.
         if (game.canDrawDiscard(me) && wantsDiscard(game, me)) game.drawDiscard(me) else game.drawStock(me)
@@ -42,6 +74,12 @@ class Bot(private val random: Random = Random.Default) {
         game.discard(me, chooseDiscard(game, me))
     }
 
+    /** Cards the next player has picked up from the discard pile this hand. */
+    private fun nextPlayerWants(game: MarriageGame, me: Int): List<Card> {
+        val next = (me + 1) % game.playerCount
+        return game.log.filterIsInstance<GameEvent.TookDiscard>().filter { it.player == next }.map { it.card }
+    }
+
     private fun prefersDublees(p: PlayerState): Boolean {
         if (p.seen == SeenVia.DUBLEES) return true
         if (p.seen == SeenVia.MELDS || p.startTunnelas.isNotEmpty()) return false
@@ -61,7 +99,30 @@ class Bot(private val random: Random = Random.Default) {
         val with = p.hand + top
         val best = with.filter { it != top }.distinctBy { it.face }
             .maxOf { x -> evaluate(with - x, ctx, p, dublee) }
-        return best > now + 4.0
+        if (level == BotLevel.EASY) return best > now + 4.0
+        // Compare with what a blind draw from the stock is expected to bring.
+        return best > now + expectedGain(p.hand, ctx, p, dublee) + 0.5
+    }
+
+    /**
+     * How much one draw from the stock is expected to improve [hand], weighting each
+     * face by its live copies. Only HARD bots look ahead like this.
+     */
+    private fun expectedGain(hand: List<Card>, ctx: JokerContext, p: PlayerState, dublee: Boolean): Double {
+        val counts = live ?: return 0.0
+        val base = evaluate(hand, ctx, p, dublee)
+        var total = 0
+        var gain = 0.0
+        for (i in 0 until 52) {
+            val n = counts[i]
+            if (n == 0) continue
+            // Any physical copy not already in hand stands for the drawn card.
+            val drawn = (0..2).map { Card.of(Suit.entries[i / 13], i % 13 + 1, it) }.firstOrNull { it !in hand } ?: continue
+            val improved = evaluate(hand + drawn, ctx, p, dublee) - base
+            total += n
+            if (improved > 0) gain += n * improved
+        }
+        return if (total == 0) 0.0 else gain / total
     }
 
     fun chooseDiscard(game: MarriageGame, me: Int): Card {
@@ -71,10 +132,20 @@ class Bot(private val random: Random = Random.Default) {
         val options = p.hand.filter { game.canDiscard(me, it) }
         var best = options.first()
         var bestScore = Double.NEGATIVE_INFINITY
-        for (c in options.distinctBy { it.face }.shuffled(random)) {
-            var s = evaluate(p.hand - c, ctx, p, dublee)
+        if (live == null && level == BotLevel.HARD) live = computeLive(game, me)
+        val wanted = if (level == BotLevel.HARD) nextPlayerWants(game, me) else emptyList()
+        val scored = options.distinctBy { it.face }.shuffled(random).map { c -> c to evaluate(p.hand - c, ctx, p, dublee) }
+        // HARD: look one draw ahead for the most promising few.
+        val ahead = if (level == BotLevel.HARD) {
+            scored.sortedByDescending { it.second }.take(5)
+                .associate { (c, _) -> c to expectedGain(p.hand - c, ctx, p, dublee) }
+        } else emptyMap()
+        for ((c, base) in scored) {
+            var s = base + (ahead[c] ?: if (level == BotLevel.HARD) -1000.0 else 0.0)
             // Keep point cards when they are known.
             if (ctx.isWild(c)) s -= 6.0
+            // Don't hand the next player a card that fits what they have been picking up.
+            if (wanted.any { w -> w.face == c.face || Melds.isSequencePartial(w, c) || Melds.isTripletPartial(w, c) }) s -= 3.0
             if (s > bestScore) {
                 bestScore = s
                 best = c
@@ -121,7 +192,14 @@ class Bot(private val random: Random = Random.Default) {
         val fromSingles = minOf(r, singles)
         val need = q + 2 * fromSingles + 3 * (r - fromSingles)
         val missing = (need - jokers).coerceAtLeast(0)
-        return -20.0 * missing + 2.0 * jokers + partials.size
+        val partialValue = partials.sumOf { (a, b) ->
+            if (Melds.isTripletPartial(a, b)) {
+                outsWeight(Suit.entries.filter { it != a.suit && it != b.suit }.map { Face(it, a.rank) }, 2)
+            } else {
+                sequenceOuts(a, b)
+            }
+        }
+        return -20.0 * missing + 2.0 * jokers + partialValue
     }
 
     /** Disjoint combinations covering as many cards as possible (pure ones count a bit more). */
@@ -176,6 +254,23 @@ class Bot(private val random: Random = Random.Default) {
         return out
     }
 
+    /** 0..1: how likely a partial set is to be completed, from the live copies of its [outs]. */
+    private fun outsWeight(outs: List<Face>, full: Int): Double {
+        if (live == null) return 1.0
+        val n = outs.sumOf { liveOf(it) }
+        return (n.toDouble() / full).coerceAtMost(1.0)
+    }
+
+    /** Value of two same-suit cards that one more card would make a pure sequence. */
+    private fun sequenceOuts(a: Card, b: Card): Double {
+        // The ranks that would complete the run (A-2 → 3, Q-K → J or A, 4-6 → 5, ...).
+        val outs = (1..13)
+            .filter { r -> r != a.rank && r != b.rank && Melds.isPure(listOf(a, b, Card.of(a.suit, r))) }
+            .map { Face(a.suit, it) }
+        val adjacent = outs.size >= 2
+        return (if (adjacent) 1.0 else 0.6) * outsWeight(outs, if (adjacent) 3 else 2)
+    }
+
     /** Counts pairs that could grow into a combination. */
     private fun partialScore(cards: List<Card>, pureOnly: Boolean): Double {
         var s = 0.0
@@ -183,8 +278,8 @@ class Bot(private val random: Random = Random.Default) {
             val a = cards[i]
             val b = cards[j]
             s += when {
-                a.face == b.face -> if (pureOnly) 1.0 else 0.0
-                Melds.isSequencePartial(a, b) -> if (pureOnly) (if (kotlin.math.abs(a.rank - b.rank) == 1) 1.0 else 0.6) else 0.0
+                a.face == b.face -> if (pureOnly) outsWeight(listOf(a.face), 1) else 0.0
+                Melds.isSequencePartial(a, b) -> if (pureOnly) sequenceOuts(a, b) else 0.0
                 Melds.isTripletPartial(a, b) -> if (pureOnly) 0.0 else 1.0
                 else -> 0.0
             }

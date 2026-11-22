@@ -259,12 +259,14 @@ class MarriageGame(
         return phase == Phase.PLAY && player == current && !p.hasSeen && Melds.dublees(p.hand).size >= 7
     }
 
-    /** Lays down seven dublees and sees the joker. */
-    fun showDublees(player: Int): List<Dublee> {
+    /** Lays down seven dublees ([dublees], or the first seven found) and sees the joker. */
+    fun showDublees(player: Int, dublees: List<Dublee>? = null): List<Dublee> {
         requireTurn(player, Phase.PLAY)
         if (!canShowDublees(player)) fail("You need seven dublees")
         val p = players[player]
-        val chosen = Melds.dublees(p.hand).take(7)
+        val chosen = dublees ?: Melds.dublees(p.hand).take(7)
+        val cards = chosen.flatMap { it.cards }
+        if (chosen.size != 7 || cards.distinct().size != 14 || !p.hand.containsAll(cards)) fail("Choose seven dublees from your hand")
         p.hand.removeAll(chosen.flatMap { it.cards })
         p.shownDublees.addAll(chosen)
         p.seen = SeenVia.DUBLEES

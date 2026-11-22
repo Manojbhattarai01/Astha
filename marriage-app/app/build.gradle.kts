@@ -1,3 +1,4 @@
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -14,12 +15,32 @@ android {
         applicationId = "com.astha.marriage"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
+    }
+
+    // Release signing comes from keystore.properties (never committed) or, on CI,
+    // from environment variables. Without either, release builds are unsigned.
+    val keyProps = Properties().apply {
+        val f = rootProject.file("keystore.properties")
+        if (f.exists()) f.inputStream().use { load(it) }
+    }
+    fun key(name: String, env: String): String? = keyProps.getProperty(name) ?: System.getenv(env)
+    val storePath = key("storeFile", "MARRIAGE_KEYSTORE")
+    if (storePath != null) {
+        signingConfigs {
+            create("release") {
+                storeFile = rootProject.file(storePath)
+                storePassword = key("storePassword", "MARRIAGE_KEYSTORE_PASSWORD")
+                keyAlias = key("keyAlias", "MARRIAGE_KEY_ALIAS")
+                keyPassword = key("keyPassword", "MARRIAGE_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
+            if (storePath != null) signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))

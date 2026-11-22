@@ -158,6 +158,34 @@ class GameTest {
     }
 
     @Test
+    fun arrangeKeepsEveryCard() {
+        for (seed in 0 until 50) {
+            val g = MarriageGame(4, 0, Random(seed))
+            val hand = g.players[1].hand
+            for (ctx in listOf(JokerContext.UNSEEN, JokerContext(hand[0].face))) {
+                val a = Arrange.arrange(hand, ctx)
+                val all = a.sets.flatMap { it.cards } + a.partials.flatten() + a.loose
+                assertEquals(hand.toSet(), all.toSet())
+                assertEquals(hand.size, all.size)
+                a.sets.forEach { assertNotNull(Melds.type(it.cards, ctx)) }
+            }
+        }
+    }
+
+    @Test
+    fun showChosenDublees() {
+        // Find a deal where the first player can be given seven pairs.
+        val g = MarriageGame(2, 0, Random(3))
+        val p = g.players[1]
+        val pairs = Card.fullShoe().groupBy { it.face }.values.take(7).map { Dublee(it[0], it[1]) }
+        p.hand.clear()
+        p.hand.addAll(pairs.flatMap { it.cards } + Card.fullShoe().filter { c -> pairs.none { it.first.face == c.face } }.take(7))
+        g.drawStock(1)
+        g.showDublees(1, pairs.reversed())
+        assertEquals(pairs.reversed(), p.shownDublees)
+    }
+
+    @Test
     fun cannotDiscardCardJustTaken() {
         val g = MarriageGame(3, 0, Random(2))
         val taken = g.drawDiscard(1)

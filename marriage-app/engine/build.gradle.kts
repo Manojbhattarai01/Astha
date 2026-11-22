@@ -15,6 +15,7 @@ kotlin {
 
 tasks.test {
     testLogging { showStandardStreams = true }
+    System.getProperty("bot.games")?.let { systemProperty("bot.games", it) }
 }
 
 dependencies {
