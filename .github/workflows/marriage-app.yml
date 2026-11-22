@@ -22,7 +22,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Test and build debug APK
-        run: ./gradlew :engine:test :app:testDebugUnitTest :app:assembleDebug
+        run: ./gradlew :engine:test :app:testDebugUnitTest :app:assembleDebug :web:site
 
       # Signed release, only when the signing secrets are set in the repository settings.
       - name: Build signed release APK
@@ -44,4 +44,5 @@ jobs:
             marriage-app/app/build/outputs/apk/**/*.apk
             marriage-app/app/build/outputs/bundle/release/*.aab
             marriage-app/app/build/screenshots/*.png
+            marriage-app/web/build/site/*
           if-no-files-found: ignore

@@ -1,6 +1,5 @@
 package com.astha.marriage
 
-import androidx.compose.runtime.staticCompositionLocalOf
 import com.astha.marriage.engine.PointLabel
 
 enum class Language { EN, NE }
@@ -270,5 +269,3 @@ object Nepali : Strings {
 }
 
 fun stringsFor(language: Language): Strings = if (language == Language.NE) Nepali else English
-
-val LocalStrings = staticCompositionLocalOf<Strings> { English }

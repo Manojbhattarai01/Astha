@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MarriageCards"
-include(":engine", ":app")
+include(":engine", ":app", ":web")

@@ -11,6 +11,9 @@ draw ahead and avoids feeding the next player; in simulation it beats Easy clear
 - `engine/` – pure Kotlin game rules: cards, combinations, turns, seeing the joker,
   dublees, scoring, settlement, and the computer players. No Android dependency.
 - `app/` – Jetpack Compose user interface.
+- `web/` – the same game for phone browsers (iPhone included): the engine compiled to
+  JavaScript with Kotlin/JS, plus a plain HTML page. `./gradlew :web:site` writes
+  `web/build/site/` (index.html + marriage.js), which any static host can serve.
 
 ## Build
 Needs JDK 17+ and the Android SDK (platform 36). Open the folder in Android Studio,
