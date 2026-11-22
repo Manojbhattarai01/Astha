@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#093D25">
+<title>Marriage card game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: a friendly card table at home during Tihar; play first, no chrome.
+IDEA: the green felt of a card table, with real-looking cards on it.
+PICTURE: the table itself: opponents, deck, discard, joker, and your fanned hand.
+COLOUR and TYPE: felt green, deep green bars, card cream, marigold gold accent; Noto Sans + Noto Sans Devanagari.
+LAYOUT: one phone-width column; table on top, hand and actions anchored at the bottom.
+*/
+:root{color-scheme:dark;--felt:#0e5a36;--felt2:#17754a;--dark:#093d25;--gold:#f2c14e;--cream:#fffdf7;--red:#c62828;--ink:#1b1b1b;--soft:#d5e6db}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:radial-gradient(120% 80% at 50% 35%,var(--felt2),var(--felt) 55%,var(--dark));background-attachment:fixed;color:#f1f5f2;font:16px/1.45 "Noto Sans","Noto Sans Devanagari",system-ui,sans-serif;overflow-x:clip;-webkit-user-select:none;user-select:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid #9fd8b4;outline-offset:2px}
+#app{max-width:560px;margin:0 auto}
+
+/* Cards */
+.card{--w:44px;position:relative;flex:none;width:var(--w);height:calc(var(--w)*1.42);border-radius:calc(var(--w)*.12);background:var(--cream);border:1px solid #9e9e9e;color:var(--ink);box-shadow:0 1px 2px #0004;transition:transform .15s}
+.card.red{color:var(--red)}
+.card>b{position:absolute;left:calc(var(--w)*.08);top:calc(var(--w)*.03);font-size:calc(var(--w)*.36);line-height:1.05;font-weight:700}
+.card>svg{position:absolute;fill:currentColor}
+.card>.sm{left:calc(var(--w)*.08);top:calc(var(--w)*.44);width:calc(var(--w)*.24);height:calc(var(--w)*.24)}
+.card>.big{right:calc(var(--w)*.07);bottom:calc(var(--w)*.07);width:calc(var(--w)*.5);height:calc(var(--w)*.5)}
+.card>.tag{position:absolute;left:calc(var(--w)*.06);top:calc(var(--w)*.76);font:700 calc(var(--w)*.2)/1.25 "Noto Sans",sans-serif;font-style:normal;color:#3a2a00;background:var(--gold);border-radius:99px;padding:0 calc(var(--w)*.06)}
+.card.maal{border:2.5px solid var(--gold)}
+.card.drawn{border:2.5px solid #66bb6a}
+.card.sel{border:2.5px solid #42a5f5;transform:translateY(-9px)}
+.card.back{background:linear-gradient(135deg,#8e1b2b,#5e0f1c);border:2px solid #f5e6c8}
+.card.back::after{content:"";position:absolute;inset:14%;border:1px solid #f5e6c888;border-radius:calc(var(--w)*.08)}
+.card.back>b{position:static;display:grid;place-items:center;height:100%;color:#fff;font-size:calc(var(--w)*.34)}
+.card.empty{background:transparent;border:1.5px solid #ffffff66;box-shadow:none}
+.table-card{--w:62px}
+.grp{display:flex}
+.grp>.card+.card{margin-left:calc(var(--w)*-.2)}
+.flight{position:fixed;z-index:50;pointer-events:none;transition:transform 380ms cubic-bezier(.4,0,.2,1)}
+.flight .card{--w:46px;box-shadow:0 6px 14px #0007}
+
+/* Buttons */
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chip{min-width:56px;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid #ffffff55;font-size:18px}
+.chip.on{background:var(--gold);color:#2a1e00;border-color:var(--gold);font-weight:700}
+.primary,.ghost,.win{min-height:44px;padding:0 18px;border-radius:22px;font-weight:600}
+.primary{background:var(--gold);color:#2a1e00}
+.primary[disabled]{background:#ffffff22;color:#ffffff66}
+.ghost{border:1px solid #ffffff66}
+.win{background:#43a047;color:#fff;font-weight:700}
+.big{display:block;width:min(320px,80%);min-height:54px;margin:14px auto 0;border-radius:16px;font-size:20px}
+.link{min-height:44px;padding:0 10px;color:#fff}
+
+/* Home */
+.home{text-align:center;padding:28px 20px 40px}
+.fan{position:relative;height:132px;width:220px;margin:8px auto 18px}
+.fan .card{--w:68px;position:absolute;left:76px;top:14px}
+.fan .f1{transform:translateX(-48px) translateY(10px) rotate(-14deg)}
+.fan .f3{transform:translateX(48px) translateY(10px) rotate(14deg)}
+.home h1{font-size:46px;line-height:1.05;margin:0;color:var(--gold)}
+.sub{margin:4px 0 22px;color:var(--soft)}
+.home h2{font-size:16px;margin:22px 0 10px;font-weight:600}
+.home h2.lang{margin-top:34px;color:var(--soft);font-weight:400;font-size:14px}
+
+/* Rules */
+.rules{padding:8px 20px 40px}
+.rules .bar{display:flex;align-items:center;gap:6px}
+.rules h1{font-size:24px;color:var(--gold);margin:0}
+.rules h2{color:var(--gold);font-size:18px;margin:22px 0 4px}
+.rules p{margin:0;line-height:1.6}
+
+/* Game */
+.game{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+.game header{display:flex;align-items:center;justify-content:space-between;background:var(--dark);padding:0 12px 0 4px;min-height:48px}
+.game header b{color:var(--gold)}
+.opps{display:flex;gap:6px;padding:6px}
+.opp{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:12px;background:#0003;border:2px solid transparent;font-size:12px}
+.opp b{font-size:14px;white-space:nowrap}
+.opp.turn{background:#f2c14e55;border-color:var(--gold)}
+.opp .mini{display:inline-block;width:10px;height:14px;margin-right:4px;vertical-align:-2px;border-radius:2px;background:linear-gradient(135deg,#8e1b2b,#5e0f1c);border:1px solid #f5e6c8}
+.opp .seen{color:#9fe6b4}.opp .unseen{color:#ffffffaa}.opp .score{color:var(--gold)}
+.tbl{display:flex;justify-content:space-evenly;padding-top:8px}
+.slot{display:flex;flex-direction:column;align-items:center}
+.slot>div{padding:4px;border-radius:10px;border:2px solid transparent}
+.slot.glow>div{border-color:var(--gold)}
+.slot small{color:var(--soft);font-size:12px}
+.log{margin:6px 12px;padding:6px 10px;border-radius:10px;background:#0003;font-size:13px;color:#ffffffaa}
+.log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.log .now{color:#fff}
+.grow{flex:1;min-height:8px}
+.status{margin:4px 12px;text-align:center;font-size:14px;color:var(--soft)}
+.status.mine{color:var(--gold);font-weight:600}
+.laid{--w:30px;display:flex;gap:8px;overflow-x:auto;padding:4px 8px}
+.laid .card{--w:30px}
+.hand{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;padding:12px 8px 6px}
+.hand .card{--w:clamp(32px,calc((min(100vw,560px) - 24px)/8.6 - 2px),56px)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:var(--dark);min-height:60px}
+
+/* Dialogs */
+.modal{position:fixed;inset:0;z-index:40;background:#000a;display:grid;place-items:center;padding:16px}
+.box{width:min(480px,100%);max-height:90dvh;overflow:auto;background:#22272a;border-radius:24px;padding:22px}
+.box h2{margin:0 0 10px;font-size:24px}
+.box h3{margin:16px 0 8px;font-size:16px}
+.box .row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.sets{display:flex;flex-wrap:wrap;gap:8px 10px}
+.sets .card,.tiplu .card{--w:32px}
+.tiplu{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:8px}
+.result table{width:100%;border-collapse:collapse;font-size:15px}
+.result th{font-weight:400;font-size:13px;color:#ffffffaa;text-align:right;padding:4px}
+.result td{padding:6px 4px;text-align:right;border-top:1px solid #ffffff22;vertical-align:top;white-space:nowrap}
+.result td:first-child{text-align:left;white-space:normal}
+.result td small{display:block;color:#b7ccbf;font-size:12px}
+.result tr.won td:first-child{font-weight:700}
+.plus{color:#81c784;font-weight:700}.minus{color:#e57373;font-weight:700}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:60;width:max-content;max-width:min(92vw,480px);background:#333;color:#fff;padding:12px 16px;border-radius:10px;font-size:14px;transition:opacity .2s,transform .2s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.flight{transition:none}.card{transition:none}}
+</style>
+</head>
+<body>
+<div id="app"><p style="text-align:center;padding:40px">Loading…</p></div>
+<div id="flights"></div>
+<div id="toast" class="toast" role="status"></div>
+<script src="marriage.js"></script>
+</body>
+</html>
