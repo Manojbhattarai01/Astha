@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#5a0f12">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>दरबार हत्याकाण्ड</title>
+<style>
+:root{
+  --bg:#2a0709; --panel:#4a0d11; --panel2:#6b1419; --gold:#e8b64c; --gold2:#ffd98a;
+  --text:#fbefdc; --muted:#d2b8a0; --ok:#5fc27a; --bad:#e2574c; --q:#f0c24b;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+  font-family:"Mukta","Noto Sans Devanagari","Nirmala UI",system-ui,sans-serif;font-size:16px;overscroll-behavior:none}
+body{background:radial-gradient(circle at 50% -10%,#7a1a1f 0%,var(--bg) 60%) fixed}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+.screen{display:none;max-width:520px;margin:0 auto;min-height:100%;padding:14px 12px calc(14px + var(--safe-b))}
+.screen.on{display:flex;flex-direction:column}
+h1{font-size:2.3rem;margin:.2em 0 0;text-align:center;color:var(--gold2);letter-spacing:1px;text-shadow:0 3px 0 #000a}
+.sub{text-align:center;color:var(--muted);margin:0 0 12px}
+.card-box{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid #e8b64c55;border-radius:16px;padding:14px;margin:8px 0;box-shadow:0 6px 18px #0006}
+.story{line-height:1.6;font-size:1rem}
+.lbl{color:var(--gold);font-weight:700;margin:10px 0 6px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{flex:1;min-width:70px;padding:10px 8px;border-radius:12px;background:#0004;border:1px solid #e8b64c44}
+.seg button.sel{background:var(--gold);color:#3a0a0c;font-weight:700}
+.big{display:block;width:100%;padding:15px;border-radius:14px;font-size:1.2rem;font-weight:700;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));color:#3a0a0c;box-shadow:0 4px 0 #8a5a12;margin-top:12px}
+.big:active{transform:translateY(2px);box-shadow:0 2px 0 #8a5a12}
+.btn{padding:11px 12px;border-radius:12px;background:#0005;border:1px solid #e8b64c77;font-weight:600}
+.btn.gold{background:var(--gold);color:#3a0a0c;border-color:var(--gold)}
+.btn.red{background:#8e1c22;border-color:#ff8a7a88}
+.btn:disabled{opacity:.4}
+.tiny{font-size:.8rem;color:var(--muted)}
+
+/* game */
+#topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+#turnInfo{font-weight:700;color:var(--gold2);font-size:1.05rem}
+.players{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.pchip{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;background:#0005;font-size:.85rem;border:2px solid transparent}
+.pchip.cur{border-color:var(--gold)}
+.pchip.out{opacity:.4;text-decoration:line-through}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1.5px solid #fff8}
+#map{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#1a0405;padding:6px;border-radius:16px;border:2px solid #e8b64c66}
+.room{position:relative;aspect-ratio:1/0.92;border-radius:11px;background:linear-gradient(160deg,#7d2a20,#4e1310);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;text-align:center;border:1px solid #0000;transition:.15s}
+.room .ri{font-size:1.7rem;line-height:1}
+.room .rn{font-size:.78rem;margin-top:2px;line-height:1.15}
+.room .tok{position:absolute;bottom:4px;left:0;right:0;display:flex;justify-content:center;gap:3px}
+.room.reach{border-color:var(--gold2);box-shadow:0 0 0 2px var(--gold) inset, 0 0 12px #ffd98a66;animation:pulse 1.2s infinite}
+.room.here{background:linear-gradient(160deg,#b0602a,#6e2a12)}
+.room.dim{opacity:.55}
+.room .xmark{position:absolute;top:3px;right:6px;font-size:.8rem;color:#ffb0a0}
+@keyframes pulse{50%{box-shadow:0 0 0 2px var(--gold) inset,0 0 20px #ffd98aaa}}
+#panel{margin-top:8px}
+#panel .msg{text-align:center;margin-bottom:8px;color:var(--muted)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+#hand{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 6px}
+.mini{flex:0 0 auto;padding:6px 9px;border-radius:10px;background:#f6e6c8;color:#3a0a0c;font-size:.82rem;font-weight:600;white-space:nowrap}
+#log{max-height:30vh;overflow:auto;font-size:.88rem;line-height:1.45}
+#log div{padding:5px 2px;border-bottom:1px dashed #ffffff18}
+#log div:first-child{color:var(--gold2)}
+
+/* modal */
+#modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;z-index:10}
+#modal.on{display:flex}
+#mbox{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:linear-gradient(180deg,#5d1015,#320809);
+  border-radius:20px 20px 0 0;padding:16px 14px calc(18px + var(--safe-b));border-top:2px solid var(--gold);animation:up .2s}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+#mbox h2{margin:0 0 8px;color:var(--gold2);font-size:1.3rem}
+.picks{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pick{padding:9px 4px;border-radius:12px;background:#0005;border:1.5px solid #e8b64c44;font-size:.82rem;line-height:1.2;display:flex;flex-direction:column;align-items:center;gap:3px}
+.pick .pi{font-size:1.5rem}
+.pick.sel{background:var(--gold);color:#3a0a0c;border-color:var(--gold2);font-weight:700}
+.pick.known{opacity:.55}
+.reveal{display:flex;flex-direction:column;align-items:center;gap:6px;margin:12px auto;padding:18px;border-radius:16px;background:#f6e6c8;color:#3a0a0c;width:70%;
+  box-shadow:0 8px 24px #000a;animation:flip .5s}
+.reveal .pi{font-size:3rem}
+@keyframes flip{from{transform:rotateY(90deg)}}
+.trio{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.trio .reveal{width:30%;padding:10px 4px;font-size:.8rem}
+.trio .reveal .pi{font-size:2rem}
+
+/* notebook */
+.nb-sec{color:var(--gold);font-weight:700;margin:10px 0 4px}
+.nb-row{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:10px;background:#0003;margin-bottom:4px}
+.nb-row .nm{flex:1}
+.nb-row .info{font-size:.75rem;color:var(--muted)}
+.nb-row .st{width:38px;height:32px;border-radius:8px;background:#0006;font-weight:800;font-size:1.1rem}
+.st.x{color:var(--bad)} .st.q{color:var(--q)} .st.v{color:var(--ok);background:#1e4a2a}
+.nb-row.auto{opacity:.65}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<section id="home" class="screen on">
+  <h1>दरबार हत्याकाण्ड</h1>
+  <p class="sub">🏯 एक रहस्यमय जासुसी खेल 🔍</p>
+  <div class="card-box story">
+    कान्तिपुर दरबारमा आधा रातमा <b>महामन्त्री देवीदत्त</b>को हत्या भयो! 🕯️<br>
+    दरबारका छ जना संदिग्धमध्ये एक जना हत्यारा हो।
+    तपाईं र अरू जासुसहरू (बोट) बीच दौड छ —
+    <b>को</b> ले, <b>कुन हतियार</b>ले, <b>कुन कोठामा</b> हत्या गर्‍यो, पहिले पत्ता लगाउने जित्छ!
+    <div class="tiny" style="margin-top:8px">* सबै पात्र र घटना काल्पनिक हुन्।</div>
+  </div>
+  <div class="card-box">
+    <div class="lbl">कति बोटसँग खेल्ने?</div>
+    <div class="seg" id="segBots">
+      <button data-v="1">१ बोट</button><button data-v="2" class="sel">२ बोट</button><button data-v="3">३ बोट</button>
+    </div>
+    <div class="lbl">बोटको दिमाग</div>
+    <div class="seg" id="segLvl">
+      <button data-v="easy">😊 सजिलो</button><button data-v="hard" class="sel">🧠 कठिन</button>
+    </div>
+    <button class="big" id="startBtn">खेल सुरु गर्नुहोस् ▶</button>
+    <button class="btn" id="rulesBtn" style="width:100%;margin-top:10px">📖 खेल्ने तरिका</button>
+  </div>
+</section>
+
+<!-- GAME -->
+<section id="game" class="screen">
+  <div id="topbar">
+    <div id="turnInfo">…</div>
+    <div class="row" style="flex:0 0 auto;gap:6px">
+      <button class="btn" id="nbBtn">📓 नोटबुक</button>
+      <button class="btn" id="menuBtn">☰</button>
+    </div>
+  </div>
+  <div class="players" id="players"></div>
+  <div id="map"></div>
+  <div id="panel" class="card-box"></div>
+  <div class="card-box" style="padding:10px">
+    <div class="lbl" style="margin-top:0">🃏 मेरा कार्डहरू (हत्या यीमा परेन)</div>
+    <div id="hand"></div>
+  </div>
+  <div class="card-box" style="padding:10px">
+    <div class="lbl" style="margin-top:0">📜 घटना विवरण</div>
+    <div id="log"></div>
+  </div>
+</section>
+
+<div id="modal"><div id="mbox"></div></div>
+
+<script>
+"use strict";
+// ---------- DATA ----------
+const SUSPECTS=[
+  {id:'s0',np:'सेनापति भैरव सिंह',i:'🎖️'},
+  {id:'s1',np:'राजगुरु हरिहर',i:'📿'},
+  {id:'s2',np:'भण्डारी कमला देवी',i:'💰'},
+  {id:'s3',np:'काजी तारा प्रसाद',i:'📜'},
+  {id:'s4',np:'नर्तकी माया',i:'💃'},
+  {id:'s5',np:'राजवैद्य गणेश',i:'🌿'},
+];
+const WEAPONS=[
+  {id:'w0',np:'खुकुरी',i:'🗡️'},
+  {id:'w1',np:'विषको प्याला',i:'🍵'},
+  {id:'w2',np:'डोरी',i:'🪢'},
+  {id:'w3',np:'त्रिशूल',i:'🔱'},
+  {id:'w4',np:'धनुवाण',i:'🏹'},
+  {id:'w5',np:'सिलौटो',i:'🪨'},
+];
+const ROOMS=[
+  {id:'r0',np:'पूजा कोठा',i:'🛕'},{id:'r1',np:'पुस्तकालय',i:'📚'},{id:'r2',np:'शयन कक्ष',i:'🛏️'},
+  {id:'r3',np:'भान्सा',i:'🍲'},{id:'r4',np:'नासल चोक',i:'⛲'},{id:'r5',np:'ढुकुटी',i:'💎'},
+  {id:'r6',np:'बगैँचा',i:'🌺'},{id:'r7',np:'दरबार हल',i:'👑'},{id:'r8',np:'अस्त्रागार',i:'🛡️'},
+];
+SUSPECTS.forEach(c=>c.t='s');WEAPONS.forEach(c=>c.t='w');ROOMS.forEach(c=>c.t='r');
+const ALL=[...SUSPECTS,...WEAPONS,...ROOMS];
+const C={};ALL.forEach(c=>C[c.id]=c);
+const CATS={s:SUSPECTS.map(c=>c.id),w:WEAPONS.map(c=>c.id),r:ROOMS.map(c=>c.id)};
+const BOT_NAMES=['जासुस कृष्ण','जासुस सीता','जासुस हरि'];
+const COLORS=['#4fc3f7','#ff8a65','#ba68c8','#9ccc65'];
+const NUM=n=>String(n).replace(/\d/g,d=>'०१२३४५६७८९'[d]);
+
+// room adjacency: 3x3 grid, can move to any touching room (incl. diagonal) or stay
+const rc=i=>[Math.floor(i/3),i%3];
+const dist=(a,b)=>{const[x1,y1]=rc(a),[x2,y2]=rc(b);return Math.max(Math.abs(x1-x2),Math.abs(y1-y2));};
+
+// ---------- HELPERS ----------
+const $=s=>document.querySelector(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms*(window.SPEED||1)));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+const pickR=a=>a[Math.random()*a.length|0];
+const cardLabel=id=>`${C[id].i} ${C[id].np}`;
+const pname=i=>G.players[i].name;
+const pdot=i=>`<span class="dot" style="background:${G.players[i].color}"></span>`;
+const vib=ms=>{try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
+
+// ---------- BOT BRAIN ----------
+class Brain{
+  constructor(me,handSizes,hard){
+    this.me=me;this.n=handSizes.length;this.S=this.n;this.hs=handSizes;this.hard=hard;
+    this.m={};ALL.forEach(c=>this.m[c.id]=new Array(this.n+1).fill(0));
+    this.cl=[];
+  }
+  yes(c,o){const r=this.m[c];if(r[o]!==1){r[o]=1;this.ch=true;}
+    for(let k=0;k<=this.n;k++)if(k!==o&&r[k]!==-1){r[k]=-1;this.ch=true;}}
+  no(c,o){if(this.m[c][o]===0){this.m[c][o]=-1;this.ch=true;}}
+  clause(o,cards){if(this.hard)this.cl.push({o,cards});}
+  infer(){
+    let guard=0;
+    do{this.ch=false;
+      for(const c of ALL){const r=this.m[c.id];
+        if(r.includes(1))continue;
+        const open=[];r.forEach((v,k)=>{if(v!==-1)open.push(k)});
+        if(open.length===1)this.yes(c.id,open[0]);}
+      for(const t in CATS){const ids=CATS[t];
+        const y=ids.find(c=>this.m[c][this.S]===1);
+        if(y){ids.forEach(c=>{if(c!==y)this.no(c,this.S)});}
+        else{const cand=ids.filter(c=>this.m[c][this.S]!==-1);if(cand.length===1)this.yes(cand[0],this.S);}}
+      if(this.hard){
+        for(let o=0;o<this.n;o++){let y=0,u=[];
+          for(const c of ALL){const v=this.m[c.id][o];if(v===1)y++;else if(v===0)u.push(c.id);}
+          if(u.length&&y===this.hs[o])u.forEach(c=>this.no(c,o));
+          else if(u.length&&y+u.length===this.hs[o])u.forEach(c=>this.yes(c,o));}
+        this.cl=this.cl.filter(k=>{
+          if(k.cards.some(c=>this.m[c][k.o]===1))return false;
+          const rem=k.cards.filter(c=>this.m[c][k.o]!==-1);
+          if(rem.length===1){this.yes(rem[0],k.o);return false;}
+          return true;});
+      }
+    }while(this.ch&&++guard<60);
+  }
+  sol(t){return CATS[t].find(c=>this.m[c][this.S]===1)||null;}
+  solved(){const s=this.sol('s'),w=this.sol('w'),r=this.sol('r');return s&&w&&r?{s,w,r}:null;}
+  maybe(t){return CATS[t].filter(c=>this.m[c][this.S]===0);}
+}
+
+// ---------- GAME STATE ----------
+let CFG={bots:2,lvl:'hard'};
+let G=null;
+
+function newGame(){
+  const n=CFG.bots+1;
+  const players=[{name:'तपाईं',isBot:false,color:COLORS[0]}];
+  for(let i=0;i<CFG.bots;i++)players.push({name:BOT_NAMES[i],isBot:true,color:COLORS[i+1]});
+  players.forEach(p=>{p.hand=[];p.pos=4;p.out=false;p.shown={};});
+  const sol={s:pickR(CATS.s),w:pickR(CATS.w),r:pickR(CATS.r)};
+  const rest=shuffle(ALL.map(c=>c.id).filter(id=>id!==sol.s&&id!==sol.w&&id!==sol.r));
+  rest.forEach((c,i)=>players[i%n].hand.push(c));
+  const hs=players.map(p=>p.hand.length);
+  players.forEach((p,i)=>{
+    if(!p.isBot)return;
+    p.brain=new Brain(i,hs,CFG.lvl==='hard');
+    ALL.forEach(c=>{p.hand.includes(c.id)?p.brain.yes(c.id,i):p.brain.no(c.id,i);});
+    p.brain.infer();
+    p.target=null;
+  });
+  const note={},noteInfo={};
+  ALL.forEach(c=>{note[c.id]='';noteInfo[c.id]='';});
+  players[0].hand.forEach(c=>{note[c]='x';noteInfo[c]='मसँग छ';});
+  G={players,sol,turn:0,phase:'wait',log:[],note,noteInfo,over:false,round:1};
+  show('game');
+  logMsg(`🕯️ खेल सुरु! सबै जासुस <b>नासल चोक</b>मा छन्। तपाईंसँग ${NUM(players[0].hand.length)} वटा कार्ड छन्।`);
+  render();
+  startTurn();
+}
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);}
+function logMsg(h){G.log.unshift(h);if(G.log.length>80)G.log.pop();renderLog();}
+
+// ---------- RENDER ----------
+function render(){
+  if(!G)return;
+  const cur=G.players[G.turn];
+  $('#turnInfo').innerHTML=G.over?'खेल सकियो':(cur.isBot?`${pdot(G.turn)} ${cur.name}को पालो`:`${pdot(0)} तपाईंको पालो`);
+  $('#players').innerHTML=G.players.map((p,i)=>`<div class="pchip ${i===G.turn&&!G.over?'cur':''} ${p.out?'out':''}">${pdot(i)}${p.name} <span class="tiny">(${NUM(p.hand.length)})</span></div>`).join('');
+  const me=G.players[0];
+  const myTurn=!cur.isBot&&!G.over;
+  $('#map').innerHTML=ROOMS.map((r,idx)=>{
+    const toks=G.players.map((p,i)=>p.pos===idx&&!p.out?pdot(i):'').join('');
+    const reach=myTurn&&G.phase==='move'&&dist(me.pos,idx)<=1;
+    const cls=['room',reach?'reach':'',me.pos===idx?'here':'',myTurn&&G.phase==='move'&&!reach?'dim':''].join(' ');
+    const x=G.note[r.id]==='x'?'<span class="xmark">✗</span>':'';
+    return `<button class="${cls}" data-room="${idx}"><span class="ri">${r.i}</span><span class="rn">${r.np}</span>${x}<span class="tok">${toks}</span></button>`;
+  }).join('');
+  renderPanel();
+  $('#hand').innerHTML=me.hand.slice().sort().map(c=>`<span class="mini">${cardLabel(c)}</span>`).join('');
+  renderLog();
+}
+function renderLog(){$('#log').innerHTML=G.log.slice(0,40).map(l=>`<div>${l}</div>`).join('');}
+function renderPanel(){
+  const p=$('#panel');const cur=G.players[G.turn];
+  if(G.over){p.innerHTML=`<button class="big" onclick="newGame()">🔄 फेरि खेल्नुहोस्</button>`;return;}
+  if(cur.isBot){p.innerHTML=`<div class="msg">🤔 ${cur.name} सोच्दैछ…</div>`;return;}
+  const room=ROOMS[G.players[0].pos];
+  if(G.phase==='move'){
+    p.innerHTML=`<div class="msg">👣 चम्किरहेको कोठामा ट्याप गर्नुहोस् (वरपरको कोठा वा यहीँ बस्न सकिन्छ)</div>
+    <button class="btn red" style="width:100%" onclick="openAccuse()">⚖️ सिधै आरोप लगाउनुहोस्</button>`;
+  }else if(G.phase==='suggest'){
+    p.innerHTML=`<div class="msg">तपाईं ${room.i} <b>${room.np}</b>मा हुनुहुन्छ</div>
+    <button class="big" style="margin-top:0" onclick="openSuggest()">🔍 अनुमान गर्नुहोस्</button>
+    <div class="row" style="margin-top:8px"><button class="btn red" onclick="openAccuse()">⚖️ आरोप</button><button class="btn" onclick="endHumanTurn()">⏭️ पालो सक्नुहोस्</button></div>`;
+  }else if(G.phase==='after'){
+    p.innerHTML=`<div class="msg">अब के गर्ने? पक्का थाहा भए आरोप लगाउनुहोस्, नत्र पालो सक्नुहोस्।</div>
+    <div class="row"><button class="btn red" onclick="openAccuse()">⚖️ आरोप लगाउनुहोस्</button><button class="btn gold" onclick="endHumanTurn()">⏭️ पालो सक्नुहोस्</button></div>`;
+  }else{p.innerHTML=`<div class="msg">…</div>`;}
+}
+
+// ---------- MODAL ----------
+let modalResolve=null;
+function openModal(html){$('#mbox').onclick=null;$('#mbox').innerHTML=html;$('#modal').classList.add('on');$('#mbox').scrollTop=0;}
+function closeModal(){$('#modal').classList.remove('on');}
+function waitModal(html){return new Promise(res=>{modalResolve=res;openModal(html);});}
+function resolveModal(v){closeModal();const r=modalResolve;modalResolve=null;r&&r(v);}
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'&&!modalResolve)closeModal();});
+
+function picksHTML(t,sel,name){
+  return `<div class="picks">`+CATS[t].map(id=>{const k=G.note[id]==='x';
+    return `<button class="pick ${sel===id?'sel':''} ${k?'known':''}" data-pick="${name}" data-id="${id}"><span class="pi">${C[id].i}</span>${C[id].np}${k?' ✗':''}</button>`}).join('')+`</div>`;
+}
+
+// ---------- HUMAN TURN ----------
+let pickState={};
+function startTurn(){
+  if(G.over)return;
+  const p=G.players[G.turn];
+  if(p.out){advance();return;}
+  render();
+  if(p.isBot){botTurn(G.turn);}
+  else{G.phase='move';render();}
+}
+function advance(){
+  const n=G.players.length;
+  for(let k=1;k<=n;k++){const i=(G.turn+k)%n;
+    if(!G.players[i].out){if(i<=G.turn)G.round++;G.turn=i;break;}}
+  // if only bots that are all out and human... human always active unless game over
+  startTurn();
+}
+function endHumanTurn(){G.phase='wait';advance();}
+
+$('#map').addEventListener('click',e=>{
+  const b=e.target.closest('[data-room]');if(!b||!G||G.over)return;
+  const idx=+b.dataset.room;const me=G.players[0];
+  if(G.turn!==0||G.phase!=='move'||dist(me.pos,idx)>1)return;
+  me.pos=idx;G.phase='suggest';vib(15);
+  logMsg(`${pdot(0)} तपाईं ${ROOMS[idx].i} ${ROOMS[idx].np}मा जानुभयो।`);
+  render();openSuggest();
+});
+
+function openSuggest(){
+  const room=ROOMS[G.players[0].pos];
+  pickState={s:pickState.s||null,w:pickState.w||null};
+  let handler;
+  const draw=()=>{openModal(`<h2>🔍 अनुमान — ${room.i} ${room.np}</h2>
+    <div class="tiny">कसले र कुन हतियारले? अरू जासुसले आफूसँग भएको एउटा कार्ड देखाउनेछन्।</div>
+    <div class="lbl">संदिग्ध</div>${picksHTML('s',pickState.s,'s')}
+    <div class="lbl">हतियार</div>${picksHTML('w',pickState.w,'w')}
+    <button class="big" id="doSug" ${pickState.s&&pickState.w?'':'disabled style="opacity:.5"'}>सोध्नुहोस् ❓</button>
+    <button class="btn" style="width:100%;margin-top:8px" onclick="closeModal()">पछि</button>`);$('#mbox').onclick=handler;};
+  handler=async e=>{
+    const pk=e.target.closest('[data-pick]');
+    if(pk){pickState[pk.dataset.pick]=pk.dataset.id;draw();return;}
+    if(e.target.id==='doSug'&&pickState.s&&pickState.w){
+      $('#mbox').onclick=null;closeModal();
+      G.phase='busy';render();
+      await runSuggestion(0,pickState.s,pickState.w,ROOMS[G.players[0].pos].id);
+      G.phase='after';render();
+    }
+  };
+  draw();
+}
+
+function openAccuse(){
+  const a={s:null,w:null,r:null};
+  let handler;
+  const draw=()=>{openModal(`<h2>⚖️ अन्तिम आरोप</h2>
+    <div class="tiny" style="color:#ffb0a0">ध्यान दिनुहोस्! गलत भयो भने तपाईं हार्नुहुन्छ।</div>
+    <div class="lbl">हत्यारा</div>${picksHTML('s',a.s,'s')}
+    <div class="lbl">हतियार</div>${picksHTML('w',a.w,'w')}
+    <div class="lbl">कोठा</div>${picksHTML('r',a.r,'r')}
+    <button class="big" id="doAcc" style="background:linear-gradient(180deg,#ff7a6a,#c8322a);color:#fff;box-shadow:0 4px 0 #6a1410" ${a.s&&a.w&&a.r?'':'disabled'}>आरोप लगाउनुहोस्!</button>
+    <button class="btn" style="width:100%;margin-top:8px" onclick="closeModal()">रद्द</button>`);$('#mbox').onclick=handler;};
+  handler=e=>{
+    const pk=e.target.closest('[data-pick]');
+    if(pk){a[pk.dataset.pick]=pk.dataset.id;draw();return;}
+    if(e.target.id==='doAcc'&&a.s&&a.w&&a.r){$('#mbox').onclick=null;closeModal();accuse(0,a);}
+  };
+  draw();
+}
+
+function trioHTML(s){return `<div class="trio">${['s','w','r'].map(t=>`<div class="reveal"><span class="pi">${C[s[t]].i}</span><b>${C[s[t]].np}</b></div>`).join('')}</div>`;}
+
+function accuse(i,a){
+  const ok=a.s===G.sol.s&&a.w===G.sol.w&&a.r===G.sol.r;
+  const p=G.players[i];
+  logMsg(`⚖️ ${pdot(i)} ${p.name}ले आरोप लगायो: ${cardLabel(a.s)}, ${cardLabel(a.w)}, ${cardLabel(a.r)}`);
+  if(ok){
+    G.over=true;G.phase='over';render();vib([60,40,60]);
+    const win=!p.isBot;
+    openModal(`<h2>${win?'🏆 बधाई छ! तपाईंले रहस्य खोल्नुभयो!':'😢 '+p.name+'ले पहिले रहस्य खोल्यो!'}</h2>
+      <div class="tiny">${win?NUM(G.round)+' औँ चरणमा सही आरोप।':'तपाईं हार्नुभयो। अर्को पटक छिटो गर्नुहोस्!'}</div>
+      <div class="lbl">सत्य:</div>${trioHTML(G.sol)}
+      <button class="big" onclick="closeModal();newGame()">🔄 फेरि खेल्नुहोस्</button>
+      <button class="btn" style="width:100%;margin-top:8px" onclick="closeModal();show('home')">🏠 मुख्य पृष्ठ</button>`);
+    return true;
+  }
+  if(!p.isBot){
+    G.over=true;G.phase='over';render();vib(300);
+    openModal(`<h2>❌ गलत आरोप! तपाईं हार्नुभयो।</h2>
+      <div class="lbl">वास्तविक हत्यारा, हतियार र कोठा:</div>${trioHTML(G.sol)}
+      <button class="big" onclick="closeModal();newGame()">🔄 फेरि खेल्नुहोस्</button>
+      <button class="btn" style="width:100%;margin-top:8px" onclick="closeModal();show('home')">🏠 मुख्य पृष्ठ</button>`);
+    return true;
+  }
+  p.out=true;logMsg(`❌ ${p.name}को आरोप गलत! ऊ खेलबाट बाहिरियो (तर कार्ड देखाउन बाँकी रहन्छ)।`);
+  render();return false;
+}
+
+// ---------- SUGGESTION (shared) ----------
+async function runSuggestion(si,s,w,r){
+  const g=G;const n=G.players.length;const sp=G.players[si];
+  logMsg(`🔍 ${pdot(si)} ${sp.name}: “के ${C[s].i} ${C[s].np}ले ${C[w].i} ${C[w].np}ले ${C[r].i} ${C[r].np}मा हत्या गर्‍यो?”`);
+  render();
+  await sleep(700);
+  for(let k=1;k<n;k++){
+    if(G!==g)return null;
+    const j=(si+k)%n;const pj=G.players[j];
+    const has=pj.hand.filter(c=>c===s||c===w||c===r);
+    if(!has.length){
+      logMsg(`🙅 ${pdot(j)} ${pj.name}सँग कुनै कार्ड छैन।`);
+      G.players.forEach(p=>{if(p.brain&&p.brain.me!==j&&(p.brain.hard||Math.random()<.6)){[s,w,r].forEach(c=>p.brain.no(c,j));}});
+      await sleep(550);continue;
+    }
+    let card;
+    if(pj.isBot){
+      const prev=has.filter(c=>pj.shown[si]&&pj.shown[si].has(c));
+      card=prev.length?pickR(prev):pickR(has);
+      await sleep(500);
+    }else{
+      card=await waitModal(`<h2>🤫 ${sp.name}ले सोध्यो</h2>
+        <div class="tiny">“${cardLabel(s)}, ${cardLabel(w)}, ${cardLabel(r)}” — तपाईंसँग यी छन्। एउटा गोप्य रूपमा देखाउनुहोस्:</div>
+        <div class="picks" style="margin-top:12px">${has.map(c=>`<button class="pick" onclick="resolveModal('${c}')"><span class="pi">${C[c].i}</span>${C[c].np}</button>`).join('')}</div>`);
+    }
+    if(G!==g)return null;
+    (pj.shown[si]||(pj.shown[si]=new Set())).add(card);
+    // suggester learns
+    if(sp.isBot){sp.brain.yes(card,j);}
+    else{
+      G.note[card]='x';G.noteInfo[card]=`${pj.name}ले देखायो`;
+      vib(30);
+      await waitModal(`<h2>${pdot(j)} ${pj.name}ले तपाईंलाई देखायो:</h2>
+        <div class="reveal"><span class="pi">${C[card].i}</span><b>${C[card].np}</b></div>
+        <div class="tiny" style="text-align:center">यो हत्यामा परेन — नोटबुकमा ✗ लगाइयो।</div>
+        <button class="big" onclick="resolveModal()">ठीक छ</button>`);
+    }
+    // others learn j has one of the three
+    G.players.forEach((p,x)=>{if(p.brain&&x!==si&&x!==j)p.brain.clause(j,[s,w,r]);});
+    logMsg(`🃏 ${pdot(j)} ${pj.name}ले ${pdot(si)} ${sp.name}लाई एउटा कार्ड ${j===0?`(${cardLabel(card)})`:si===0?`(${cardLabel(card)})`:''} देखायो।`);
+    G.players.forEach(p=>p.brain&&p.brain.infer());
+    render();
+    return card;
+  }
+  logMsg(`😮 कसैले पनि कार्ड देखाउन सकेन!`);
+  G.players.forEach(p=>p.brain&&p.brain.infer());
+  if(!sp.isBot){
+    await waitModal(`<h2>😮 कसैसँग कार्ड छैन!</h2>
+      <div class="tiny">अरू कुनै जासुससँग यी तीनमध्ये कुनै छैन। तपाईंसँग पनि नभएका कार्ड नै हत्याको सत्य हुन सक्छन्!</div>
+      ${trioHTML({s,w,r})}
+      <button class="big" onclick="resolveModal()">ठीक छ</button>`);
+  }
+  render();
+  return null;
+}
+
+// ---------- BOT TURN ----------
+async function botTurn(i){
+  const g=G;const p=G.players[i];const b=p.brain;
+  const dead=()=>G!==g||G.over;
+  await sleep(800);
+  if(dead())return;
+  let sol=b.solved();
+  if(sol){accuse(i,sol);if(!G.over)advance();return;}
+  // choose a room: one that might still be the murder room
+  const maybeRooms=CATS.r.map((id,idx)=>({id,idx})).filter(o=>b.m[o.id][b.S]!==-1);
+  let target=p.target;
+  if(target==null||b.m[ROOMS[target].id][b.S]===-1){
+    const best=Math.min(...maybeRooms.map(o=>dist(p.pos,o.idx)));
+    const near=maybeRooms.filter(o=>dist(p.pos,o.idx)===best);
+    target=pickR(near).idx;p.target=target;
+  }
+  if(target!==p.pos){
+    const steps=[0,1,2,3,4,5,6,7,8].filter(x=>dist(p.pos,x)<=1);
+    const bd=Math.min(...steps.map(x=>dist(x,target)));
+    p.pos=pickR(steps.filter(x=>dist(x,target)===bd));
+    logMsg(`👣 ${pdot(i)} ${p.name} ${ROOMS[p.pos].i} ${ROOMS[p.pos].np}मा गयो।`);
+    render();await sleep(600);
+    if(dead())return;
+  }
+  const room=ROOMS[p.pos].id;
+  const choose=t=>{
+    const m=b.maybe(t);
+    if(m.length)return pickR(m);
+    const known=b.sol(t);
+    // all known: mix own card (safe probe) or solution
+    const own=CATS[t].filter(c=>p.hand.includes(c));
+    return own.length&&Math.random()<.6?pickR(own):(known||pickR(CATS[t]));
+  };
+  await runSuggestion(i,choose('s'),choose('w'),room);
+  if(dead())return;
+  sol=b.solved();
+  if(sol){await sleep(700);if(dead())return;accuse(i,sol);}
+  if(!G.over){await sleep(500);if(dead())return;advance();}
+}
+
+// ---------- NOTEBOOK ----------
+function openNotebook(){
+  const cyc={'':'x','x':'q','q':'v','v':''};
+  const sym={'':'·','x':'✗','q':'?','v':'✓'};
+  const sec=(t,title)=>`<div class="nb-sec">${title}</div>`+CATS[t].map(id=>{
+    const auto=!!G.noteInfo[id];
+    return `<div class="nb-row ${auto?'auto':''}"><span>${C[id].i}</span><span class="nm">${C[id].np}<br><span class="info">${G.noteInfo[id]||''}</span></span>
+      <button class="st ${G.note[id]}" data-nb="${id}" ${auto?'disabled':''}>${sym[G.note[id]]}</button></div>`;}).join('');
+  openModal(`<h2>📓 जासुसी नोटबुक</h2>
+    <div class="tiny">ट्याप गर्दा बदलिन्छ: ✗ हत्यामा परेन · ? शंका · ✓ यही हो!</div>
+    ${sec('s','👤 संदिग्ध')}${sec('w','🗡️ हतियार')}${sec('r','🏯 कोठा')}
+    <button class="big" onclick="closeModal()">बन्द गर्नुहोस्</button>`);
+  $('#mbox').onclick=e=>{const b=e.target.closest('[data-nb]');if(!b)return;
+    const id=b.dataset.nb;G.note[id]=cyc[G.note[id]];b.className='st '+G.note[id];b.textContent=sym[G.note[id]];render();};
+}
+
+function openRules(){
+  openModal(`<h2>📖 खेल्ने तरिका</h2><div class="story" style="font-size:.95rem">
+  <p>🎯 <b>लक्ष्य:</b> लुकाइएका तीन कार्ड — <b>हत्यारा</b>, <b>हतियार</b> र <b>कोठा</b> — पत्ता लगाउनु।</p>
+  <p>🃏 बाँकी कार्डहरू सबै जासुसलाई बाँडिन्छ। तपाईंसँग भएका कार्ड हत्यामा परेका छैनन्।</p>
+  <p>👣 <b>आफ्नो पालोमा:</b> नक्सामा वरपरको कोठामा जानुहोस् (वा त्यहीँ बस्नुहोस्)।</p>
+  <p>🔍 <b>अनुमान:</b> त्यो कोठा + एक संदिग्ध + एक हतियार छानेर सोध्नुहोस्। क्रमैसँग अर्को जासुसले यीमध्ये कुनै कार्ड भए एउटा मात्र तपाईंलाई गोप्य रूपमा देखाउँछ।</p>
+  <p>😮 कसैसँग नभए — त्यो ठूलो सुराग हो!</p>
+  <p>📓 नोटबुकमा ✗ ? ✓ लगाएर हिसाब राख्नुहोस्। बोटहरूले पनि हरेक कुरा सम्झिन्छन्, होसियार!</p>
+  <p>⚖️ <b>आरोप:</b> पक्का भएपछि आफ्नो पालोमा आरोप लगाउनुहोस्। सही भए जित, गलत भए हार!</p></div>
+  <button class="big" onclick="closeModal()">बुझेँ!</button>`);
+}
+
+// ---------- WIRING ----------
+document.querySelectorAll('.seg').forEach(seg=>seg.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  seg.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));
+  if(seg.id==='segBots')CFG.bots=+b.dataset.v;else CFG.lvl=b.dataset.v;
+}));
+$('#startBtn').onclick=()=>{pickState={};newGame();};
+$('#rulesBtn').onclick=openRules;
+$('#nbBtn').onclick=openNotebook;
+$('#menuBtn').onclick=()=>openModal(`<h2>☰ मेनु</h2>
+  <button class="btn" style="width:100%;margin-bottom:8px" onclick="openRules()">📖 खेल्ने तरिका</button>
+  <button class="btn" style="width:100%;margin-bottom:8px" onclick="closeModal();G.over=true;show('home')">🏠 मुख्य पृष्ठ (खेल छोड्ने)</button>
+  <button class="btn gold" style="width:100%" onclick="closeModal()">खेल जारी राख्नुहोस्</button>`);
+</script>
+</body>
+</html>
