@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c0d2b">
+<title>जुवा — कौडा</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+/* VOICE: Tihar-night courtyard game — warm, noisy, playful banter.
+   IDEA: a straw gundri mat under diyo light where 16 cowries are thrown.
+   PICTURE: the mat with hand-drawn SVG cowries tumbling and landing चित/पट.
+   COLOUR and TYPE: night plum ground, marigold accent, ivory shells; Yatra One titles, Mukta body.
+   LAYOUT: one phone column — scores, mat, bets, chips, throw; same at wider widths, centred. */
+:root{color-scheme:dark;--bg:#1c0d2b;--bg2:#2c1442;--ink:#fbeedd;--mut:#c9b3cf;--gold:#f5a623;--gold2:#ffd27a;
+  --red:#e2574c;--green:#59c27a;--mat1:#c99a55;--mat2:#a8793c;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Mukta","Noto Sans Devanagari",system-ui,sans-serif;overflow-x:clip}
+body{background:radial-gradient(120% 60% at 50% 0%,#4a1f5e 0%,var(--bg) 70%) fixed}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+.wrap{max-width:520px;margin:0 auto;padding:calc(10px + var(--st)) 12px calc(18px + var(--sb))}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+h1{font-family:"Yatra One","Mukta",serif;font-weight:400;font-size:2.6rem;line-height:1;margin:0;color:var(--gold2);text-shadow:0 0 18px #f5a62366}
+.tag{color:var(--mut);font-size:.9rem}
+.hbtn{min-height:44px;padding:0 12px;border-radius:12px;background:#ffffff12;border:1px solid #ffffff22;font-weight:600}
+.scores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:10px 0}
+.sc{background:#ffffff0d;border:1px solid #ffffff1a;border-radius:14px;padding:7px 8px;text-align:center}
+.sc.me{border-color:var(--gold);background:#f5a6231a}
+.sc .n{font-size:.8rem;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc .v{font-size:1.2rem;font-weight:800;white-space:nowrap}
+.coin{display:inline-block;width:.8em;height:.8em;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9a8,#e0a020 60%,#9a6510);vertical-align:-.05em;margin-right:3px;box-shadow:0 0 0 1px #7a4d0a}
+.sc .bar{height:4px;border-radius:2px;background:#ffffff1a;margin-top:4px;overflow:hidden}
+.sc .bar i{display:block;height:100%;background:var(--gold)}
+/* mat */
+.matbox{position:relative;border-radius:22px;padding:10px;background:linear-gradient(#3a1a14,#24100c);box-shadow:0 10px 30px #000a,0 0 40px #f5a62322}
+.mat{position:relative;aspect-ratio:1.25/1;border-radius:14px;overflow:hidden;
+  background:repeating-linear-gradient(90deg,#0000 0 9px,#0000001a 9px 11px),repeating-linear-gradient(0deg,var(--mat1) 0 6px,var(--mat2) 6px 7px,var(--mat1) 7px 13px);
+  box-shadow:inset 0 0 40px #3a1d0a,inset 0 0 0 4px #7a4b1e}
+.diyo{position:absolute;width:26px;height:16px;z-index:2}
+.diyo::before{content:"";position:absolute;left:3px;right:3px;bottom:0;height:9px;border-radius:0 0 14px 14px;background:#b5562a}
+.diyo::after{content:"";position:absolute;left:9px;bottom:8px;width:8px;height:13px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(#fff6c8,#ffb13b 60%,#ff6a0000 75%);animation:fl 1.4s infinite alternate;filter:drop-shadow(0 0 6px #ffb13b)}
+@keyframes fl{to{transform:scale(1.15,1.25) translateY(-1px)}}
+.shell{position:absolute;width:13%;aspect-ratio:1/1.45;left:43.5%;top:38%;transition:left .85s cubic-bezier(.2,.8,.3,1),top .85s cubic-bezier(.2,.8,.3,1),transform .85s cubic-bezier(.2,.8,.3,1);filter:drop-shadow(1px 3px 2px #3a1d0aaa)}
+.shell svg{width:100%;height:100%;display:block}
+.shell.ch{filter:drop-shadow(0 0 5px #fff6) drop-shadow(1px 3px 2px #3a1d0aaa)}
+.banner{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);opacity:0;z-index:3;pointer-events:none;
+  background:#1c0d2bdd;border:2px solid var(--gold);border-radius:16px;padding:6px 16px;text-align:center;transition:.3s}
+.banner.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.banner b{display:block;font-family:"Yatra One",serif;font-weight:400;font-size:2.2rem;line-height:1.05;color:var(--gold2)}
+.banner span{font-size:.9rem}
+.talk{display:flex;gap:8px;align-items:flex-start;margin:10px 0 4px;min-height:48px}
+.av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#2a1305;background:var(--gold2);box-shadow:0 0 0 2px #ffffff33}
+.av.k{background:#7fc4ff}
+.bub{background:#ffffff10;border:1px solid #ffffff1c;border-radius:4px 14px 14px 14px;padding:6px 10px;font-size:.95rem}
+.hist{display:flex;gap:4px;overflow-x:auto;padding:2px 0 6px}
+.hist span{flex:none;min-width:30px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:.8rem;font-weight:700;background:#ffffff12}
+.hist span.lo{color:#9fd0ff}.hist span.hi{color:#ffb38a}.hist span.mid{color:var(--gold2)}
+/* bets */
+h2{font-size:1rem;margin:10px 0 6px;color:var(--gold2);font-weight:700}
+.bets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.bet{position:relative;min-height:62px;border-radius:14px;padding:6px 10px;text-align:left;background:linear-gradient(#3a1a52,#2a123c);border:1.5px solid #ffffff22}
+.bet .t{font-weight:800;font-size:1.1rem}.bet .s{font-size:.8rem;color:var(--mut)}
+.bet .x{position:absolute;right:9px;top:6px;font-size:.85rem;font-weight:700;color:var(--gold2)}
+.bet .stk{position:absolute;right:8px;bottom:6px;font-size:.85rem;font-weight:800;background:var(--gold);color:#2a1305;border-radius:10px;padding:0 7px}
+.bet .kst{position:absolute;left:8px;bottom:-7px;font-size:.72rem;font-weight:800;background:#7fc4ff;color:#0c2238;border-radius:8px;padding:0 6px}
+.bet.win{border-color:var(--green);box-shadow:0 0 0 2px var(--green),0 0 18px #59c27a66}
+.nums{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px}
+.nums .bet{flex:0 0 66px;scroll-snap-align:start;text-align:center;padding:6px 4px;min-height:70px}
+.nums .bet .t{font-size:1.35rem}.nums .bet .x{position:static;display:block}
+.nums .bet .stk{right:50%;transform:translateX(50%);bottom:-8px}
+.nums .bet .kst{display:none}
+.chips{display:flex;gap:8px;justify-content:center;margin:8px 0}
+.chip{width:52px;height:52px;border-radius:50%;font-weight:800;font-size:.95rem;border:4px dashed #fff8;background:#7a2f8a;box-shadow:0 3px 0 #0006}
+.chip[data-v="50"]{background:#2f6d8a}.chip[data-v="100"]{background:#2f8a4e}.chip[data-v="500"]{background:#a3302a}
+.chip.sel{outline:3px solid var(--gold2);outline-offset:3px;transform:translateY(-3px)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.btn{min-height:46px;border-radius:12px;background:#ffffff12;border:1px solid #ffffff2a;font-weight:700}
+.throw{display:block;width:100%;min-height:58px;margin-top:8px;border-radius:16px;font-size:1.3rem;font-weight:800;color:#2a1305;
+  background:linear-gradient(#ffd98a,#f5a623);box-shadow:0 4px 0 #9a5d0c,0 0 24px #f5a62355}
+.throw:active{transform:translateY(2px);box-shadow:0 2px 0 #9a5d0c}
+.throw:disabled{filter:grayscale(.6);opacity:.6}
+.note{font-size:.8rem;color:var(--mut);text-align:center;margin-top:12px}
+.float{position:fixed;z-index:20;font-weight:800;font-size:1.4rem;color:var(--green);pointer-events:none;animation:up 1.3s forwards;text-shadow:0 2px 4px #000}
+.float.neg{color:var(--red)}
+@keyframes up{to{transform:translateY(-70px);opacity:0}}
+/* modal */
+#modal{position:fixed;inset:0;z-index:30;background:#000b;display:none;align-items:flex-end;justify-content:center}
+#modal.on{display:flex}
+#mbox{width:100%;max-width:520px;max-height:90vh;overflow:auto;background:linear-gradient(#3a1a52,#1c0d2b);border-top:2px solid var(--gold);border-radius:22px 22px 0 0;padding:18px 16px calc(20px + var(--sb))}
+#mbox h3{font-family:"Yatra One",serif;font-weight:400;font-size:1.7rem;margin:0 0 6px;color:var(--gold2);line-height:1.1}
+#mbox p{margin:6px 0}
+.packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.pack{min-height:84px;border-radius:14px;background:#ffffff10;border:1.5px solid var(--gold);font-weight:800;font-size:1.3rem;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pack small{font-size:.75rem;font-weight:400;color:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}td{padding:5px 4px;border-bottom:1px solid #ffffff1a}td:last-child{text-align:right;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.shell{transition:none}.diyo::after{animation:none}.float{animation-duration:.01s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>जुवा</h1><div class="tag">कौडा • तिहारको रमाइलो</div></div>
+    <div class="row" style="flex:none;gap:6px">
+      <button class="hbtn" id="addBtn">+ क्रेडिट</button>
+      <button class="hbtn" id="helpBtn" aria-label="नियम">?</button>
+    </div>
+  </header>
+
+  <div class="scores" id="scores"></div>
+
+  <div class="matbox">
+    <div class="mat" id="mat">
+      <div class="diyo" style="left:6px;top:6px"></div><div class="diyo" style="right:6px;top:6px"></div>
+      <div class="diyo" style="left:6px;bottom:6px"></div><div class="diyo" style="right:6px;bottom:6px"></div>
+      <div class="banner" id="banner"><b id="bnum"></b><span id="btxt"></span></div>
+    </div>
+  </div>
+
+  <div class="talk"><div class="av" id="who">सा</div><div class="bub" id="say">आऊ आऊ! तिहारमा एक दाउ त खेल्नैपर्छ। चिप छानेर दाउ राख।</div></div>
+  <div class="hist" id="hist" aria-label="पछिल्ला नतिजा"></div>
+
+  <h2>दाउ राख्नुहोस् — कति वटा कौडा चित पर्छ?</h2>
+  <div class="bets" id="mainBets"></div>
+  <h2>ठ्याक्कै संख्या (ठूलो इनाम)</h2>
+  <div class="nums" id="numBets"></div>
+
+  <div class="chips" id="chips">
+    <button class="chip" data-v="10">१०</button><button class="chip sel" data-v="50">५०</button>
+    <button class="chip" data-v="100">१००</button><button class="chip" data-v="500">५००</button>
+  </div>
+  <div class="row">
+    <button class="btn" id="clearBtn">हटाउनुहोस्</button>
+    <button class="btn" id="againBtn">पहिलेकै दाउ</button>
+  </div>
+  <button class="throw" id="throwBtn">कौडा फाल्नुहोस्!</button>
+  <div class="note">मनोरञ्जनका लागि मात्र — यहाँका क्रेडिट नक्कली हुन्, वास्तविक पैसा होइन। वास्तविक जुवा नखेलौँ।</div>
+</div>
+
+<div id="modal"><div id="mbox"></div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="gb" cx="40%" cy="30%" r="75%"><stop offset="0" stop-color="#fff9ec"/><stop offset=".55" stop-color="#e9d3a6"/><stop offset="1" stop-color="#b48a4e"/></radialGradient>
+    <radialGradient id="gf" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#fffdf6"/><stop offset=".7" stop-color="#f1e4c6"/><stop offset="1" stop-color="#cdb184"/></radialGradient>
+    <symbol id="pat" viewBox="0 0 40 58"><ellipse cx="20" cy="29" rx="18" ry="27" fill="url(#gb)" stroke="#8a6331" stroke-width="1.2"/>
+      <ellipse cx="20" cy="29" rx="11" ry="18" fill="#c9a06233"/><circle cx="14" cy="22" r="1.6" fill="#a37a44"/><circle cx="25" cy="33" r="1.3" fill="#a37a44"/><circle cx="18" cy="40" r="1.1" fill="#a37a44"/>
+      <ellipse cx="14" cy="16" rx="5" ry="7" fill="#fff" opacity=".55"/></symbol>
+    <symbol id="chit" viewBox="0 0 40 58"><ellipse cx="20" cy="29" rx="18" ry="27" fill="url(#gf)" stroke="#8a6331" stroke-width="1.2"/>
+      <path d="M20 6 C16 18 16 40 20 52 C24 40 24 18 20 6Z" fill="#3a2410"/>
+      <g stroke="#f6ead0" stroke-width="1.4" stroke-linecap="round"><path d="M16.8 14h2M16.3 20h2.5M16 26h2.8M16 32h2.8M16.3 38h2.5M16.8 44h2"/><path d="M21.2 14h2M20.7 20h3M20.2 26h3.5M20.2 32h3.5M20.7 38h3M21.2 44h2"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<script>
+{
+const N=16, NUMS='०१२३४५६७८९';
+const nn=x=>String(x).replace(/\d/g,d=>NUMS[d]);
+const fmt=x=>nn(Math.round(x).toLocaleString('en-IN'));
+const $=s=>document.querySelector(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const pick=a=>a[Math.random()*a.length|0];
+const C=(n,k)=>{let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return r};
+const P=k=>C(N,k)/2**N;
+const nice=m=>m<20?Math.floor(m*2)/2:(()=>{const p=10**(Math.floor(Math.log10(m))-1);return Math.floor(m/p)*p})();
+
+const MAIN=[
+  {id:'low',t:'कम',s:'० देखि ७ चित',test:k=>k<=7,m:2.4},
+  {id:'high',t:'बढी',s:'९ देखि १६ चित',test:k=>k>=9,m:2.4},
+  {id:'even',t:'जोर',s:'०, २, ४ … १६',test:k=>k%2===0,m:1.9},
+  {id:'odd',t:'बिजोर',s:'१, ३, ५ … १५',test:k=>k%2===1,m:1.9},
+];
+const NUMBETS=[...Array(N+1)].map((_,k)=>({id:'n'+k,t:nn(k),k,test:x=>x===k,m:nice(0.95/P(k))}));
+const ALLBETS=[...MAIN,...NUMBETS];const BET={};ALLBETS.forEach(b=>BET[b.id]=b);
+
+const NAMES={16:'सोह्रै चित! जय लक्ष्मी!',0:'सोह्रै पट!',8:'आधा-आधा',15:'पन्ध्र — गजब!',1:'एउटा मात्र चित!'};
+const SAHU_START=10000;
+const SAY={
+  sahuWin:['हा हा! साहुको थैली कहिल्यै रित्तिँदैन!','लक्ष्मी आज मतिर छिन् भाइ!','अर्को दाउ लगाऊ, भाग्य फर्किन्छ!','कौडा त साहुकै कुरा सुन्छ।'],
+  sahuLose:['आम्मै! मेरो थैली त हल्का भयो…','बाफ रे! यो त जादू हो कि के?','ठीक छ ठीक छ, अर्को पटक देखाउँछु।','ए हजुर, अलि बिस्तारै!'],
+  kaleWin:['ल हेर, काले दाइको भाग्य!','यस्तो त म रोज जित्छु!','आज त भाइटीकाको खर्च जुट्यो!'],
+  kaleLose:['धत्! फेरि गयो…','यो कौडा त मसँग रिसाएको छ।','भोलि हेरौँला!'],
+  kaleBroke:['सकियो… घरमा फेरि गाली खाइयो। अलि क्रेडिट थपेर आएँ!'],
+};
+
+// state
+let S;
+const fresh=()=>({me:1000,kale:1000,sahu:SAHU_START,added:0,rounds:0,best:0,beaten:0,hist:[],last:{}});
+try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem('juwa-v1')||'{}'))}catch(e){S=fresh()}
+const save=()=>{try{localStorage.setItem('juwa-v1',JSON.stringify(S))}catch(e){}};
+let bets={},kbets={},chip=50,busy=false;
+
+// shells
+const mat=$('#mat');const shells=[];
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='shell';
+  d.innerHTML='<svg><use href="#pat"/></svg>';mat.appendChild(d);shells.push(d);}
+function spots(){ // 4x4 jittered grid positions in %
+  const out=[];const idx=[...Array(16).keys()].sort(()=>Math.random()-.5);
+  idx.forEach(i=>{const r=i/4|0,c=i%4;out.push([8+c*21+Math.random()*7,6+r*22+Math.random()*6])});return out;}
+function layShells(faces,anim){
+  const pos=spots();
+  shells.forEach((d,i)=>{d.querySelector('use').setAttribute('href',faces[i]?'#chit':'#pat');d.classList.toggle('ch',!!faces[i]);
+    d.style.left=pos[i][0]+'%';d.style.top=pos[i][1]+'%';d.style.transform=`rotate(${Math.random()*360|0}deg)`;});
+}
+function gather(){shells.forEach(d=>{d.style.left='43.5%';d.style.top='34%';d.style.transform=`rotate(${Math.random()*720-360|0}deg) scale(.8)`;});}
+
+// render
+function renderScores(){
+  const tot=S.me+S.kale;
+  $('#scores').innerHTML=[
+    ['तपाईं',S.me,'me'],['काले दाइ (बोट)',S.kale,''],['साहुजीको थैली',S.sahu,'sahu']
+  ].map(([n,v,c])=>`<div class="sc ${c==='me'?'me':''}"><div class="n">${n}</div><div class="v"><span class="coin"></span>${fmt(Math.max(0,v))}</div>
+    ${c==='sahu'?`<div class="bar"><i style="width:${Math.max(0,Math.min(100,S.sahu/(SAHU_START*2)*100))}%"></i></div>`:''}</div>`).join('');
+}
+function betHTML(b){
+  const st=bets[b.id]?`<span class="stk">${fmt(bets[b.id])}</span>`:'';
+  const ks=kbets[b.id]?`<span class="kst">काले ${fmt(kbets[b.id])}</span>`:'';
+  const x=`<span class="x">×${nn(b.m.toLocaleString('en-IN'))}</span>`;
+  return b.k===undefined
+    ?`<button class="bet" data-bet="${b.id}">${x}<div class="t">${b.t}</div><div class="s">${b.s}</div>${st}${ks}</button>`
+    :`<button class="bet" data-bet="${b.id}"><div class="t">${b.t}</div>${x}${st}</button>`;
+}
+function renderBets(){
+  $('#mainBets').innerHTML=MAIN.map(betHTML).join('');
+  $('#numBets').innerHTML=NUMBETS.map(betHTML).join('');
+  const tot=Object.values(bets).reduce((a,b)=>a+b,0);
+  $('#throwBtn').textContent=tot?`कौडा फाल्नुहोस्! (दाउ ${fmt(tot)})`:'कौडा फाल्नुहोस्!';
+}
+function renderHist(){
+  $('#hist').innerHTML=S.hist.map(k=>`<span class="${k<8?'lo':k>8?'hi':'mid'}">${nn(k)}</span>`).join('')||'<span style="padding:0 8px;font-weight:400;color:var(--mut)">अहिलेसम्म कुनै नतिजा छैन</span>';
+}
+function speak(who,txt){$('#who').textContent=who==='k'?'का':'सा';$('#who').className='av'+(who==='k'?' k':'');$('#say').textContent=txt;}
+function floatAt(el,txt,neg){const r=el.getBoundingClientRect();const f=document.createElement('div');f.className='float'+(neg?' neg':'');
+  f.textContent=txt;f.style.left=(r.left+r.width/2-30)+'px';f.style.top=(r.top)+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1400);}
+function renderAll(){renderScores();renderBets();renderHist();}
+
+// interactions
+$('#chips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;chip=+c.dataset.v;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('sel',x===c));});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-bet]');if(!b||busy)return;
+  if(S.me<chip){ if(S.me<=0){openCredits(true);return;} }
+  const amt=Math.min(chip,S.me);if(amt<=0)return;
+  S.me-=amt;bets[b.dataset.bet]=(bets[b.dataset.bet]||0)+amt;clearWins();renderAll();save();
+});
+function clearWins(){document.querySelectorAll('.bet.win').forEach(x=>x.classList.remove('win'));$('#banner').classList.remove('on');}
+$('#clearBtn').onclick=()=>{if(busy)return;for(const k in bets)S.me+=bets[k];bets={};renderAll();save();};
+$('#againBtn').onclick=()=>{if(busy)return;
+  const need=Object.values(S.last).reduce((a,b)=>a+b,0);
+  if(!need){speak('s','अघिल्लो दाउ नै छैन त!');return;}
+  for(const k in bets)S.me+=bets[k];bets={};
+  if(need>S.me){speak('s','पहिलेकै दाउ लगाउन क्रेडिट पुगेन। क्रेडिट थप्नुहोस्!');renderAll();return;}
+  for(const k in S.last){bets[k]=S.last[k];S.me-=S.last[k];}clearWins();renderAll();save();};
+
+// bot rival
+function kalePlaces(){
+  kbets={};
+  if(S.kale<=0){S.kale+=500;speak('k',pick(SAY.kaleBroke));}
+  let budget=Math.max(10,Math.round(S.kale*(.06+Math.random()*.12)/10)*10);
+  budget=Math.min(budget,S.kale);
+  const style=Math.random();
+  const put=(id,a)=>{a=Math.min(a,S.kale);if(a<=0)return;kbets[id]=(kbets[id]||0)+a;S.kale-=a;};
+  if(style<.45)put(pick(['low','high','even','odd']),budget);
+  else if(style<.8){put(pick(['low','high']),Math.round(budget*.7/10)*10||10);put('n'+pick([6,7,8,9,10]),Math.round(budget*.3/10)*10||10);}
+  else put('n'+pick([4,5,6,7,8,9,10,11,12]),budget);
+}
+
+// round
+$('#throwBtn').onclick=async()=>{
+  if(busy)return;
+  const tot=Object.values(bets).reduce((a,b)=>a+b,0);
+  if(!tot){speak('s',S.me>0?'पहिले दाउ त राख! तल कुनै खानामा थिच।':'क्रेडिट सकियो — माथि "+ क्रेडिट" थिच्नुहोस्।');if(S.me<=0)openCredits(true);return;}
+  busy=true;$('#throwBtn').disabled=true;clearWins();
+  kalePlaces();renderAll();
+  S.sahu+=tot+Object.values(kbets).reduce((a,b)=>a+b,0);
+  speak('s',pick(['ल हेर, फाल्दैछु… जय लक्ष्मी!','सबैको दाउ बन्द! कौडा उडाउँ?','हातमा कौडा, मनमा भगवान्!']));
+  gather();await sleep(450);
+  const faces=[...Array(N)].map(()=>Math.random()<.5?1:0);
+  const k=faces.reduce((a,b)=>a+b,0);
+  layShells(faces);await sleep(950);
+  $('#bnum').textContent=nn(k)+' चित';$('#btxt').textContent=NAMES[k]||(k<8?'कम':k>8?'बढी':'');$('#banner').classList.add('on');
+  // payouts
+  let myWin=0,kWin=0;
+  const pay=(ownBets)=>{let w=0;for(const id in ownBets){if(BET[id].test(k)){let p=Math.round(ownBets[id]*BET[id].m);
+      const cap=Math.max(0,S.sahu);p=Math.min(p,cap);S.sahu-=p;w+=p;}}return w;};
+  myWin=pay(bets);kWin=pay(kbets);
+  S.me+=myWin;S.kale+=kWin;
+  for(const id in bets)if(BET[id].test(k))document.querySelectorAll(`[data-bet="${id}"]`).forEach(x=>x.classList.add('win'));
+  const net=myWin-tot;S.rounds++;S.best=Math.max(S.best,net);
+  S.hist.unshift(k);S.hist=S.hist.slice(0,20);S.last=Object.assign({},bets);
+  bets={};kbets={};renderAll();
+  floatAt($('.sc.me'),(net>=0?'+':'−')+fmt(Math.abs(net)),net<0);
+  if(net>0)speak('s',pick(SAY.sahuLose));else if(kWin>0&&Math.random()<.6)speak('k',pick(SAY.kaleWin));
+  else if(Math.random()<.4)speak('k',pick(SAY.kaleLose));else speak('s',pick(SAY.sahuWin));
+  if(net>0&&navigator.vibrate)try{navigator.vibrate([40,30,40])}catch(e){}
+  save();
+  await sleep(500);busy=false;$('#throwBtn').disabled=false;
+  if(S.sahu<=0){S.beaten++;S.sahu=SAHU_START;save();renderAll();
+    openModal(`<h3>साहुजी टाट पल्टिए!</h3><p>तपाईंले साहुजीको पूरै थैली रित्याउनुभयो। अब नयाँ साहुजी ${fmt(SAHU_START)} क्रेडिट लिएर आए।</p>
+      <p>जितेका साहुजी: <b>${nn(S.beaten)}</b></p><button class="throw" data-close>फेरि खेल्नुहोस्</button>`);
+  }else if(S.me<=0)setTimeout(()=>openCredits(true),600);
+};
+
+// modals
+function openModal(h){$('#mbox').innerHTML=h;$('#modal').classList.add('on');}
+function closeModal(){$('#modal').classList.remove('on');}
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'||e.target.closest('[data-close]'))closeModal();
+  const p=e.target.closest('[data-add]');if(p){const v=+p.dataset.add;S.me+=v;S.added+=v;save();renderAll();closeModal();
+    floatAt($('.sc.me'),'+'+fmt(v));speak('s','ल, थैली भरियो! अब दाउ लगाऊ।');}
+  if(e.target.closest('[data-reset]')){S=fresh();bets={};kbets={};save();renderAll();layShells(Array(N).fill(0));closeModal();speak('s','सबै नयाँ सुरु! आऊ खेलौँ।');}
+});
+function openCredits(broke){
+  openModal(`<h3>${broke?'क्रेडिट सकियो!':'क्रेडिट थप्नुहोस्'}</h3>
+    <p>कति क्रेडिट थप्ने? यी नक्कली क्रेडिट हुन् — सित्तैमा, कुनै पैसा लाग्दैन।</p>
+    <div class="packs"><button class="pack" data-add="100"><span><span class="coin"></span>${fmt(100)}</span><small>सानो थैली</small></button>
+    <button class="pack" data-add="500"><span><span class="coin"></span>${fmt(500)}</span><small>मझौला</small></button>
+    <button class="pack" data-add="1000"><span><span class="coin"></span>${fmt(1000)}</span><small>ठूलो थैली</small></button></div>
+    <table><tr><td>अहिलेसम्म थपेको</td><td>${fmt(S.added)}</td></tr><tr><td>खेलेको पटक</td><td>${fmt(S.rounds)}</td></tr>
+    <tr><td>एक पटकको सबैभन्दा ठूलो जित</td><td>${fmt(S.best)}</td></tr><tr><td>टाट पल्टाएका साहुजी</td><td>${fmt(S.beaten)}</td></tr></table>
+    <div class="row" style="margin-top:12px"><button class="btn" data-reset>सबै रिसेट</button><button class="btn" data-close>बन्द</button></div>`);
+}
+$('#addBtn').onclick=()=>openCredits(false);
+$('#helpBtn').onclick=()=>openModal(`<h3>कसरी खेल्ने?</h3>
+  <p>साहुजी (बोट) ले १६ वटा कौडा फाल्छन्। मुख माथि परेको कौडा <b>चित</b>, पिठ्युँ माथि परेको <b>पट</b>। कति वटा चित पर्छ भनेर दाउ लगाउनुहोस्।</p>
+  <table>${MAIN.map(b=>`<tr><td><b>${b.t}</b> — ${b.s}</td><td>×${nn(b.m)}</td></tr>`).join('')}
+  <tr><td><b>ठ्याक्कै संख्या</b> — जति चित भन्नुभयो त्यति नै पर्नुपर्छ</td><td>×${nn(NUMBETS[8].m)} देखि</td></tr></table>
+  <p>× भनेको फिर्ता पाउने रकम हो (दाउसहित)। जस्तै ५० को दाउ ×२.४ मा जिते १२० फिर्ता।</p>
+  <p><b>काले दाइ</b> अर्को बोट खेलाडी हो — उसलाई उछिन्नुहोस्! साहुजीको थैली (${fmt(SAHU_START)}) रित्याउनुभयो भने साहुजी टाट पल्टिन्छन्।</p>
+  <p>क्रेडिट सकिए "+ क्रेडिट" थिचेर सित्तैमा थप्नुहोस्। यो खेल मनोरञ्जनका लागि मात्र हो।</p>
+  <button class="throw" data-close>बुझेँ!</button>`);
+
+layShells([...Array(N)].map((_,i)=>i%2));
+renderAll();
+}
+</script>
+</body>
+</html>
