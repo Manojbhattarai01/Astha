@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b3a1e">
+<title>दिमाग घुमाऊ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Mukta:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: cheeky schoolroom riddle — teacher-on-the-blackboard humour.
+   IDEA: a Nepali school कालोपाटी (blackboard) in a wooden frame; every level is chalked on it.
+   PICTURE: the board itself — the puzzle scene drawn in chalk lines, objects to tap and drag.
+   COLOUR and TYPE: board green-black, chalk white, yellow and pink chalk accents, wood frame; Kalam handwriting.
+   LAYOUT: phone column — header (back, level, hint), question, square-ish board, feedback line. */
+:root{color-scheme:dark;--wood:#6b4423;--wood2:#4a2d14;--board:#203a30;--board2:#17291f;--chalk:#f4f1e6;--yel:#ffe066;--pink:#ff9fb2;--blue:#9fd8ff;--red:#ff6b5e;
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--wood2);color:var(--chalk);font:17px/1.4 "Kalam","Mukta",system-ui,sans-serif;overflow-x:clip}
+body{background:repeating-linear-gradient(95deg,#5b3a1e 0 14px,#55361b 14px 15px,#61401f 15px 31px) fixed}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible{outline:3px dashed var(--yel);outline-offset:3px}
+.screen{display:none;max-width:540px;margin:0 auto;min-height:100%;padding:calc(10px + var(--st)) 10px calc(14px + var(--sb))}
+.screen.on{display:flex;flex-direction:column}
+.frame{background:linear-gradient(var(--board),var(--board2));border:12px solid var(--wood);border-image:linear-gradient(135deg,#8a5a2e,#5a3816 40%,#7a4d24) 1;
+  box-shadow:0 12px 30px #000a,inset 0 0 60px #0007;position:relative}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 20%,#ffffff0d,#0000 60%),repeating-radial-gradient(circle at 70% 60%,#ffffff05 0 2px,#0000 2px 9px)}
+/* home */
+.title{text-align:center;padding:26px 14px 18px}
+.title h1{font-size:clamp(40px,12vw,58px);line-height:1.05;margin:0;color:var(--yel);transform:rotate(-2deg);text-shadow:0 0 1px #fff8}
+.title p{margin:8px 0 0;color:var(--chalk);opacity:.85}
+.swirl{width:90px;height:90px;margin:4px auto 6px;display:block}
+.play{display:block;width:100%;min-height:56px;margin:14px 0 4px;border-radius:12px;border:3px solid var(--chalk);font-size:1.5rem;font-weight:700;color:var(--yel)}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:14px}
+.lv{aspect-ratio:1;min-height:44px;border:2.5px solid #f4f1e6aa;border-radius:10px;font-size:1.25rem;font-weight:700;position:relative}
+.lv.done{border-color:var(--yel);color:var(--yel)}
+.lv.done::after{content:"✓";position:absolute;right:3px;top:-2px;font-size:.8rem}
+.lv.lock{opacity:.3}
+.small{font-size:.85rem;opacity:.8;text-align:center;margin:4px 0 0}
+/* game */
+.top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ib{width:46px;height:46px;border-radius:50%;background:#f4f1e6;color:#203a30;font-weight:700;font-size:1.3rem;display:grid;place-items:center;box-shadow:0 3px 0 #0006;flex:none}
+.lnum{flex:1;text-align:center;font-size:1.7rem;font-weight:700;color:var(--chalk);text-shadow:0 2px 0 #0006;cursor:default}
+.hint{display:flex;align-items:center;gap:4px;height:46px;padding:0 12px;border-radius:23px;background:var(--yel);color:#3b2a00;font-weight:700;box-shadow:0 3px 0 #0006;flex:none}
+.bulb{width:16px;height:20px;position:relative}
+.bulb::before{content:"";position:absolute;left:1px;top:0;width:14px;height:14px;border-radius:50%;background:#fff6b0;border:2px solid #3b2a00}
+.bulb::after{content:"";position:absolute;left:5px;top:14px;width:6px;height:5px;background:#3b2a00;border-radius:1px}
+.q{padding:12px 14px;text-align:center;font-size:1.25rem;min-height:3.4em;display:flex;align-items:center;justify-content:center}
+.qw{cursor:pointer;border-bottom:2px dotted transparent}
+#stage{position:relative;width:100%;aspect-ratio:1/1.08;container-type:inline-size;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.say{min-height:2.2em;text-align:center;padding:8px 6px;font-size:1.1rem;color:var(--pink)}
+.say.good{color:var(--yel)}
+/* stage pieces */
+.spr{position:absolute;transform:translate(-50%,-50%);font-size:calc(var(--s,12) * 1cqw);line-height:1;cursor:pointer;touch-action:none;user-select:none;z-index:2;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;transition:filter .2s}
+.spr.drag{cursor:grab}.spr.dragging{z-index:9;filter:drop-shadow(0 8px 6px #000a);transition:none}
+.lbl{position:absolute;transform:translate(-50%,-50%);font-size:4.4cqw;color:var(--chalk);white-space:nowrap;pointer-events:none;z-index:3}
+.cbtn{position:absolute;transform:translate(-50%,-50%);min-width:15cqw;min-height:44px;padding:1.5cqw 3cqw;border:2.5px solid var(--chalk);border-radius:12px;font-size:6cqw;font-weight:700;z-index:3;background:#ffffff08}
+.cbtn:active{background:#ffffff22}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{translate:-6px 0}40%,80%{translate:6px 0}}
+.xmark{position:absolute;transform:translate(-50%,-50%) rotate(-8deg);color:var(--red);font-size:14cqw;font-weight:700;pointer-events:none;z-index:20;animation:fade 0.9s forwards}
+@keyframes fade{0%{opacity:0;scale:.5}20%{opacity:1;scale:1}80%{opacity:1}to{opacity:0}}
+.chalkline{position:absolute;left:4%;right:4%;height:0;border-top:3px solid #f4f1e6cc;border-radius:2px}
+.diyo{position:absolute;width:20cqw;height:11cqw;transform:translate(-50%,-50%);z-index:2;touch-action:none;cursor:grab}
+.diyo::before{content:"";position:absolute;inset:auto 0 0 0;height:7cqw;border-radius:0 0 10cqw 10cqw;background:linear-gradient(#d0703a,#8a3a16);border-top:2cqw solid #e89355}
+.diyo .fl{position:absolute;left:50%;bottom:6cqw;width:5cqw;height:9cqw;translate:-50% 0;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(#fff8d0,#ffb13b 55%,#ff6a0000 75%);
+  filter:drop-shadow(0 0 3cqw #ffb13b);display:none;animation:flick 0.5s infinite alternate}
+.diyo.lit .fl{display:block}
+@keyframes flick{to{scale:1.1 1.2}}
+.mtn{position:absolute;bottom:18%;transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);background:linear-gradient(#f4f1e6 0 22%,#7c9a8a 22%,#3e5c4e);}
+.stick{position:absolute;width:32cqw;height:3cqw;border-radius:2cqw;background:linear-gradient(#b07a45,#7a4d24);transform:translate(-50%,-50%) rotate(-35deg);z-index:4;touch-action:none;cursor:grab}
+.topi{position:absolute;width:13cqw;height:6cqw;transform:translate(-50%,-50%) rotate(-6deg);border-radius:2cqw 2cqw .6cqw .6cqw;z-index:3;cursor:pointer;
+  background:repeating-linear-gradient(45deg,#c0392b 0 1.2cqw,#1f3a93 1.2cqw 2.4cqw,#f1c40f 2.4cqw 3.6cqw,#111 3.6cqw 4.4cqw)}
+.dark{position:absolute;inset:0;z-index:8;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#0000 0,#0000 15cqw,#000 24cqw)}
+.runbtn{position:absolute;transform:translate(-50%,-50%);padding:3cqw 6cqw;border-radius:14px;background:var(--yel);color:#3b2a00;font-weight:700;font-size:7cqw;z-index:3;transition:left .25s,top .25s;box-shadow:0 4px 0 #0006}
+.pad{position:absolute;left:6%;right:6%;bottom:3%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2cqw;z-index:4}
+.pad button{min-height:44px;height:11cqw;border:2px solid #f4f1e6aa;border-radius:10px;font-size:6.5cqw;font-weight:700}
+.pad .ok{background:var(--yel);color:#3b2a00;border-color:var(--yel)}
+.disp{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);min-width:30cqw;text-align:center;font-size:12cqw;font-weight:700;color:var(--yel);border-bottom:3px dashed #f4f1e6aa;z-index:4}
+.ring{position:absolute;transform:translate(-50%,-50%);width:30cqw;height:30cqw;border-radius:50%;z-index:1;pointer-events:none;background:conic-gradient(var(--yel) var(--p,0%),#0000 0)}
+.ring::after{content:"";position:absolute;inset:1.5cqw;border-radius:50%;background:var(--board)}
+/* modal */
+#modal{position:fixed;inset:0;z-index:40;background:#000a;display:none;align-items:center;justify-content:center;padding:16px}
+#modal.on{display:flex}
+#mbox{width:100%;max-width:420px;padding:20px 18px;text-align:center}
+#mbox h2{margin:0;font-size:2.4rem;color:var(--yel);line-height:1.1}
+#mbox p{margin:10px 0;font-size:1.1rem}
+.stars{font-size:2.2rem;color:var(--yel);letter-spacing:6px;animation:pop .5s}
+@keyframes pop{from{scale:.3;opacity:0}}
+.mbtn{display:block;width:100%;min-height:50px;margin-top:10px;border-radius:12px;border:3px solid var(--chalk);font-size:1.25rem;font-weight:700}
+.mbtn.y{background:var(--yel);color:#3b2a00;border-color:var(--yel)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<section id="home" class="screen on">
+  <div class="frame title">
+    <svg class="swirl" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 50 m0 -4 a4 4 0 1 1 -4 4 a10 10 0 1 1 10 10 a18 18 0 1 1 -18 -18 a26 26 0 1 1 26 26 a34 34 0 1 1 -34 -34" fill="none" stroke="#ffe066" stroke-width="4" stroke-linecap="round"/></svg>
+    <h1>दिमाग घुमाऊ</h1>
+    <p>२० वटा टेढा पहेली — जवाफ सधैँ सोझो हुँदैन!</p>
+    <button class="play" id="playBtn">खेल्नुहोस् ▶</button>
+  </div>
+  <div class="frame" style="margin-top:12px">
+    <div class="grid" id="grid"></div>
+    <p class="small" id="prog" style="padding-bottom:12px"></p>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="top">
+    <button class="ib" id="backBtn" aria-label="पछाडि">‹</button>
+    <div class="lnum" id="lnumWrap">तह <span id="lnum">१</span></div>
+    <button class="hint" id="hintBtn"><span class="bulb"></span><span id="hcount">३</span></button>
+  </div>
+  <div class="frame">
+    <div class="q" id="q"></div>
+    <div id="stage"></div>
+  </div>
+  <div class="say" id="say"></div>
+</section>
+
+<div id="modal"><div id="mbox" class="frame"></div></div>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const nn=x=>String(x).replace(/\d/g,d=>'०१२३४५६७८९'[d]);
+const pick=a=>a[Math.random()*a.length|0];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const stage=$('#stage');
+let SAVE;try{SAVE=JSON.parse(localStorage.getItem('dimag-v1')||'null')}catch(e){}
+SAVE=SAVE||{done:[],hints:3};
+const store=()=>{try{localStorage.setItem('dimag-v1',JSON.stringify(SAVE))}catch(e){}};
+
+// ---------- runtime ----------
+let G={lvl:0,won:false,timers:[],raf:0,onHeader:null};
+function after(ms,fn){const t=setTimeout(fn,ms);G.timers.push(t);return t;}
+function cleanup(){G.timers.forEach(clearTimeout);G.timers=[];cancelAnimationFrame(G.raf);G.onHeader=null;stage.innerHTML='';stage.onpointerdown=null;stage.onpointermove=null;}
+function say(t,good){const s=$('#say');s.textContent=t||'';s.className='say'+(good?' good':'');}
+function el(tag,cls,html,style){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(style)Object.assign(e.style,style);stage.appendChild(e);return e;}
+function spr(ch,x,y,s,extra){const e=el('div','spr'+(extra?' '+extra:''),ch);e.style.left=x+'%';e.style.top=y+'%';e.style.setProperty('--s',s);return e;}
+function label(t,x,y,st){const e=el('div','lbl',t);e.style.left=x+'%';e.style.top=y+'%';if(st)Object.assign(e.style,st);return e;}
+function btn(t,x,y,fn){const e=el('button','cbtn',t);e.style.left=x+'%';e.style.top=y+'%';e.onclick=ev=>{ev.stopPropagation();fn(e,ev)};return e;}
+function center(e){const r=e.getBoundingClientRect(),s=stage.getBoundingClientRect();return[(r.left+r.width/2-s.left)/s.width*100,(r.top+r.height/2-s.top)/s.height*100];}
+function near(a,b,d){const[x1,y1]=center(a),[x2,y2]=center(b);return Math.hypot(x1-x2,(y1-y2)*1.08)<d;}
+function nope(e,msg){
+  if(G.won)return;
+  if(e){e.classList.remove('shake');void e.offsetWidth;e.classList.add('shake');
+    const[x,y]=center(e);const m=el('div','xmark','✗');m.style.left=x+'%';m.style.top=y+'%';setTimeout(()=>m.remove(),900);}
+  say(msg||pick(['होइन नि!','अहँ, फेरि सोच्नुहोस्।','त्यति सजिलो छैन!','उफ्! फेरि प्रयास गर्नुहोस्।']));
+  try{navigator.vibrate&&navigator.vibrate(60)}catch(_){}
+}
+function drag(e,{onDrop,onTap,onMove,lock}={}){
+  e.classList.add('drag');
+  e.addEventListener('pointerdown',ev=>{
+    if(G.won||(lock&&lock()))return;
+    ev.preventDefault();ev.stopPropagation();
+    const r=stage.getBoundingClientRect();const sx=ev.clientX,sy=ev.clientY;
+    const ox=parseFloat(e.style.left),oy=parseFloat(e.style.top);let moved=false;
+    e.setPointerCapture(ev.pointerId);e.classList.add('dragging');
+    const mv=m=>{const dx=(m.clientX-sx)/r.width*100,dy=(m.clientY-sy)/r.height*100;
+      if(Math.abs(dx)+Math.abs(dy)>2)moved=true;
+      e.style.left=clamp(ox+dx,2,98)+'%';e.style.top=clamp(oy+dy,2,98)+'%';onMove&&onMove(e);};
+    const up=()=>{e.removeEventListener('pointermove',mv);e.removeEventListener('pointerup',up);e.removeEventListener('pointercancel',up);
+      e.classList.remove('dragging');if(moved)onDrop&&onDrop(e);else onTap&&onTap(e);};
+    e.addEventListener('pointermove',mv);e.addEventListener('pointerup',up);e.addEventListener('pointercancel',up);
+  });
+  return e;
+}
+function tap(e,fn){e.addEventListener('click',ev=>{ev.stopPropagation();if(!G.won)fn(e,ev)});return e;}
+function choices(list,correct,y,wrongMsg){
+  const w=100/list.length;
+  list.forEach((t,i)=>btn(t,w*i+w/2,y,b=>t===correct?win():nope(b,wrongMsg)));
+}
+function keypad(answer){
+  let v='';const d=el('div','disp','?');
+  const pad=el('div','pad');
+  const keys=['1','2','3','4','5','6','7','8','9','0','⌫','ठीक'];
+  keys.forEach(k=>{const b=document.createElement('button');b.textContent=/\d/.test(k)?nn(k):k;if(k==='ठीक')b.className='ok';pad.appendChild(b);
+    b.onclick=ev=>{ev.stopPropagation();if(G.won)return;
+      if(k==='⌫')v=v.slice(0,-1);else if(k==='ठीक'){if(v===String(answer))win();else{nope(d);v='';}}
+      else if(v.length<4)v+=k;d.textContent=v?nn(v):'?';};});
+}
+
+// ---------- LEVELS ----------
+const L=[
+{ // 1 real size
+  q:'सबैभन्दा ठूलो जनावर छुनुहोस्।',hint:'चित्रको साइज होइन, वास्तविक जीवनमा सोच्नुहोस्।',why:'कमिला ठूलो कोरिए पनि हात्ती नै सबैभन्दा ठूलो हो!',
+  go(){tap(spr('🐜',28,42,30),e=>nope(e,'कमिला? चित्रमा मात्र ठूलो देखिएको हो!'));tap(spr('🐓',70,30,17),e=>nope(e));tap(spr('🐘',72,75,9),win);el('div','chalkline',null,{top:'90%'});}
+},
+{ // 2 drag to reveal
+  q:'थालमा कति वटा मोमो छन्?',hint:'केही लुकेको त छैन? चीज सारेर हेर्नुहोस्।',why:'ढक्कनमुनि एउटा मोमो लुकेको थियो — जम्मा ५!',
+  go(){el('div',null,null,{position:'absolute',left:'12%',right:'12%',top:'24%',height:'34%',border:'3px solid #f4f1e6',borderRadius:'50%'});
+    [[32,38],[46,33],[60,40],[44,48]].forEach(([x,y])=>spr('🥟',x,y,12));spr('🥟',66,30,12);
+    drag(el('div',null,null,{position:'absolute',left:'66%',top:'29%',width:'24cqw',height:'17cqw',transform:'translate(-50%,-50%)',borderRadius:'50% 50% 10% 10%',
+      background:'linear-gradient(#c8c2b0,#8a8576)',border:'3px solid #f4f1e6',zIndex:5}));
+    choices(['३','४','५','६'],'५',82);}
+},
+{ // 3 tap the word in the question
+  q:'<span class="qw" data-qw>डाँका</span> कहाँ लुक्यो? खोजेर छुनुहोस्।',hint:'प्रश्न आफैँलाई ध्यान दिएर हेर्नुहोस्।',why:'डाँका त प्रश्नभित्रै लुकेको थियो!',
+  go(){[['🌳',25,35,26,'रुखपछाडि कोही छैन।'],['🏠',72,32,24,'घरमा त आमा मात्र हुनुहुन्छ।'],['🪨',30,78,18,'ढुङ्गामुनि त भ्यागुतो मात्र छ।'],['🛺',72,76,20,'टेम्पो खाली छ।']].forEach(([c,x,y,s,m])=>tap(spr(c,x,y,s),e=>nope(e,m)));
+    const w=$('[data-qw]');w.onclick=()=>{if(!G.won){w.style.color='var(--yel)';win();}};}
+},
+{ // 4 use existing fire
+  q:'दियो बाल्नुहोस्।',hint:'आगो पहिल्यै कतै बलिरहेको छ।',why:'बलेको दियोबाट नयाँ दियो सल्काइयो — तिहारमा यस्तै गरिन्छ!',
+  go(){const lit=el('div','diyo lit','<span class="fl"></span>',{left:'78%',top:'18%'});
+    const d=el('div','diyo','<span class="fl"></span>',{left:'32%',top:'68%'});
+    tap(el('div','spr','<span style="display:inline-block;padding:1cqw 2cqw;border:2px solid #f4f1e6;border-radius:6px;font:700 5cqw Kalam;background:#c0392b">सलाई</span>',{left:'70%',top:'72%'}),e=>nope(e,'सलाई त सकिएको छ!'));
+    drag(d,{onDrop:x=>{if(near(x,lit,22)){d.classList.add('lit');win();}}});}
+},
+{ // 5 flag triangles
+  q:'नेपालको झण्डामा कति वटा त्रिभुज छन्?',hint:'झण्डाको बाहिरी आकारलाई ध्यान दिनुहोस्।',why:'नेपालको झण्डा दुई त्रिभुज मिलेर बनेको छ!',
+  go(){el('div',null,`<svg viewBox="0 0 100 122" style="width:100%;height:100%"><path d="M4 4 L92 54 L32 54 L92 118 L4 118Z" fill="#dc143c" stroke="#003893" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M14 40 a12 12 0 0 0 24 0 a12 9 0 0 1 -24 0Z" fill="#fff"/><circle cx="26" cy="38" r="3" fill="#fff"/><circle cx="26" cy="94" r="9" fill="#fff"/>
+    <g stroke="#fff" stroke-width="2.4">${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return`<line x1="${26+11*Math.cos(a)}" y1="${94+11*Math.sin(a)}" x2="${26+15*Math.cos(a)}" y2="${94+15*Math.sin(a)}"/>`}).join('')}</g></svg>`,
+    {position:'absolute',left:'30%',top:'6%',width:'40%',height:'62%'});
+    choices(['१','२','३','४'],'२',84);}
+},
+{ // 6 rotate
+  q:'6 लाई 9 बनाउनुहोस्।',hint:'अंकलाई थिच्दै घुमाउनुहोस्।',why:'6 लाई उल्टो घुमाउँदा 9 बन्छ!',
+  go(){let a=0;const n=spr('6',50,48,50);n.style.fontFamily='Kalam';n.style.fontWeight='700';n.style.color='var(--yel)';n.style.transition='transform .3s';
+    btn('+३',22,88,b=>nope(b,'जोड्ने होइन!'));btn('×१.५',78,88,b=>nope(b,'गुणन गर्दा त 9 बन्छ, तर चलाखी होइन! 😄'));
+    tap(n,()=>{a+=90;n.style.transform=`translate(-50%,-50%) rotate(${a}deg)`;if(a%360===180)after(350,win);});}
+},
+{ // 7 long press
+  q:'कुखुरालाई अण्डा पार्न लगाउनुहोस्।',hint:'कुखुरालाई अलि लामो समय थिचिराख्नुहोस्।',why:'धैर्य गरेर थिचिराख्दा अण्डा पर्‍यो!',
+  go(){const ring=el('div','ring',null,{left:'50%',top:'45%'});const h=spr('🐔',50,45,26);let t0=0,iv=0;
+    const stop=()=>{if(!t0)return;const dt=Date.now()-t0;t0=0;clearInterval(iv);ring.style.setProperty('--p','0%');if(dt<1600&&!G.won)nope(h,'कुखुरा तर्सियो! अलि बिस्तारै…');};
+    h.addEventListener('pointerdown',e=>{e.preventDefault();if(G.won)return;t0=Date.now();
+      iv=setInterval(()=>{const p=Math.min(100,(Date.now()-t0)/16);ring.style.setProperty('--p',p+'%');
+        if(p>=100){clearInterval(iv);t0=0;spr('🥚',58,70,10);ring.style.setProperty('--p','0%');win();}},40);G.timers.push(iv);});
+    h.addEventListener('pointerup',stop);h.addEventListener('pointerleave',stop);h.addEventListener('pointercancel',stop);
+    h.addEventListener('contextmenu',e=>e.preventDefault());}
+},
+{ // 8 order of operations
+  q:'२ + २ × २ = ?',hint:'पहिले गुणन, अनि मात्र जोड।',why:'२ × २ = ४, अनि २ + ४ = ६!',
+  go(){label('२ + २ × २',50,20,{fontSize:'12cqw',color:'var(--yel)'});keypad(6);}
+},
+{ // 9 clear clouds
+  q:'घाम लगाउनुहोस्!',hint:'बादललाई एक-एक गरी हटाउनुहोस्।',why:'बादल हट्यो, घाम लाग्यो!',
+  go(){const sun=spr('☀️',50,36,30);sun.style.zIndex=1;sun.style.filter='brightness(.45)';
+    const clouds=[[38,30],[60,36],[48,46]].map(([x,y])=>spr('☁️',x,y,30));
+    clouds.forEach(c=>{c.style.zIndex=3;drag(c,{onDrop:check})});
+    tap(sun,e=>nope(e,'घाम त बादलपछाडि छ!'));
+    function check(){if(clouds.every(c=>!near(c,sun,26))){sun.style.filter='drop-shadow(0 0 6cqw #ffe066)';win();}}
+    el('div','chalkline',null,{top:'88%'});spr('🌾',20,82,12);spr('🌾',80,82,12);}
+},
+{ // 10 far mountain
+  q:'सगरमाथाको टुप्पोमा झण्डा गाड्नुहोस्।',hint:'टाढाको हिमाल सानो देखिन्छ — नाम पढ्नुहोस्।',why:'सगरमाथा टाढा भएकाले सानो देखिएको थियो!',
+  go(){// [name, x%, base bottom%, width cqw, height cqw, colour]
+    const m=[['सगरमाथा',82,52,18,16,'linear-gradient(#f4f1e6 0 35%,#8aa69a 35%,#55735f)'],['चन्द्रागिरि',58,22,40,34,'linear-gradient(#5b7d6c,#2c4a3c)'],['फुलचोकी',26,22,54,50,'linear-gradient(#4e7060,#24402f)']];
+    const peaks=m.map(([n,x,bot,w,h,bg],i)=>{el('div','mtn',null,{left:x+'%',bottom:bot+'%',width:w+'cqw',height:h+'cqw',background:bg,zIndex:i+1});
+      const top=100-bot-h/1.08;label(n,x,top-4,{zIndex:5});
+      return el('div',null,null,{position:'absolute',left:x+'%',top:top+'%',width:'2px',height:'2px'});});
+    el('div','chalkline',null,{top:'78%'});
+    const f=spr('🚩',88,88,12);
+    drag(f,{onDrop:x=>{const i=peaks.findIndex(p=>near(x,p,12));if(i===0)win();else if(i>0)nope(x,m[i][0]+' त सगरमाथा होइन!');}});}
+},
+{ // 11 keep ball up
+  q:'भकुण्डोलाई ५ पटक उफार्नुहोस् — भुइँमा खस्न नदिनुहोस्!',hint:'भकुण्डो खस्नुअघि नै छिटो-छिटो थिच्नुहोस्।',why:'वाह! साँच्चै खेलाडी रहेछौ!',
+  go(){el('div','chalkline',null,{top:'92%'});const cnt=label('०/५',50,8,{fontSize:'9cqw',color:'var(--yel)'});
+    const b=spr('⚽',50,40,18);let y=40,x=50,vy=0,vx=0,n=0,started=false;
+    b.addEventListener('pointerdown',e=>{e.preventDefault();if(G.won)return;started=true;vy=-1.9;vx=(Math.random()-.5)*1.2;n++;cnt.textContent=nn(n)+'/५';if(n>=5)win();});
+    const loop=()=>{if(started&&!G.won){vy+=.07;y+=vy;if(y<12){y=12;vy=Math.abs(vy)*.3;}x=clamp(x+vx,10,90);if(x<=10||x>=90)vx=-vx;
+        if(y>84){y=40;vy=0;x=50;n=0;started=false;cnt.textContent='०/५';say('खस्यो! फेरि सुरुदेखि।');}
+        b.style.top=y+'%';b.style.left=x+'%';}
+      G.raf=requestAnimationFrame(loop);};loop();}
+},
+{ // 12 month order
+  q:'नेपाली महिनाहरू क्रमैसँग थिच्नुहोस्।',hint:'नेपाली नयाँ वर्ष बैशाखबाट सुरु हुन्छ।',why:'बैशाख → जेठ → असार → साउन। सही क्रम!',
+  go(){const order=['बैशाख','जेठ','असार','साउन'];let i=0;
+    const pos=[[28,25],[72,40],[30,62],[70,80]].sort(()=>Math.random()-.5);
+    order.slice().sort(()=>Math.random()-.5).forEach((m,k)=>btn(m,pos[k][0],pos[k][1],b=>{
+      if(m===order[i]){b.style.background='var(--yel)';b.style.color='#3b2a00';i++;if(i===4)win();}
+      else{i=0;stage.querySelectorAll('.cbtn').forEach(x=>{x.style.background='';x.style.color='';});nope(b,'क्रम मिलेन, फेरि सुरुदेखि!');}}));}
+},
+{ // 13 observe
+  q:'हजुरबा आफ्नो ढाका टोपी खोज्दै हुनुहुन्छ। फेला पार्नुहोस्!',hint:'हजुरबालाई नै राम्ररी हेर्नुहोस्।',why:'टोपी त हजुरबाकै टाउकोमा थियो! 😂',
+  go(){const g=spr('👴',50,52,32);tap(g,e=>nope(e,'"मलाई होइन, टोपी खोज!"'));
+    const tp=el('div','topi',null,{left:'50%',top:'37%'});tap(tp,win);
+    [['🛏️',18,22,'खाटमुनि छैन।'],['🗄️',82,22,'दराजमा छैन।'],['🧺',18,84,'डालोमा त आलु मात्र छ।'],['👞',82,84,'जुत्ताभित्र छैन।']].forEach(([c,x,y,s])=>tap(spr(c,x,y,15),e=>nope(e,'"'+s+'"')));}
+},
+{ // 14 riddle
+  q:'कोठाको ४ कुनामा एक-एक बिरालो। हरेक बिरालोको अगाडि ३ बिरालो। जम्मा कति बिरालो?',hint:'बिरालोहरूले एकअर्कालाई नै देखेका हुन्।',why:'जम्मा ४ वटा मात्र — हरेकले अरू ३ लाई देख्छ!',
+  go(){el('div',null,null,{position:'absolute',left:'25%',top:'8%',width:'50%',height:'30%',border:'3px solid #f4f1e6'});
+    [[25,8],[75,8],[25,38],[75,38]].forEach(([x,y])=>spr('🐈',x,y,9));keypad(4);}
+},
+{ // 15 tool then feed
+  q:'भोको बाँदरलाई खुवाउनुहोस्।',hint:'लौरोले केरा झार्नुहोस्, अनि बाँदरलाई दिनुहोस्।',why:'लौरोले केरा झार्यो, बाँदर खुसी!',
+  go(){spr('🌳',64,40,56).style.pointerEvents='none';const ban=spr('🍌',70,20,10);const mk=spr('🐒',18,72,18);let fallen=false;
+    el('div','chalkline',null,{top:'88%'});
+    tap(mk,e=>nope(e,'बाँदर रिसायो — केरा चाहियो!'));
+    const st=el('div','stick',null,{left:'40%',top:'82%'});
+    drag(st,{onDrop:s=>{if(!fallen&&near(s,ban,16)){fallen=true;ban.style.transition='top .6s ease-in';ban.style.top='84%';s.style.left='40%';s.style.top='82%';say('केरा खस्यो! अब बाँदरलाई दिनुहोस्।',true);after(650,()=>ban.style.transition='');}}});
+    drag(ban,{lock:()=>!fallen,onDrop:b=>{if(near(b,mk,16)){b.remove();win();}}});
+    ban.addEventListener('pointerdown',()=>{if(!fallen)nope(ban,'केरा धेरै माथि छ!');});}
+},
+{ // 16 header number
+  q:'सबैभन्दा ठूलो संख्या थिच्नुहोस्।',hint:'स्क्रिनमा अरू कतै पनि संख्या छ कि?',why:'तहको नम्बर १६ नै सबैभन्दा ठूलो थियो!',
+  go(){[['९',25,28],['१५',72,30],['१२',30,70],['८',70,72]].forEach(([n,x,y])=>btn(n,x,y,b=>nope(b,n==='१५'?'१५ भन्दा ठूलो पनि छ कतै…':null)));
+    G.onHeader=()=>{$('#lnumWrap').style.color='var(--yel)';win();};}
+},
+{ // 17 flashlight
+  q:'अँध्यारो कोठामा बिरालो खोज्नुहोस्।',hint:'औँला घसार्दै टर्च घुमाउनुहोस्।',why:'टर्चको उज्यालोमा बिरालो भेटियो!',
+  go(){const spots=[[22,22],[78,24],[24,78],[76,76],[50,52]].sort(()=>Math.random()-.5);
+    const items=[['👟','जुत्ता मात्र!'],['🧸','यो त खेलौना हो।'],['🪴','गमला हो।'],['📦','बाकस खाली छ।']];
+    items.forEach(([c,m],i)=>tap(spr(c,spots[i][0],spots[i][1],14),e=>nope(e,m)));
+    tap(spr('🐈‍⬛',spots[4][0],spots[4][1],14),win);
+    const dk=el('div','dark');const mv=e=>{const r=stage.getBoundingClientRect();dk.style.setProperty('--x',(e.clientX-r.left)+'px');dk.style.setProperty('--y',(e.clientY-r.top)+'px');};
+    stage.onpointermove=mv;stage.onpointerdown=mv;dk.style.setProperty('--x','50%');dk.style.setProperty('--y','12%');}
+},
+{ // 18 patience
+  q:'पानी उमाल्नुहोस्! छिटो!',hint:'कहिलेकाहीँ केही नगर्नु नै उत्तर हो।',why:'केही नछोई पर्खिँदा पानी आफैँ उम्लियो — धैर्य!',
+  go(){spr('🔥',50,78,20);const pot=spr('🍲',50,56,30);const ring=el('div','ring',null,{left:'50%',top:'56%',width:'44cqw',height:'44cqw'});
+    let t0=Date.now();const bub=[];
+    stage.onpointerdown=()=>{if(G.won)return;t0=Date.now();nope(pot,pick(['छोइरहँदा पानी चिसो भयो!','चलाउनु हुँदैन!','भाँडो नछोउ, पोलिन्छ!']));};
+    const loop=()=>{const p=Math.min(100,(Date.now()-t0)/70);ring.style.setProperty('--p',p+'%');
+      if(p>=100&&!G.won){for(let i=0;i<5;i++)spr('💨',38+i*6,28-i%2*6,8);win();return;}G.raf=requestAnimationFrame(loop);};loop();}
+},
+{ // 19 trick weight
+  q:'कुन गह्रौँ — १ केजी कपास कि १ केजी फलाम?',hint:'दुवैतिर कति केजी लेखिएको छ?',why:'दुवै १ केजी — तौल बराबर!',
+  go(){spr('☁️',28,34,26);label('१ केजी कपास',28,58);spr('🔩',72,34,22);label('१ केजी फलाम',72,58);
+    btn('कपास',18,82,b=>nope(b));btn('बराबर',50,82,win);btn('फलाम',82,82,b=>nope(b,'फलाम कडा हो, गह्रौँ होइन!'));}
+},
+{ // 20 runaway button
+  q:'"जित" थिचेर खेल जित्नुहोस्!',hint:'भाग्ने बटनलाई पिनले थुन्नुहोस्।',why:'पिनले थुनेपछि बटन भाग्न सकेन। सबै तह पार — तपाईं जिनियस!',
+  go(){const b=el('button','runbtn','जित',{left:'50%',top:'42%'});let pinned=false;
+    const flee=e=>{if(pinned||G.won)return;e.preventDefault();e.stopPropagation();
+      b.style.left=(15+Math.random()*70)+'%';b.style.top=(12+Math.random()*55)+'%';say(pick(['समात्न सक्छौ? 😜','हा हा, भागेँ!','यता छु!']));};
+    b.addEventListener('pointerdown',flee);b.addEventListener('click',e=>{e.stopPropagation();if(pinned&&!G.won)win();});
+    const pin=spr('📌',84,86,12);
+    drag(pin,{onDrop:p=>{if(!pinned&&near(p,b,18)){pinned=true;b.style.transition='none';const[x,y]=center(b);p.style.left=(x+8)+'%';p.style.top=(y-6)+'%';
+      p.style.pointerEvents='none';say('बटन थुनियो! अब थिच्नुहोस्।',true);}}});}
+},
+];
+
+// ---------- flow ----------
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);}
+function unlocked(){let i=0;while(SAVE.done.includes(i))i++;return i;}
+function renderHome(){
+  const u=unlocked();
+  $('#grid').innerHTML=L.map((_,i)=>{const d=SAVE.done.includes(i),lk=i>u&&!d;
+    return `<button class="lv ${d?'done':''} ${lk?'lock':''}" data-l="${i}" ${lk?'disabled aria-label="बन्द"':''}>${nn(i+1)}</button>`}).join('');
+  $('#prog').textContent=`${nn(SAVE.done.length)} / ${nn(L.length)} तह पार`;
+}
+function start(i){
+  cleanup();G.lvl=i;G.won=false;
+  const lv=L[i];$('#lnum').textContent=nn(i+1);$('#lnumWrap').style.color='';
+  $('#q').innerHTML=lv.q;$('#hcount').textContent=nn(SAVE.hints);say('');
+  show('game');lv.go();
+}
+function win(){
+  if(G.won)return;G.won=true;
+  const first=!SAVE.done.includes(G.lvl);
+  if(first){SAVE.done.push(G.lvl);SAVE.hints++;}store();
+  say('सही जवाफ!',true);
+  try{navigator.vibrate&&navigator.vibrate([30,40,30])}catch(e){}
+  const last=G.lvl===L.length-1;
+  after(700,()=>openModal(`<h2>${last?'जिनियस!':pick(['शाबास!','वाह, गज्जब!','दिमाग चल्यो!','ठ्याक्कै मिल्यो!'])}</h2>
+    <div class="stars">★★★</div><p>${L[G.lvl].why}</p>${first?'<p style="color:var(--yel);font-size:.95rem">+१ सङ्केत बत्ती पाइयो</p>':''}
+    ${last?'<button class="mbtn y" data-home>सबै तह हेर्नुहोस्</button>':'<button class="mbtn y" data-next>अर्को तह ▶</button><button class="mbtn" data-home>तहहरू</button>'}`));
+}
+function openModal(h){$('#mbox').innerHTML=h;$('#modal').classList.add('on');}
+function closeModal(){$('#modal').classList.remove('on');}
+$('#modal').addEventListener('click',e=>{
+  if(e.target.closest('[data-next]')){closeModal();start(G.lvl+1);}
+  else if(e.target.closest('[data-home]')){closeModal();cleanup();renderHome();show('home');}
+  else if(e.target.closest('[data-close]')||e.target.id==='modal'){closeModal();}
+  else if(e.target.closest('[data-usehint]')){SAVE.hints--;store();$('#hcount').textContent=nn(SAVE.hints);
+    openModal(`<h2>सङ्केत</h2><p>${L[G.lvl].hint}</p><button class="mbtn y" data-close>बुझेँ</button>`);}
+});
+$('#hintBtn').onclick=()=>{
+  if(SAVE.hints<=0){openModal(`<h2>बत्ती सकियो!</h2><p>अर्को तह पार गर्दा एउटा सङ्केत बत्ती पाइन्छ। अलि आफैँ सोच्नुहोस्!</p><button class="mbtn y" data-close>ठीक छ</button>`);return;}
+  openModal(`<h2>सङ्केत चाहियो?</h2><p>एउटा बत्ती खर्च हुन्छ। (बाँकी: ${nn(SAVE.hints)})</p><button class="mbtn y" data-usehint>हो, सङ्केत देखाऊ</button><button class="mbtn" data-close>आफैँ सोच्छु</button>`);
+};
+$('#lnumWrap').onclick=()=>{if(G.onHeader&&!G.won)G.onHeader();};
+$('#backBtn').onclick=()=>{cleanup();renderHome();show('home');};
+$('#playBtn').onclick=()=>start(Math.min(unlocked(),L.length-1));
+$('#grid').addEventListener('click',e=>{const b=e.target.closest('[data-l]');if(b&&!b.disabled)start(+b.dataset.l);});
+renderHome();
+window.__L=L;window.__start=start;window.__G=()=>G;
+}
+</script>
+</body>
+</html>
