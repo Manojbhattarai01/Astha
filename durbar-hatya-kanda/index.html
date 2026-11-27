@@ -18,7 +18,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
   font-family:"Mukta","Noto Sans Devanagari","Nirmala UI",system-ui,sans-serif;font-size:16px;overscroll-behavior:none}
 body{background:radial-gradient(circle at 50% -10%,#7a1a1f 0%,var(--bg) 60%) fixed}
 button{font:inherit;color:inherit;border:0;cursor:pointer}
-.screen{display:none;max-width:520px;margin:0 auto;min-height:100%;padding:14px 12px calc(14px + var(--safe-b))}
+.screen{display:none;max-width:520px;margin:0 auto;min-height:100%;padding:calc(14px + env(safe-area-inset-top,0px)) 12px calc(14px + var(--safe-b))}
 .screen.on{display:flex;flex-direction:column}
 h1{font-size:2.3rem;margin:.2em 0 0;text-align:center;color:var(--gold2);letter-spacing:1px;text-shadow:0 3px 0 #000a}
 .sub{text-align:center;color:var(--muted);margin:0 0 12px}
