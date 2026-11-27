@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c8102e">
+<title>Sip Happens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a cheeky bartender who knows everything and roasts you gently.
+   IDEA: a bar menu with a live glass — every drink is poured into a drawn glass in its real colours.
+   PICTURE: SVG glasses (coupe, rocks, highball, martini…) filled with mixed liquid, ice, bubbles, garnish.
+   COLOUR and TYPE: maraschino red band, lime accent, ice-white cards; night mode is a dim bar. Shrikhand titles, DM Sans body.
+   LAYOUT: red header with search + tabs; card lists; bottom sheet for details; builder = big glass, live stats, ingredient rows. */
+:root{color-scheme:light dark;
+  --bg:light-dark(#faf7f2,#141016);--card:light-dark(#ffffff,#211a24);--ink:light-dark(#1d1820,#f6eef0);--mut:light-dark(#6e6570,#b8aab8);
+  --line:light-dark(#ece4dc,#352b38);--red:#c8102e;--red2:#9e0b23;--lime:#7cc417;--lime2:light-dark(#4f8a07,#a6e34a);--chip:light-dark(#f4eee8,#2c232f);
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:120px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "DM Sans",system-ui,sans-serif;overflow-x:clip}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+button:focus-visible,input:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+h1,h2,h3{font-family:"Shrikhand",serif;font-weight:400;line-height:1.05;margin:0}
+.head{background:var(--red);color:#fff;padding:calc(14px + var(--st)) max(4vw,14px) 0;position:sticky;top:0;z-index:5;box-shadow:0 6px 20px #0003}
+.brand{display:flex;align-items:center;gap:10px;max-width:980px;margin:0 auto}
+.brand h1{font-size:clamp(30px,7vw,42px);letter-spacing:.5px}
+.brand p{margin:0;font-size:.85rem;opacity:.85;line-height:1.2}
+.brand svg{flex:none}
+.search{max-width:980px;margin:10px auto 0;position:relative}
+.search input{width:100%;height:48px;border-radius:24px;border:0;padding:0 18px 0 44px;font-size:16px;background:#fff;color:#1d1820}
+.search svg{position:absolute;left:15px;top:14px}
+.tabs{display:flex;gap:4px;max-width:980px;margin:10px auto 0;overflow-x:auto}
+.tabs button{flex:1 0 auto;min-height:44px;padding:0 10px;color:#fff;font-weight:800;border-radius:12px 12px 0 0;opacity:.8;white-space:nowrap}
+.tabs button.on{background:var(--bg);color:var(--red);opacity:1}
+main{max-width:980px;margin:0 auto;padding:14px max(4vw,14px) calc(40px + var(--sb))}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px}
+.chips button{flex:none;min-height:36px;padding:0 13px;border-radius:18px;background:var(--chip);font-weight:600;font-size:.9rem}
+.chips button.on{background:var(--ink);color:var(--bg)}
+.count{color:var(--mut);font-size:.9rem;margin:0 0 8px}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:10px}
+.item{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 12px;min-height:92px}
+.item:hover{border-color:var(--red)}
+.item .gl{flex:none;width:54px;height:76px}
+.item b{display:block;font-size:1.06rem;line-height:1.2}
+.item small{display:block;color:var(--mut);font-size:.86rem;line-height:1.3;margin-top:2px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:.75rem;font-weight:700;padding:1px 8px;border-radius:10px;background:var(--chip);white-space:nowrap}
+.tag.red{background:#c8102e1f;color:var(--red)}.tag.lime{background:#7cc4172a;color:var(--lime2)}
+.bottle{flex:none;width:44px;height:76px}
+.sec{font-family:"Shrikhand",serif;font-size:1.25rem;margin:18px 0 8px;color:var(--red)}
+.empty{text-align:center;color:var(--mut);padding:40px 10px}
+/* sheet */
+#sheet{position:fixed;inset:0;z-index:20;background:#000a;display:none;align-items:flex-end;justify-content:center}
+#sheet.on{display:flex}
+#sbox{background:var(--bg);width:100%;max-width:720px;max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px max(4vw,16px) calc(24px + var(--sb));animation:up .22s}
+@keyframes up{from{transform:translateY(40px);opacity:.3}}
+.close{position:sticky;top:0;float:right;width:44px;height:44px;border-radius:50%;background:var(--chip);font-size:1.4rem;font-weight:800;z-index:2}
+.hero{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:center;margin-bottom:8px}
+.hero svg{width:100%;height:auto}
+.hero h2{font-size:clamp(28px,6vw,40px);color:var(--red)}
+.quip{font-style:italic;color:var(--mut);margin:6px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:12px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px;text-align:center}
+.stat b{display:block;font-size:1.3rem;white-space:nowrap}.stat span{font-size:.75rem;color:var(--mut)}
+.bars{display:grid;gap:5px;margin:8px 0 4px}
+.bar{display:grid;grid-template-columns:70px minmax(0,1fr);align-items:center;gap:8px;font-size:.85rem}
+.bar i{display:block;height:10px;border-radius:5px;background:var(--chip);overflow:hidden}
+.bar i em{display:block;height:100%;border-radius:5px;background:var(--red)}
+.ing{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.ing .amt{flex:none;width:64px;font-weight:800;text-align:right;white-space:nowrap}
+.ing .dot{flex:none;width:14px;height:14px;border-radius:50%;margin-top:4px;border:1px solid #0002}
+.picks{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.picks button{font-size:.78rem;padding:4px 9px;border-radius:10px;background:var(--chip);font-weight:600;min-height:30px}
+.picks button:hover{background:var(--red);color:#fff}
+ol.steps{padding-left:22px;margin:6px 0}ol.steps li{margin:4px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{min-height:48px;padding:0 18px;border-radius:14px;font-weight:800;background:var(--chip)}
+.btn.red{background:var(--red);color:#fff}.btn.lime{background:var(--lime);color:#13200a}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 10px;margin:10px 0;font-size:.95rem}
+.kv dt{color:var(--mut)}.kv dd{margin:0;font-weight:600}
+.fact{background:#7cc4171f;border-left:4px solid var(--lime);border-radius:8px;padding:10px 12px;margin:12px 0}
+.note{font-size:.8rem;color:var(--mut);margin-top:16px}
+/* builder */
+.build{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media(min-width:760px){.build{grid-template-columns:minmax(0,300px) minmax(0,1fr)}.bglass{position:sticky;top:150px;align-self:start}}
+.bglass{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px;text-align:center}
+.bglass svg{width:min(100%,230px);height:auto}
+.live{font-style:italic;color:var(--mut);min-height:3em;margin:4px 0 0}
+.seg{display:flex;gap:5px;flex-wrap:wrap}
+.seg button{min-height:40px;padding:0 12px;border-radius:12px;background:var(--chip);font-weight:600;font-size:.9rem}
+.seg button.on{background:var(--red);color:#fff}
+.lbl{font-weight:800;margin:12px 0 6px}
+.brow{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 8px;margin-bottom:6px}
+.brow .nm{flex:1;font-weight:600;line-height:1.2}
+.brow .nm small{display:block;font-weight:400;color:var(--mut);font-size:.78rem}
+.step{display:flex;align-items:center;gap:2px}
+.step button{width:40px;height:40px;border-radius:10px;background:var(--chip);font-weight:800;font-size:1.2rem}
+.step span{width:62px;text-align:center;font-weight:800;white-space:nowrap;font-size:.95rem}
+.rm{width:36px;height:36px;border-radius:50%;color:var(--mut);font-size:1.2rem}
+.addbtn{width:100%;min-height:50px;border-radius:14px;border:2px dashed var(--line);font-weight:800;color:var(--red)}
+.ipick{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 4px;border-bottom:1px solid var(--line);min-height:48px}
+.verdict{background:var(--card);border:2px solid var(--red);border-radius:20px;padding:16px;margin-top:12px}
+.score{font-family:"Shrikhand",serif;font-size:3rem;color:var(--red);line-height:1}
+.namein{width:100%;height:50px;border-radius:14px;border:2px solid var(--line);background:var(--card);padding:0 14px;font-size:16px;margin-top:8px}
+.toast{position:fixed;left:50%;bottom:calc(24px + var(--sb));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:14px;font-weight:700;z-index:40;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+footer{text-align:center;color:var(--mut);font-size:.82rem;padding:10px 16px 30px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:minmax(0,110px) minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="head">
+  <div class="brand">
+    <svg width="40" height="48" viewBox="0 0 100 120" aria-hidden="true"><path d="M12 22h76L50 66z" fill="#fff"/><path d="M24 30h52L50 56z" fill="#7cc417"/><path d="M50 66v38M30 108h40" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle cx="72" cy="20" r="9" fill="#ff4d6d" stroke="#fff" stroke-width="3"/><path d="M72 11q4-10 12-8" stroke="#fff" stroke-width="3" fill="none"/></svg>
+    <div><h1>Sip Happens</h1><p>Cocktails, bottles &amp; questionable inventions</p></div>
+  </div>
+  <div class="search">
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="#9a8f9a" stroke-width="2.5" fill="none"/><path d="M15.5 15.5L21 21" stroke="#9a8f9a" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <input id="q" type="search" placeholder="Search cocktails, ingredients or bottles…" autocomplete="off" aria-label="Search">
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-t="cocktails" class="on">Cocktails</button><button data-t="bottles">Bottles</button><button data-t="build">Build</button><button data-t="my-bar">My bar</button>
+  </nav>
+</header>
+<main id="main"></main>
+<footer>All ABV and calorie numbers are estimates (with ice dilution included). Brand strengths vary by country — check the label.<br>Drink responsibly, and never drink and drive. 18+ (or your country's legal age).</footer>
+<div id="sheet"><div id="sbox"></div></div>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script>
+{
+const ING=window.ING,BRANDS=window.BRANDS,COCKTAILS=window.COCKTAILS,BCAT=window.BCAT;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pick=a=>a[Math.random()*a.length|0];
+const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,' ');
+const R1=x=>Math.round(x*10)/10;
+const FL={s:'Sweet',o:'Sour',b:'Bitter',f:'Fruity',c:'Creamy',z:'Fizzy',h:'Herbal',k:'Smoky',x:'Coffee',p:'Spicy'};
+const ADJ={s:'sweet',o:'zesty',b:'bitter',f:'fruity',c:'creamy',z:'bubbly',h:'herbal',k:'smoky',x:'coffee-kicked',p:'spicy'};
+const GLASS={coupe:['Coupe',170],martini:['Martini',190],rocks:['Rocks',300],highball:['Highball',340],mug:['Mug',420],wine:['Wine glass',450],flute:['Flute',190],hurricane:['Hurricane',440],shot:['Shot',70]};
+const METH={shake:['Shake',.25],stir:['Stir',.2],build:['Build over ice',.1],blend:['Blend',.35]};
+const brands=BRANDS.map((b,i)=>({id:i,n:b[0],cat:b[1],country:b[2],abv:b[3],owner:b[4],since:b[5],price:b[6],notes:b[7],fact:b[8],abvNote:b[9]||''}));
+
+// ---------- engine ----------
+function vol(id,a){const u=ING[id][7];return u==='leaf'?0:u==='dash'?a*.8:a;}
+function weight(id,a){const u=ING[id][7];return u==='leaf'?a*3:u==='dash'?a*.8:a;}
+function analyse(items,method,glass){
+  let v=0,alc=0,kcal=0;const fl={};let cw=0,rgb=[0,0,0];
+  for(const[id,a]of items){const g=ING[id];if(!g)continue;const ml=vol(id,a);v+=ml;alc+=ml*g[2]/100;kcal+=ml*g[3];
+    const w=weight(id,a);for(const k in g[6])fl[k]=(fl[k]||0)+w*g[6][k];
+    const cwi=ml*g[5];if(cwi>0){const c=hex(g[4]);rgb=rgb.map((x,i)=>x+c[i]*cwi);cw+=cwi;}}
+  const dil=METH[method]?METH[method][1]:.2;const fv=v*(1+dil);
+  kcal+=alc*.789*7;
+  const abv=fv?alc/fv*100:0;const base=Math.max(v,60);
+  const taste={};for(const k in FL)taste[k]=Math.min(100,(fl[k]||0)/base/2.2*100);
+  taste.boozy=Math.min(100,abv/32*100);
+  const color=cw?rgb.map(x=>Math.round(x/cw)):[235,245,250];
+  return{v,fv,alc,abv,kcal,std:alc*.789/14,taste,color,glass,method};
+}
+function hex(h){h=h.replace('#','');return[0,2,4].map(i=>parseInt(h.substr(i,2),16));}
+const ctStats=COCKTAILS.map(c=>analyse(c.i,c.m,c.g));
+function topTaste(t,n=3){return Object.keys(FL).filter(k=>t[k]>12).sort((a,b)=>t[b]-t[a]).slice(0,n);}
+function tasteLine(a){const t=topTaste(a.taste);let s=t.map(k=>ADJ[k]).join(', ');
+  const strength=a.abv>=28?'dangerously boozy':a.abv>=18?'properly strong':a.abv>=10?'medium-strength':a.abv>0?'light and easy':'alcohol-free';
+  return (s?s.charAt(0).toUpperCase()+s.slice(1)+' and ':'')+(s?strength:strength.charAt(0).toUpperCase()+strength.slice(1));}
+function quips(a,items){
+  const t=a.taste,q=[];
+  if(!items.length)return['An empty glass. Very zen. Very sober.'];
+  if(a.alc===0)q.push('Congratulations, you made juice. Your liver sends a thank-you card.');
+  if(a.abv>=30)q.push('This isn\'t a cocktail, it\'s a life decision.');
+  else if(a.abv>=20)q.push('Strong enough to make you text your ex. Don\'t.');
+  if(t.s>70&&t.o<25)q.push('Dentists everywhere just felt a disturbance.');
+  if(t.o>65&&t.s<30)q.push('Pucker level: toddler licking a lemon.');
+  if(t.b>55)q.push('Bitter like your landlord, but way more sophisticated.');
+  if(t.c>55)q.push('Basically a milkshake that went to college.');
+  if(t.z>50)q.push('Bubbly personality. Like you, on a good day.');
+  if(t.k>45)q.push('Smells like a campfire with good manners.');
+  if(t.x>45)q.push('Caffeine and alcohol: wide awake and making bad choices.');
+  if(t.p>55)q.push('Spicy! Keep the fire extinguisher handy.');
+  if(a.kcal>350)q.push(`About ${Math.round(a.kcal)} kcal. That\'s dal-bhat territory, my friend.`);
+  if(a.v>420)q.push('That\'s not a glass, that\'s a bathtub.');
+  if(items.length>=8)q.push('Kitchen-sink energy. Bold. Chaotic. We respect it.');
+  if(!q.length)q.push(pick(['Balanced, polite, would bring home to meet the parents.','Smooth operator. Bartenders would nod at this.','Solid pour. Your guests will ask for seconds.']));
+  return q;
+}
+function score(a,items){
+  if(!items.length)return 0;let s=7;const t=a.taste;
+  const so=t.s-t.o;if(t.o>20&&t.s>20&&Math.abs(so)<30)s+=1.5;else if(Math.abs(so)>55)s-=1.5;
+  if(a.abv>35)s-=2;else if(a.abv>4&&a.abv<26)s+=.5;
+  if(items.length>8)s-=1.5;if(a.v>450)s-=1;if(a.alc===0)s-=2;
+  if(t.b>80||t.p>80)s-=1;
+  return Math.max(1,Math.min(10,Math.round(s*2)/2));
+}
+const ALIAS={rye:'bourbon',scotch:'scotch',islay:'scotch',irish:'scotch',jwhisky:'scotch',champagne:'prosecco',lemon:'lime',gfsoda:'grapefruit',gale:'gbeer',agave:'simple',honey:'simple'};
+const keyOf=id=>ALIAS[id]||id;
+const MINOR=new Set(['mint','cucumber','bitters','peychaud','absinthe','worcester','tabasco','eggwhite']);
+function mapOf(items){const m={};let tot=0;for(const[id,a]of items){if(MINOR.has(id))continue;const k=keyOf(id);const ml=vol(id,a);m[k]=(m[k]||0)+ml;tot+=ml;}for(const k in m)m[k]/=tot||1;return m;}
+function findMatch(items){
+  const A=mapOf(items);const ka=Object.keys(A);if(!ka.length)return null;
+  let best=null;
+  COCKTAILS.forEach((c,i)=>{const B=mapOf(c.i);const kb=Object.keys(B);
+    const U=new Set([...ka,...kb]);let inter=0,diff=0;U.forEach(k=>{if(A[k]&&B[k])inter++;diff+=Math.abs((A[k]||0)-(B[k]||0));});
+    const jac=inter/U.size,ratio=1-diff/2,sc=jac*.65+ratio*.35;
+    if(!best||sc>best.sc)best={i,sc,jac,ratio};});
+  if(best.jac===1&&best.ratio>.72)best.kind='exact';else if(best.sc>=.62)best.kind='twist';else best.kind='new';
+  return best;
+}
+
+// ---------- glass art ----------
+const SHAPES={
+  coupe:{p:'M14 46 Q50 96 86 46 Z',top:46,bot:70,stem:'M50 70 V122 M30 126 H70',rim:[14,86,46]},
+  martini:{p:'M12 34 L88 34 L50 82 Z',top:34,bot:82,stem:'M50 82 V122 M30 126 H70',rim:[12,88,34]},
+  rocks:{p:'M22 62 L78 62 L75 126 L25 126 Z',top:62,bot:126,rim:[22,78,62],ice:1},
+  highball:{p:'M30 22 L70 22 L68 126 L32 126 Z',top:22,bot:126,rim:[30,70,22],ice:1},
+  mug:{p:'M24 40 L72 40 L72 126 L24 126 Z',top:40,bot:126,rim:[24,72,40],handle:'M72 56 Q92 56 92 80 Q92 104 72 104',ice:1},
+  wine:{p:'M26 22 L74 22 Q82 72 50 84 Q18 72 26 22 Z',top:22,bot:84,stem:'M50 84 V122 M30 126 H70',rim:[26,74,22],ice:1},
+  flute:{p:'M38 14 L62 14 L59 84 Q50 92 41 84 Z',top:14,bot:90,stem:'M50 90 V122 M34 126 H66',rim:[38,62,14]},
+  hurricane:{p:'M34 18 Q24 48 40 70 Q28 96 36 126 L64 126 Q72 96 60 70 Q76 48 66 18 Z',top:18,bot:126,rim:[34,66,18],ice:1},
+  shot:{p:'M34 84 L66 84 L63 126 L37 126 Z',top:84,bot:126,rim:[34,66,84]},
+};
+let gid=0;
+function glassSVG(a,items,big){
+  const S=SHAPES[a.glass]||SHAPES.rocks;const id='g'+(gid++);
+  const cap=(GLASS[a.glass]||GLASS.rocks)[1];const f=Math.min(1,a.fv/cap);
+  const h=(S.bot-S.top)*f*.94;const y=S.bot-h;
+  const [r,g,b]=a.color;const col=`rgb(${r},${g},${b})`;
+  const ice=S.ice&&a.method==='build'&&f>0?[0,1,2].map(k=>`<rect x="${34+k*11}" y="${Math.max(y+4,S.bot-30-k*14)}" width="14" height="14" rx="3" fill="#fff" opacity=".45" transform="rotate(${k*17-12} ${41+k*11} ${S.bot-23-k*14})"/>`).join(''):'';
+  const fizz=a.taste.z>25&&f>0?[...Array(7)].map((_,k)=>`<circle cx="${40+(k*13)%26}" cy="${S.bot-8-(k*17)%Math.max(8,h-8)}" r="${1.2+k%3*.6}" fill="#fff" opacity=".8"/>`).join(''):'';
+  const foam=items.some(([i])=>i==='eggwhite'||i==='cream')&&f>0?`<rect x="0" y="${y}" width="100" height="5" fill="#fffaf0" opacity=".95"/>`:'';
+  const ids=items.map(x=>x[0]);
+  let gar='';
+  if(ids.includes('mint'))gar+=`<path d="M${S.rim[1]-10} ${S.rim[2]-2} q6 -16 16 -14 q-2 12 -16 14z" fill="#3fae4a"/><path d="M${S.rim[1]-6} ${S.rim[2]-4} q2 -14 -8 -18 q-4 10 8 18z" fill="#5cc85a"/>`;
+  else if(ids.some(i=>['lime','lemon','oj','grapefruit'].includes(i))){const c=ids.includes('lime')?'#9bd23a':ids.includes('lemon')?'#f2dc3a':'#ff9f2e';
+    gar+=`<g transform="translate(${S.rim[1]-2} ${S.rim[2]})"><circle r="11" fill="${c}" stroke="#fff" stroke-width="2"/><path d="M0 -9V9M-9 0H9M-6 -6L6 6M6 -6L-6 6" stroke="#fff" stroke-width="1.2" opacity=".8"/></g>`;}
+  if(ids.some(i=>['grenadine','svermouth','maraschino'].includes(i))&&!gar)gar+=`<circle cx="${S.rim[0]+10}" cy="${S.rim[2]-6}" r="6" fill="#d0021b"/><path d="M${S.rim[0]+10} ${S.rim[2]-12} q4 -10 10 -10" stroke="#5a3a1a" stroke-width="1.5" fill="none"/>`;
+  return `<svg viewBox="0 0 100 132" role="img" aria-label="${esc((GLASS[a.glass]||['Glass'])[0])} glass">
+    <defs><clipPath id="${id}"><path d="${S.p}"/></clipPath>
+    <linearGradient id="${id}l" x1="0" x2="1"><stop offset="0" stop-color="${col}" stop-opacity=".95"/><stop offset=".5" stop-color="${col}" stop-opacity=".8"/><stop offset="1" stop-color="${col}"/></linearGradient></defs>
+    <g clip-path="url(#${id})"><rect x="0" y="${y}" width="100" height="${h+2}" fill="url(#${id}l)"/>${foam}${ice}${fizz}</g>
+    <path d="${S.p}" fill="#ffffff22" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" opacity=".8"/>
+    ${S.stem?`<path d="${S.stem}" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>`:''}
+    ${S.handle?`<path d="${S.handle}" fill="none" stroke="currentColor" stroke-width="4" opacity=".8"/>`:''}
+    <path d="M${S.rim[0]+5} ${S.rim[2]+6} L${S.rim[0]+7} ${S.rim[2]+30}" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+    ${gar}</svg>`;
+}
+function bottleSVG(b){
+  const cols={vodka:'#dfeef5',gin:'#bfe3d0',wrum:'#f1ead8',drum:'#6b3410',srum:'#8a4a1a',crum:'#f8f8f2',tequila:'#efe5c2',mezcal:'#e7dbb5',bourbon:'#b5651d',rye:'#a3521a',scotch:'#c27c2c',islay:'#a96a22',irish:'#c98a35',jwhisky:'#c58a3a',cognac:'#7d3c12',
+    triple:'#ffd27a',coffeeliq:'#3b2314',irishcream:'#d9c2a3',campari:'#d1122f',aperol:'#ff6f1a',svermouth:'#6b1a14',dvermouth:'#e9e2b8',amaretto:'#a35a1c',elder:'#efe2a0',maraschino:'#e8e4d8',chartreuse:'#8fc22a',jager:'#2b3a1a',amaro:'#5a2a12',pimms:'#8a2f1d',passoa:'#e23a2a',bitters:'#7a1a10',peychaud:'#c4303a',champagne:'#2f4a2a',prosecco:'#3a5a30',melon:'#5fd34a',hazelnut:'#a4733a',whiskeyliq:'#c4762a'};
+  const c=cols[b.cat]||'#888';
+  return `<svg class="bottle" viewBox="0 0 60 100" aria-hidden="true"><path d="M24 4h12v18q10 6 10 20v50q0 4-4 4H18q-4 0-4-4V42q0-14 10-20z" fill="${c}" stroke="currentColor" stroke-width="2" opacity=".95"/>
+    <rect x="17" y="50" width="26" height="24" rx="3" fill="#fff" opacity=".9"/><text x="30" y="65" font-size="9" font-weight="800" text-anchor="middle" fill="#c8102e">${Math.round(b.abv)}%</text><rect x="23" y="2" width="14" height="6" rx="2" fill="currentColor" opacity=".7"/></svg>`;
+}
+
+// ---------- state ----------
+let TAB='cocktails',FILTER='all';
+let MY=[];try{MY=JSON.parse(localStorage.getItem('sip-my')||'[]')}catch(e){}
+const saveMy=()=>{try{localStorage.setItem('sip-my',JSON.stringify(MY))}catch(e){}};
+let B={items:[['tequila',45],['lime',25],['simple',15]],glass:'rocks',method:'shake'};
+try{const s=JSON.parse(localStorage.getItem('sip-draft')||'null');if(s&&s.items)B=s;}catch(e){}
+const saveDraft=()=>{try{localStorage.setItem('sip-draft',JSON.stringify(B))}catch(e){}};
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200);}
+async function copy(text,msg){try{await navigator.clipboard.writeText(text);toast(msg||'Copied! Paste it anywhere 🍸');}
+  catch(e){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Copied!');}catch(_){toast('Could not copy — select the text manually');}t.remove();}}
+function amtTxt(id,a){const u=ING[id][7];return u==='leaf'?`${a} ${id==='mint'?'leaves':'slices'}`:u==='dash'?`${a} dash${a>1?'es':''}`:`${a} ml`;}
+
+// ---------- views ----------
+function setTab(t,push=true){TAB=t;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  if(push&&location.hash!=='#'+t)history.replaceState(null,'','#'+t);render();window.scrollTo({top:0});}
+function render(){const q=norm($('#q').value.trim());
+  if(TAB==='cocktails')renderCocktails(q);else if(TAB==='bottles')renderBottles(q);else if(TAB==='build')renderBuild();else renderMy(q);}
+
+const CFILT=[['all','All'],['strong','Strong 💪'],['light','Light'],['fizzy','Fizzy'],['sour','Sour'],['sweet','Sweet'],['bitter','Bitter'],['creamy','Creamy'],['lowcal','Under 150 kcal']];
+function cMatches(c,i,q){
+  if(!q)return true;const hay=norm(c.n+' '+c.i.map(x=>ING[x[0]][0]).join(' ')+' '+c.o);
+  const cats=new Set(c.i.map(x=>ING[x[0]][8]).filter(Boolean));
+  const brandHit=brands.some(b=>cats.has(b.cat)&&norm(b.n).includes(q));
+  return q.split(' ').filter(Boolean).every(w=>hay.includes(w))||brandHit;}
+function cFilter(s){const t=s.taste;return FILTER==='all'||(FILTER==='strong'&&s.abv>=20)||(FILTER==='light'&&s.abv<12)||(FILTER==='fizzy'&&t.z>30)||(FILTER==='sour'&&t.o>40)||(FILTER==='sweet'&&t.s>45)||(FILTER==='bitter'&&t.b>35)||(FILTER==='creamy'&&t.c>35)||(FILTER==='lowcal'&&s.kcal<150);}
+function renderCocktails(q){
+  const list=COCKTAILS.map((c,i)=>({c,i,s:ctStats[i]})).filter(o=>cMatches(o.c,o.i,q)&&cFilter(o.s));
+  $('#main').innerHTML=`<div class="chips">${CFILT.map(([k,l])=>`<button data-f="${k}" class="${FILTER===k?'on':''}">${l}</button>`).join('')}</div>
+   <p class="count">${list.length} cocktail${list.length===1?'':'s'}${q?` for "${esc($('#q').value)}"`:''}</p>
+   ${list.length?`<div class="list">${list.map(({c,i,s})=>`<button class="item" data-c="${i}"><span class="gl">${glassSVG(s,c.i)}</span><span><b>${esc(c.n)}</b><small>${esc(c.t)}</small>
+     <span class="tags"><span class="tag red">${R1(s.abv)}% ABV</span><span class="tag">${Math.round(s.kcal)} kcal</span><span class="tag lime">${s.abv>=25?'Boozy':esc(topTaste(s.taste,1).map(k=>FL[k])[0]||'Smooth')}</span></span></span></button>`).join('')}</div>`
+   :`<div class="empty">No cocktail called that… yet. 🤔<br><button class="btn red" style="margin-top:12px" data-goto="build">Invent it in the builder</button></div>`}`;
+}
+function renderBottles(q){
+  const list=brands.filter(b=>!q||q.split(' ').filter(Boolean).every(w=>norm(b.n+' '+(BCAT[b.cat]||'')+' '+b.country+' '+b.owner).includes(w)));
+  const groups={};list.forEach(b=>{(groups[BCAT[b.cat]||'Other']=groups[BCAT[b.cat]||'Other']||[]).push(b)});
+  $('#main').innerHTML=`<p class="count">${list.length} bottle${list.length===1?'':'s'} on the shelf${q?` matching "${esc($('#q').value)}"`:''}</p>`+
+   (list.length?Object.entries(groups).map(([g,bs])=>`<h3 class="sec">${esc(g)}</h3><div class="list">${bs.map(b=>`<button class="item" data-b="${b.id}">${bottleSVG(b)}<span><b>${esc(b.n)}</b><small>${esc(b.country)} · ${'$'.repeat(b.price)}</small>
+     <span class="tags"><span class="tag red">${b.abv}% ABV</span><span class="tag">${esc(BCAT[b.cat]||'')}</span></span></span></button>`).join('')}</div>`).join('')
+   :`<div class="empty">That bottle isn't on our shelf yet. Our bartender is on a tea break. ☕<br><small>Try a brand like Absolut, Old Monk, Jameson or Campari.</small></div>`);
+}
+function statsHTML(a){return `<div class="stats"><div class="stat"><b>${R1(a.abv)}%</b><span>ABV (after ice)</span></div><div class="stat"><b>${Math.round(a.kcal)}</b><span>kcal</span></div>
+  <div class="stat"><b>${Math.round(a.fv)} ml</b><span>in the glass</span></div><div class="stat"><b>${R1(a.std)}</b><span>US std drinks</span></div></div>`;}
+function barsHTML(a){const keys=['boozy',...topTaste(a.taste,5)];return `<div class="bars">${keys.map(k=>`<div class="bar"><span>${k==='boozy'?'Boozy':FL[k]}</span><i><em style="width:${Math.max(3,a.taste[k])}%${k==='boozy'?';background:var(--lime)':''}"></em></i></div>`).join('')}</div>`;}
+function stepsFor(c){
+  const ids=c.i.map(x=>x[0]);const fizz=c.i.filter(([id])=>ING[id][6].z);const still=c.i.filter(([id])=>!ING[id][6].z);
+  const G=GLASS[c.g][0].toLowerCase();const s=[];
+  if(c.m==='shake'){if(ids.includes('mint'))s.push('Gently muddle the mint in the shaker.');s.push(`Add ${still.map(([id])=>ING[id][0].toLowerCase()).join(', ')} to a shaker with lots of ice.`);s.push('Shake hard for 10–12 seconds, like it owes you money.');s.push(`Strain into a chilled ${G} glass${c.g==='rocks'||c.g==='hurricane'?' over fresh ice':''}.`);if(fizz.length)s.push(`Top with ${fizz.map(([id])=>ING[id][0].toLowerCase()).join(' and ')}.`);}
+  else if(c.m==='stir'){s.push(`Add ${c.i.map(([id])=>ING[id][0].toLowerCase()).join(', ')} to a mixing glass with ice.`);s.push('Stir for 20–30 seconds until very cold. No splashing — be classy.');s.push(`Strain into a chilled ${G} glass${c.g==='rocks'?' over a big ice cube':''}.`);}
+  else if(c.m==='blend'){s.push(`Blend everything with a cup of ice until smooth.`);s.push(`Pour into a ${G} glass and pretend you're on a beach.`);}
+  else{if(ids.includes('mint'))s.push('Gently press the mint with the syrup/lime in the glass (bruise it, don\'t murder it).');s.push(`Fill a ${G} glass with ice.`);s.push(`Add ${still.map(([id])=>ING[id][0].toLowerCase()).join(', ')}.`);if(fizz.length)s.push(`Top with ${fizz.map(([id])=>ING[id][0].toLowerCase()).join(' and ')} and give one gentle stir.`);}
+  (c.x||[]).forEach(x=>s.push(x));s.push(`Garnish: ${c.gar}.`);return s;}
+function picksFor(id){const cat=ING[id][8];if(!cat)return '';const bs=brands.filter(b=>b.cat===cat).slice(0,4);
+  return bs.length?`<div class="picks">${bs.map(b=>`<button data-b="${b.id}">${esc(b.n)}</button>`).join('')}</div>`:'';}
+function recipeText(name,items,g,m,a,extra){
+  return `🍸 ${name}\n${items.map(([id,x])=>`• ${amtTxt(id,x)} ${ING[id][0]}`).join('\n')}\nMethod: ${METH[m][0]} · Glass: ${GLASS[g][0]}\nABV ≈ ${R1(a.abv)}% · ≈ ${Math.round(a.kcal)} kcal\nTaste: ${tasteLine(a)}${extra?'\n'+extra:''}\n— made with Sip Happens`;}
+
+function openSheet(h){$('#sbox').innerHTML='<button class="close" data-x aria-label="Close">×</button>'+h;$('#sheet').classList.add('on');$('#sbox').scrollTop=0;}
+function closeSheet(){$('#sheet').classList.remove('on');}
+function showCocktail(i){
+  const c=COCKTAILS[i],a=ctStats[i];
+  openSheet(`<div class="hero"><div>${glassSVG(a,c.i,1)}</div><div><h2>${esc(c.n)}</h2><p class="quip">“${esc(c.t)}”</p><p style="margin:8px 0 0;font-size:.9rem">${esc(GLASS[c.g][0])} glass · ${esc(METH[c.m][0])}${c.o?` · ${esc(c.o)}`:''}</p></div></div>
+   ${statsHTML(a)}<p style="margin:4px 0"><b>Tastes:</b> ${esc(tasteLine(a))}.</p>${barsHTML(a)}
+   <h3 class="sec">What goes in</h3>${c.i.map(([id,x])=>`<div class="ing"><span class="amt">${amtTxt(id,x)}</span><span class="dot" style="background:${ING[id][4]}"></span><span style="flex:1"><b>${esc(ING[id][0])}</b>${picksFor(id)}</span></div>`).join('')}
+   <h3 class="sec">How to make it</h3><ol class="steps">${stepsFor(c).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+   <div class="row"><button class="btn red" data-remix="${i}">Remix in builder</button><button class="btn" data-copyc="${i}">Copy recipe</button></div>
+   <p class="note">Numbers are estimates and include melted ice. Tap a bottle to learn about it.</p>`);
+}
+function showBrand(id){
+  const b=brands[id];const cs=COCKTAILS.map((c,i)=>({c,i})).filter(({c})=>c.i.some(([x])=>ING[x][8]===b.cat));
+  const verdict=b.abv>=50?'Strong stuff. Respect it, add a splash of water.':b.abv>=35?'Neat, on the rocks or in a cocktail — your call, boss.':b.abv>=15?'Great in cocktails, fine on ice, dangerous at brunch.':'Low and easy — the "I have work tomorrow" bottle.';
+  openSheet(`<div class="hero"><div style="max-width:110px">${bottleSVG(b).replace('class="bottle"','style="width:100%;height:auto"')}</div><div><h2>${esc(b.n)}</h2><p class="quip">${esc(BCAT[b.cat]||'')}</p></div></div>
+   <dl class="kv"><dt>Type</dt><dd>${esc(BCAT[b.cat]||'')}</dd><dt>Country</dt><dd>${esc(b.country)}</dd><dt>Strength</dt><dd>${b.abv}% ABV${b.abvNote?` <small style="color:var(--mut);font-weight:400">(${esc(b.abvNote)})</small>`:''}</dd>
+   ${b.owner?`<dt>Made by</dt><dd>${esc(b.owner)}</dd>`:''}${b.since?`<dt>Since</dt><dd>${esc(b.since)}</dd>`:''}<dt>Price</dt><dd>${'$'.repeat(b.price)}<span style="opacity:.3">${'$'.repeat(3-b.price)}</span> ${['','budget-friendly','mid-range','treat yourself'][b.price]}</dd>
+   <dt>Calories</dt><dd>≈ ${Math.round(45*b.abv/100*.789*7+45*((Object.values(ING).find(x=>x[8]===b.cat)||[])[3]||0))} kcal per 45 ml pour</dd></dl>
+   <p><b>Tasting notes:</b> ${esc(b.notes)}</p><div class="fact"><b>Bar trivia:</b> ${esc(b.fact)}</div><p><b>Bartender's verdict:</b> ${esc(verdict)}</p>
+   <h3 class="sec">Shines in</h3>${cs.length?`<div class="list">${cs.map(({c,i})=>`<button class="item" data-c="${i}" style="min-height:70px"><span class="gl" style="width:40px;height:56px">${glassSVG(ctStats[i],c.i)}</span><span><b>${esc(c.n)}</b><small>${R1(ctStats[i].abv)}% · ${Math.round(ctStats[i].kcal)} kcal</small></span></button>`).join('')}</div>`
+     :'<p>No classic cocktail in our book uses it — sip it neat, on ice, or invent something in the builder!</p>'}
+   <p class="note">Facts are from our offline shelf notes; strengths and ownership can change, so check the label.</p>`);
+}
+
+// ---------- builder ----------
+const GROUPS=['Spirits','Liqueurs','Wine & bubbles','Mixers','Juices','Syrups','Dairy & co','Bits & dashes'];
+function stepOf(id){const u=ING[id][7];return u==='ml'?5:1;}
+function renderBuild(){
+  const a=analyse(B.items,B.method,B.glass);
+  $('#main').innerHTML=`<div class="build"><div class="bglass"><div id="bg">${glassSVG(a,B.items,1)}</div><div id="bstats">${liveHTML(a)}</div></div>
+   <div><h2 style="color:var(--red);font-size:1.8rem">Build your own</h2><p style="margin:4px 0 0;color:var(--mut)">Pour, taste (in theory), and find out if you invented something — or just a Margarita.</p>
+    <div class="lbl">Glass</div><div class="seg" id="segG">${Object.entries(GLASS).map(([k,[n]])=>`<button data-g="${k}" class="${B.glass===k?'on':''}">${n}</button>`).join('')}</div>
+    <div class="lbl">Method</div><div class="seg" id="segM">${Object.entries(METH).map(([k,[n]])=>`<button data-m="${k}" class="${B.method===k?'on':''}">${n}</button>`).join('')}</div>
+    <div class="lbl">Ingredients</div><div id="rows">${rowsHTML()}</div>
+    <button class="addbtn" id="addIng">+ Add ingredient</button>
+    <div class="row"><button class="btn red" id="review" style="flex:1">Review my cocktail 🍸</button><button class="btn" id="clearB">Empty glass</button></div>
+    <div id="verdict"></div></div></div>`;
+}
+function liveHTML(a){const q=quips(a,B.items);return `${statsHTML(a)}${barsHTML(a)}<p class="live">${esc(q[0])}</p>`;}
+function rowsHTML(){return B.items.length?B.items.map(([id,x],k)=>`<div class="brow"><span class="dot" style="width:14px;height:14px;border-radius:50%;background:${ING[id][4]};border:1px solid #0002;flex:none"></span>
+  <span class="nm">${esc(ING[id][0])}<small>${ING[id][2]?ING[id][2]+'% ABV':'no alcohol'}</small></span>
+  <span class="step"><button data-dec="${k}" aria-label="Less">−</button><span>${amtTxt(id,x)}</span><button data-inc="${k}" aria-label="More">+</button></span><button class="rm" data-rm="${k}" aria-label="Remove">×</button></div>`).join('')
+  :'<p style="color:var(--mut)">Empty glass. Add something before the bartender gets suspicious.</p>';}
+function refreshBuild(){const a=analyse(B.items,B.method,B.glass);$('#bg').innerHTML=glassSVG(a,B.items,1);$('#bstats').innerHTML=liveHTML(a);$('#rows').innerHTML=rowsHTML();$('#verdict').innerHTML='';saveDraft();}
+function openPicker(){
+  const draw=f=>{const q=norm(f||'');return GROUPS.map(g=>{const ids=Object.keys(ING).filter(id=>ING[id][1]===g&&(!q||norm(ING[id][0]).includes(q)));
+    return ids.length?`<h3 class="sec">${g}</h3>${ids.map(id=>`<button class="ipick" data-add="${id}"><span class="dot" style="width:16px;height:16px;border-radius:50%;background:${ING[id][4]};border:1px solid #0002;flex:none"></span><span style="flex:1">${esc(ING[id][0])}</span><small style="color:var(--mut)">${ING[id][2]?ING[id][2]+'%':''}</small></button>`).join('')}`:''}).join('')||'<p class="empty">Nothing like that behind the bar.</p>';};
+  openSheet(`<h2 style="color:var(--red)">Add to the glass</h2><input class="namein" id="ipq" placeholder="Search ingredients…" type="search"><div id="ipl">${draw()}</div>`);
+  $('#ipq').oninput=e=>{$('#ipl').innerHTML=draw(e.target.value);};
+}
+function suggestName(a){const t=topTaste(a.taste,2);
+  const A={s:['Sugar-Rush','Honey','Candy'],o:['Sour-Faced','Zesty','Puckered'],b:['Grumpy','Moody','Brooding'],f:['Tropical','Juicy','Fruity'],c:['Velvet','Fluffy','Silky'],z:['Fizzy','Bubbly','Sparkling'],h:['Garden','Herbal','Jungle'],k:['Smoky','Campfire','Burnt-Toast'],x:['Wide-Awake','Midnight','Espresso'],p:['Fiery','Spicy','Angry']};
+  const N=['Yeti','Llama','Uncle','Monsoon','Momo','Tiger','Hangover','Thunder','Mango Bandit','Auntie','Rickshaw','Lazy Sunday','Dragon','Goat'];
+  const adj=t.length?pick(A[t[0]]):pick(['Mysterious','Polite','Shy']);return `${a.abv>=25?'Dangerous ':''}${adj} ${pick(N)}`;}
+function review(){
+  if(!B.items.length){toast('Add something first — even I can\'t review air.');return;}
+  const a=analyse(B.items,B.method,B.glass);const m=findMatch(B.items);const sc=score(a,B.items);const q=quips(a,B.items);
+  let head='';
+  if(m&&m.kind==='exact'){const c=COCKTAILS[m.i];
+    head=`<p style="margin:0;font-weight:800;color:var(--lime2)">PLOT TWIST!</p><h3 style="font-size:1.8rem;color:var(--red)">You made a ${esc(c.n)}</h3>
+      <p>Congratulations, you reinvented a classic${c.o?` (${esc(c.o)})`:''}. Name's already taken — but at least you have great taste.</p>
+      <div class="row"><button class="btn red" data-copyb="${esc(c.n)}">Share it</button><button class="btn" data-c="${m.i}">See the classic recipe</button></div>`;}
+  else{const c=m&&m.kind==='twist'?COCKTAILS[m.i]:null;
+    head=`<p style="margin:0;font-weight:800;color:var(--lime2)">${c?'CLOSE ONE!':'BRAND NEW!'}</p><h3 style="font-size:1.6rem;color:var(--red)">${c?`It\'s a cousin of the ${esc(c.n)}`:'This cocktail doesn\'t exist… yet'}</h3>
+      <p>${c?`Similar enough that bartenders would call it a "${esc(c.n)} twist" — but different enough that you can name it.`:'Nothing in our book matches it. You may be a genius. Or dangerous. Possibly both.'}</p>
+      <label style="font-weight:800" for="cname">Give it a name</label><input class="namein" id="cname" maxlength="40" value="${esc(c?c.n+' Twist':suggestName(a))}">
+      <div class="row"><button class="btn" id="reroll">🎲 Funny name</button><button class="btn red" id="saveIt">Save & share</button>${c?`<button class="btn" data-c="${m.i}">See the ${esc(c.n)}</button>`:''}</div>`;}
+  $('#verdict').innerHTML=`<div class="verdict"><div style="display:flex;align-items:center;gap:12px"><span class="score">${String(sc).replace('.5','½')}<small style="font-size:1.2rem">/10</small></span><span><b>Bartender score</b><br><span style="color:var(--mut)">${esc(tasteLine(a))}</span></span></div>
+    <ul style="padding-left:20px;margin:10px 0">${q.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${head}</div>`;
+  $('#verdict').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function saveCreation(){
+  const name=$('#cname').value.trim();if(!name){toast('A nameless drink? Give it a name!');return;}
+  const clash=COCKTAILS.find(c=>norm(c.n).trim()===norm(name).trim());
+  if(clash){toast(`"${clash.n}" is a legend already. Pick another name!`);return;}
+  const a=analyse(B.items,B.method,B.glass);const sc=score(a,B.items);
+  const mine={name,items:B.items.map(x=>x.slice()),glass:B.glass,method:B.method,score:sc,at:Date.now()};
+  const ex=MY.findIndex(x=>norm(x.name)===norm(name));if(ex>=0)MY[ex]=mine;else MY.unshift(mine);saveMy();
+  copy(recipeText(name,B.items,B.glass,B.method,a,`Bartender score: ${sc}/10`),`"${name}" saved to My bar & recipe copied to share!`);
+}
+function renderMy(q){
+  const list=MY.filter(m=>!q||norm(m.name).includes(q));
+  $('#main').innerHTML=`<h2 style="color:var(--red);font-size:1.8rem;margin-bottom:8px">My bar</h2>`+(list.length?`<div class="list">${list.map(m=>{const a=analyse(m.items,m.method,m.glass);const k=MY.indexOf(m);
+    return `<div class="item"><span class="gl">${glassSVG(a,m.items)}</span><span style="flex:1"><b>${esc(m.name)}</b><small>${esc(tasteLine(a))}</small>
+     <span class="tags"><span class="tag red">${R1(a.abv)}% ABV</span><span class="tag">${Math.round(a.kcal)} kcal</span><span class="tag lime">${m.score}/10</span></span>
+     <span class="row" style="margin-top:8px"><button class="btn" style="min-height:40px" data-load="${k}">Edit</button><button class="btn" style="min-height:40px" data-share="${k}">Share</button><button class="btn" style="min-height:40px" data-del="${k}">Delete</button></span></span></div>`}).join('')}</div>`
+    :`<div class="empty">Your bar is empty. Sad trombone. 🎺<br><button class="btn red" style="margin-top:12px" data-goto="build">Invent your first cocktail</button></div>`);
+}
+
+// ---------- events ----------
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.t){setTab(d.t);return;}
+  if(d.x!==undefined){closeSheet();return;}
+  if(d.f){FILTER=d.f;render();return;}
+  if(d.c!==undefined){showCocktail(+d.c);return;}
+  if(d.b!==undefined){showBrand(+d.b);return;}
+  if(d.goto){closeSheet();setTab(d.goto);return;}
+  if(d.remix!==undefined){const c=COCKTAILS[+d.remix];B={items:c.i.map(x=>x.slice()),glass:c.g,method:c.m};saveDraft();closeSheet();setTab('build');toast(`${c.n} loaded — now mess with it!`);return;}
+  if(d.copyc!==undefined){const c=COCKTAILS[+d.copyc];copy(recipeText(c.n,c.i,c.g,c.m,ctStats[+d.copyc]));return;}
+  if(d.copyb){copy(recipeText(d.copyb+' (my version)',B.items,B.glass,B.method,analyse(B.items,B.method,B.glass)));return;}
+  if(d.g){B.glass=d.g;document.querySelectorAll('#segG button').forEach(x=>x.classList.toggle('on',x===t));refreshBuild();return;}
+  if(d.m){B.method=d.m;document.querySelectorAll('#segM button').forEach(x=>x.classList.toggle('on',x===t));refreshBuild();return;}
+  if(d.inc!==undefined){const r=B.items[+d.inc];r[1]=Math.min(r[1]+stepOf(r[0]),ING[r[0]][7]==='ml'?300:20);refreshBuild();return;}
+  if(d.dec!==undefined){const r=B.items[+d.dec];r[1]-=stepOf(r[0]);if(r[1]<=0)B.items.splice(+d.dec,1);refreshBuild();return;}
+  if(d.rm!==undefined){B.items.splice(+d.rm,1);refreshBuild();return;}
+  if(d.add){const ex=B.items.find(x=>x[0]===d.add);const u=ING[d.add][7];
+    if(ex)ex[1]+=stepOf(d.add);else B.items.push([d.add,u==='ml'?(ING[d.add][1]==='Mixers'||ING[d.add][1]==='Wine & bubbles'?90:ING[d.add][2]>=30?45:20):u==='dash'?2:6]);
+    closeSheet();refreshBuild();toast(`${ING[d.add][0]} added`);return;}
+  if(t.id==='addIng'){openPicker();return;}
+  if(t.id==='clearB'){B.items=[];refreshBuild();return;}
+  if(t.id==='review'){review();return;}
+  if(t.id==='reroll'){$('#cname').value=suggestName(analyse(B.items,B.method,B.glass));return;}
+  if(t.id==='saveIt'){saveCreation();return;}
+  if(d.load!==undefined){const m=MY[+d.load];B={items:m.items.map(x=>x.slice()),glass:m.glass,method:m.method};saveDraft();setTab('build');return;}
+  if(d.share!==undefined){const m=MY[+d.share];copy(recipeText(m.name,m.items,m.glass,m.method,analyse(m.items,m.method,m.glass),`Bartender score: ${m.score}/10`));return;}
+  if(d.del!==undefined){MY.splice(+d.del,1);saveMy();render();toast('Poured down the sink.');return;}
+});
+$('#sheet').addEventListener('click',e=>{if(e.target.id==='sheet')closeSheet();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
+$('#q').addEventListener('input',()=>{const q=norm($('#q').value.trim());
+  if(TAB==='build'&&q)setTab('cocktails');
+  else if(TAB==='cocktails'&&q&&!COCKTAILS.some((c,i)=>cMatches(c,i,q))&&brands.some(b=>norm(b.n+' '+b.country).includes(q)))setTab('bottles');
+  else render();});
+function route(){const h=location.hash.slice(1);setTab(['cocktails','bottles','build','my-bar'].includes(h)?h:'cocktails',false);}
+window.addEventListener('hashchange',route);route();
+}
+</script>
+</body>
+</html>
